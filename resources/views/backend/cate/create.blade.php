@@ -44,22 +44,14 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#infoVi" aria-controls="infoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>    
+                    <li role="presentation"><a href="#infoCn" aria-controls="infoEn" role="tab" data-toggle="tab">CN</a></li>                
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="infoVi">
-                           <!-- text input -->
-                        <div class="form-group">
-                          <label>Danh mục cha</label>
-                          <select class="form-control" name="loai_id" id="loai_id">                  
-                            <option value="0" {{ old('loai_id') == 0 ? "selected" : "" }}>--chọn--</option>
-                            @foreach( $loaiSpArr as $value )
-                            <option value="{{ $value->id }}" {{ ( old('loai_id') == $value->id || $loai_id == $value->id ) ? "selected" : "" }}>{{ $value->name_vi }}</option>
-                            @endforeach
-                          </select>
-                        </div> 
+                     
                         <div class="form-group">
                           <label>Tên danh mục <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi') }}">
@@ -98,6 +90,22 @@
                         <div class="form-group">
                           <label>Description</label>
                           <textarea class="form-control" rows="4" name="description_en" id="description_en">{{ old('description_en') }}</textarea>
+                        </div>
+                    </div><!--end thong tin co ban--> 
+                    <div role="tabpanel" class="tab-pane" id="infoCn">                        
+                          <!-- text input -->
+                        <div class="form-group">
+                          <label>Name <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="name_cn" id="name_cn" value="{{ old('name_cn') }}">
+                        </div>
+                        <div class="form-group">
+                          <label>Slug <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="slug_cn" id="slug_cn" value="{{ old('slug_cn') }}">
+                        </div>                  
+                        <!-- textarea -->
+                        <div class="form-group">
+                          <label>Description</label>
+                          <textarea class="form-control" rows="4" name="description_cn" id="description_cn">{{ old('description_cn') }}</textarea>
                         </div>
                     </div><!--end thong tin co ban--> 
                    
@@ -144,12 +152,7 @@
                           <div class="form-group">
                             <label>Thẻ desciption</label>
                             <textarea class="form-control" rows="6" name="meta_description_vi" id="meta_description_vi">{{ old('meta_description_vi') }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Thẻ keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_vi" id="meta_keywords_vi">{{ old('meta_keywords_vi') }}</textarea>
-                          </div>  
+                          </div>
                           <div class="form-group">
                             <label>Nội dung tùy chỉnh</label>
                             <textarea class="form-control" rows="6" name="custom_text_vi" id="custom_text_vi">{{ old('custom_text_vi') }}</textarea>
@@ -164,12 +167,7 @@
                           <div class="form-group">
                             <label>Meta desciption</label>
                             <textarea class="form-control" rows="6" name="meta_description_en" id="meta_description_en">{{ old('meta_description_en') }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Meta keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_en" id="meta_keywords_en">{{ old('meta_keywords_en') }}</textarea>
-                          </div>  
+                          </div>                         
                           <div class="form-group">
                             <label>Custom text</label>
                             <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ old('custom_text_en') }}</textarea>

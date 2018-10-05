@@ -56,16 +56,7 @@ $loai_id = old('loai_id', $detail->loai_id);
 
                   <!-- Tab panes -->
                   <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="infoVi">
-                           <!-- text input -->
-                         <div class="form-group">
-                          <label>Danh mục cha</label>
-                          <select class="form-control" name="loai_id" id="loai_id">                            
-                            @foreach( $loaiSpArr as $value )
-                            <option value="{{ $value->id }}" {{ ( $detail->loai_id == $value->id || $loai_id == $value->id ) ? "selected" : "" }}>{{ $value->name_vi }}</option>
-                            @endforeach
-                          </select>
-                        </div>   
+                    <div role="tabpanel" class="tab-pane active" id="infoVi">                          
                         <div class="form-group">
                           <label>Tên danh mục <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi') ? old('name_vi') : $detail->name_vi }}">
@@ -106,7 +97,22 @@ $loai_id = old('loai_id', $detail->loai_id);
                           <textarea class="form-control" rows="4" name="description_en" id="description_en">{{ old('description_en') ? old('description_en') : $detail->description_en }}</textarea>
                         </div>
                     </div><!--end thong tin co ban--> 
-                   
+                    <div role="tabpanel" class="tab-pane" id="infoCn">                        
+                          <!-- text input -->
+                        <div class="form-group">
+                          <label>Name <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="name_cn" id="name_cn" value="{{ old('name_cn', $detail->name_cn) }}">
+                        </div>
+                        <div class="form-group">
+                          <label>Slug <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="slug_cn" id="slug_cn" value="{{ old('slug_cn', $detail->slug_cn) }}">
+                        </div>                  
+                        <!-- textarea -->
+                        <div class="form-group">
+                          <label>Description</label>
+                          <textarea class="form-control" rows="4" name="description_cn" id="description_cn">{{ old('description_cn', $detail->description_cn) }}</textarea>
+                        </div>
+                    </div><!--end thong tin co ban-->
                   </div>
 
                 </div>       
