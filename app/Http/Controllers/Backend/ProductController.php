@@ -180,12 +180,13 @@ class ProductController extends Controller
         $arrData = [
             'title_vi' => $dataArr['meta_title_vi'], 
             'description_vi' => $dataArr['meta_description_vi'], 
-            'keywords_vi'=> $dataArr['meta_keywords_vi'], 
+            'title_cn' => $dataArr['meta_title_cn'], 
+            'description_cn' => $dataArr['meta_description_cn'], 
             'custom_text_vi' => $dataArr['custom_text_vi'], 
             'title_en' => $dataArr['meta_title_en'], 
             'description_en' => $dataArr['meta_description_en'], 
-            'keywords_en'=> $dataArr['meta_keywords_en'], 
             'custom_text_en' => $dataArr['custom_text_en'], 
+            'custom_text_cn' => $dataArr['custom_text_cn'], 
             'updated_user' => Auth::user()->id
         ];
         if( $meta_id == 0){

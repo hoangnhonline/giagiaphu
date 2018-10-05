@@ -4,11 +4,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Danh mục con      
+      Danh mục      
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('cate.index') }}">Danh mục con</a></li>
+      <li><a href="{{ route('cate.index') }}">Danh mục</a></li>
       <li class="active">Tạo mới</li>
     </ol>
   </section>
@@ -172,6 +172,7 @@
                             <label>Custom text</label>
                             <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ old('custom_text_en') }}</textarea>
                           </div>
+                          <input type="hidden" name="loai_id" value="1">
                     </div><!--end thong tin co ban--> 
                    
                   </div>

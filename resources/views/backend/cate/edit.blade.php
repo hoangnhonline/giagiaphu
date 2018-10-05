@@ -1,17 +1,14 @@
 @extends('backend.layout')
 @section('content')
-<?php 
-$loai_id = old('loai_id', $detail->loai_id);
-?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Danh mục con      
+      Danh mục      
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('cate.index') }}">Danh mục con</a></li>
+      <li><a href="{{ route('cate.index') }}">Danh mục</a></li>
       <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
@@ -51,7 +48,8 @@ $loai_id = old('loai_id', $detail->loai_id);
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#infoVi" aria-controls="infoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>  
+                    <li role="presentation"><a href="#infoEn" aria-controls="infoCn" role="tab" data-toggle="tab">CN</a></li>                   
                   </ul>
 
                   <!-- Tab panes -->
@@ -66,6 +64,7 @@ $loai_id = old('loai_id', $detail->loai_id);
                           <input type="text" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') ? old('slug_vi') : $detail->slug_vi }}">
                         </div>
                           <div class="clearfix"></div>
+                          <input type="hidden" name="loai_id" value="1">
                         <div class="form-group" style="margin-top:15px;padding-bottom:25px !important;">                         
                           <div class="checkbox col-md-12" >
                             <label>
