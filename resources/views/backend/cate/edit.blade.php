@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <?php 
 $loai_id = old('loai_id', $detail->loai_id);

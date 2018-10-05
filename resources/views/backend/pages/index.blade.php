@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -48,8 +48,8 @@
                     <p>{{ $item->description_vi }}</p>
                   </td>   
                   <td style="font-size: 17px">
-                    <p><img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt" width="14" height="11" /> {{ route('home') }}/{{ $item->slug_vi }}.html</p>
-                    <p><img src="{{ URL::asset('assets/images/flag-england.jpg') }}" alt="English"  />  {{ route('home') }}/{{ $item->slug_en }}.html</p>
+                    <p><img src="{{ URL::asset('public/assets/images/vn.png') }}" alt="Tiếng Việt" width="14" height="11" /> {{ route('home') }}/{{ $item->slug_vi }}.html</p>
+                    <p><img src="{{ URL::asset('public/assets/images/flag-england.jpg') }}" alt="English"  />  {{ route('home') }}/{{ $item->slug_en }}.html</p>
                   </td>
                   
                   <td style="white-space:nowrap; text-align:right">               

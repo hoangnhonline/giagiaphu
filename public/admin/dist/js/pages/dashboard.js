@@ -1,46 +1,200 @@
-/*
- * Author: Abdullah A Almsaeed
- * Date: 4 Jan 2014
- * Description:
- *      This is a demo file used only for the main dashboard (index.html)
- **/
+var h = screen.height;
+var w = screen.width;
+var left = (screen.width/2)-((w-300)/2);
+var top = (screen.height/2)-((h-100)/2);
 
-$(function () {
+function singleUpload(obj) {
+    window.KCFinder = {};
+    window.KCFinder.callBack = function(url) {
+      console.log($('#app_url').val());
+       $('#' + obj.data('set')).val(url);
+        $('#' + obj.data('image')).attr('src', $('#app_url').val() + url);
+       $('#' + 'thumbnail_' + obj.data('set')).attr('src', $('#app_url').val() + url);
+        window.KCFinder = null;
+    };
+    window.open($('#url_open_kc_finder').val(), 'kcfinder_single','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
+}
+function singleUploadFile() {
+    window.KCFinder = {};
+    window.KCFinder.callBack = function(url) {
+    };
+    window.open($('#url_open_kc_finder_files').val(), 'kcfinder_single','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
+}
+function multiUpload() {
+    window.KCFinder = {};
+    window.KCFinder.callBackMultiple = function(files) {
+        var strHtml = '';
+        for (var i = 0; i < files.length; i++) {
+             strHtml += '<div class="col-md-3">';
+
+        strHtml += '<img class="img-thumbnail" src="' +  $('#app_url').val() + files[i]  + '" style="width:100%">';
+         strHtml += '<div class="checkbox">';
+         strHtml += '<input type="hidden" name="image_tmp_url[]" value="' + files[i]  + '">';
+        
+        strHtml += '<label><input type="radio" name="thumbnail_id" class="thumb" value="' + files[i]  + '"> &nbsp;  Ảnh đại diện </label>';
+        strHtml += '<button class="btn btn-danger btn-sm remove-image" type="button" data-value="' +  $('#app_url').val() + files[i]  + '" data-id="" ><span class="glyphicon glyphicon-trash"></span></button></div></div>';      
+        }
+        $('#div-image').append(strHtml);
+            if( $('#div-image input.thumb:checked').length == 0){
+              $('#div-image input.thumb').eq(0).prop('checked', true);
+            }
+        window.KCFinder = null;
+    };
+    window.open($('#url_open_kc_finder').val(), 'kcfinder_multiple','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
+}
+
+function uploadToEditor(){
+  window.KCFinder = {};
+  window.KCFinder.callBackMultiple = function(files) {
+
+      var editor = $('#editor').val();                            
+      var editorTemp = CKEDITOR.instances[editor];        
+      var edi_parent = $(CKEDITOR.instances[editor].document.getBody().$);                      
+      var get_html,
+      count_img = edi_parent.find('img').length
+     ,
+      table = $('<div></div>')
+      ;
+      var strHtml = '';
+      for (var i = 0; i < files.length; i++) {
+
+        var elementImg = editorTemp.document.createElement('img');
+        elementImg.$.setAttribute('src', files[i]);
+        elementImg.$.style.maxWidth="100%";
+        html = $('<table width="100%" border="0" cellpadding="3" width="1" cellspacing="0" align="center" ><tr><td style="text-align:center"></td></tr><tr><td><p style="text-align:center">[Caption]</p></td></tr></table>');
+        html.find('td:eq(0)').append($(elementImg.$));
+        table.append(html);            
+      }
+      editorTemp.insertHtml(table.html());          
+      window.KCFinder = null;
+    };
+    window.open($('#url_open_kc_finder').val(), 'kcfinder_multiple','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
+}
+$(document).ready(function(){
 
   "use strict";
 
-  //Make the dashboard widgets sortable Using jquery UI
-  $(".connectedSortable").sortable({
-    placeholder: "sort-highlight",
-    connectWith: ".connectedSortable",
-    handle: ".box-header, .nav-tabs",
-    forcePlaceholderSize: true,
-    zIndex: 999999
+  $(".select2").select2();
+  $('#is_sale').change(function(){
+    if($(this).prop('checked') == true){
+      $('#price_sale, #sale_percent').addClass('req');
+    }else{
+      $('#price_sale, #sale_percent').val('').removeClass('req');
+    }
   });
-  $(".connectedSortable .box-header, .connectedSortable .nav-tabs-custom").css("cursor", "move");
-
-  //jQuery UI sortable for the todo list
-  $(".todo-list").sortable({
-    placeholder: "sort-highlight",
-    handle: ".handle",
-    forcePlaceholderSize: true,
-    zIndex: 999999
+  $('.btnSingleUploadFile').click(function(){
+    singleUploadFile();
   });
+  if( $('form.productForm').length == 1 ){
+    $('#btnSave').click(function(){
+        var errReq = 0;
+        $('#dataForm .req').each(function(){
+          var obj = $(this);
+          if(obj.val() == '' || obj.val() == '0'){
+            errReq++;
+            obj.addClass('error');
+          }else{
+            obj.removeClass('error');
+          }
+        });
+        if(errReq > 0){          
+         $('html, body').animate({
+              scrollTop: $("#dataForm .req.error").eq(0).parents('div').offset().top
+          }, 500);
+          return false;
+        }
+        if( $('#div-image img.img-thumbnail').length == 0){
+          if(confirm('Bạn chưa upload hình sản phẩm. Vẫn tiếp tục lưu ?')){
+            return true;
+          }else{
+            $('html, body').animate({
+                scrollTop: $("#dataForm").offset().top
+            }, 500);
+            $('a[href="#settings"]').click();            
+             return false;
+          }
+        }
 
+      });
+  }
 
-  //SLIMSCROLL FOR CHAT WIDGET
-  $('#chat-box').slimScroll({
-    height: '250px'
+  $(document).on('click', '.remove-image', function(){
+    if( confirm ("Bạn có chắc chắn không ?")){
+      $(this).parents('.col-md-3').remove();
+    }
   });
-
-  /* Morris.js Charts */
-
-
-  //Fix for charts under tabs
-  $('.box ul.nav a').on('shown.bs.tab', function () {
-    //area.redraw();
-    //donut.redraw();
-    //line.redraw();
+  $('#dataForm .req').blur(function(){    
+      if($(this).val() != ''){
+        $(this).removeClass('error');
+      }else{
+        $(this).addClass('error');
+      }
+    });
+  $('.btnSingleUpload').click(function(){        
+    singleUpload($(this));
   });
+  $('.btnMultiUpload').click(function(){        
+    multiUpload();
+  });
+  $('.btnUploadEditor').click(function(){       
+    $('#editor').val($(this).data('editor')); 
+    uploadToEditor();
+  });
+  if($('#content').length == 1){
+    CKEDITOR.replace('content');
+  }
+  if($('#ground').length == 1){
+    CKEDITOR.replace('ground');
+  }
+  if($('#position').length == 1){
+    CKEDITOR.replace('position');
+  }
+  if($('#process').length == 1){
+    CKEDITOR.replace('process');
+  }
+  if($('#utilities').length == 1){
+    CKEDITOR.replace('utilities');
+  }
+  if($('#description').length == 1){
+    CKEDITOR.replace('description');
+  }
+  $('#dataForm #name').change(function(){
+       var name = $.trim( $(this).val() );         
+        $.ajax({
+          url: $('#route_get_slug').val(),
+          type: "POST",
+          async: false,      
+          data: {
+            str : name
+          },              
+          success: function (response) {
+            if( response.str ){                  
+              $('#dataForm #slug').val( response.str );
+            }                
+          }
+        });         
+    });
+  $('#dataForm #title').change(function(){
+       var name = $.trim( $(this).val() );         
+        $.ajax({
+          url: $('#route_get_slug').val(),
+          type: "POST",
+          async: false,      
+          data: {
+            str : name
+          },              
+          success: function (response) {
+            if( response.str ){                  
+              $('#dataForm #slug').val( response.str );
+            }                
+          }
+        });         
+    });
 
 });
+var toolbar = [
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: ['Image', 'Bold', 'Italic', 'Underline', 'Subscript', 'Superscript', 'NumberedList', 'BulletedList', 'Link', 'Unlink' ] },                             
+    { name: 'styles', items: [ 'Format' ] },
+    { name: 'tools', items: [ 'Maximize' ] },                      
+];

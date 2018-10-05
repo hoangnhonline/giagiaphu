@@ -115,14 +115,14 @@ $(function () {
     },
     {
       value: 600,
-      color: "#28AA4A",
-      highlight: "#28AA4A",
+      color: "#00c0ef",
+      highlight: "#00c0ef",
       label: "Safari"
     },
     {
       value: 300,
-      color: "#28AA4A",
-      highlight: "#28AA4A",
+      color: "#c70f19",
+      highlight: "#c70f19",
       label: "Opera"
     },
     {
