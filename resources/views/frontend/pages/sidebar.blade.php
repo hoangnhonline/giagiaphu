@@ -9,191 +9,39 @@
 				<ul class="nav navbar-pills">
 					
 					
-					<li class="nav-item "><a class="nav-link" href="/">Trang chủ</a></li>
-					
-					
-					
-					<li class="nav-item "><a class="nav-link" href="/gioi-thieu">Giới thiệu</a></li>
-					
-					
+					<li class="nav-item ">
+						<a class="nav-link" href="{{ route('home', $lang) }}">{!! $textArr['trang-chu']->$text_key !!}</a>
+					</li>					
 					
 					<li class="nav-item ">
-						<a href="/collections/all" class="nav-link">Sản phẩm</a>
+						<a href="javascript:;" class="nav-link">{!! $textArr['gioi-thieu']->$text_key !!}</a>
 						<i class="fa fa-angle-down"></i>
-						<ul class="dropdown-menu">
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/vat-dung-khac">Vật dụng khác</a>
-							</li>
-							
-							
-							
-							<li class="nav-item">
-								<a class="nav-link" href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
-							</li>
-							
-							
+						<ul class="dropdown-menu">							
+							@foreach($aboutList as $about)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pages', ['lang' => $lang, 'slug' => $about->$slug_key])}}">{!! $about->$title_key !!}</a>
+                            </li>
+                            @endforeach
 						</ul>
 					</li>
-					
-					
-					
 					<li class="nav-item ">
-						<a href="/tin-tuc" class="nav-link">Tin tức</a>
+						<a href="javascript:;" class="nav-link">{!! $textArr['san-pham']->$text_key !!}</a>
 						<i class="fa fa-angle-down"></i>
-						<ul class="dropdown-menu">
-							
-							
-							<li class="dropdown-submenu nav-item">
-								<a class="nav-link" href="/">Sản phẩm</a>
-								<i class="fa fa-angle-down"></i>
-								<ul class="dropdown-menu">
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/vat-dung-khac">Vật dụng khác</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
-									</li>
-									
-								</ul>                      
-							</li>
-							
-							
-							
-							<li class="dropdown-submenu nav-item">
-								<a class="nav-link" href="/">Sản phẩm</a>
-								<i class="fa fa-angle-down"></i>
-								<ul class="dropdown-menu">
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/vat-dung-khac">Vật dụng khác</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
-									</li>
-									
-								</ul>                      
-							</li>
-							
-							
-							
-							<li class="dropdown-submenu nav-item">
-								<a class="nav-link" href="/">Tin tức</a>
-								<i class="fa fa-angle-down"></i>
-								<ul class="dropdown-menu">
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/">Sản phẩm</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/">Sản phẩm</a>
-									</li>
-									
-									<li class="dropdown-submenu nav-item">
-										<a class="nav-link" href="/">Tin tức</a>
-									</li>
-									
-								</ul>                      
-							</li>
-							
-							
+						<ul class="dropdown-menu">							
+							@foreach($cateList as $cate)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('cates', ['lang' => $lang, 'slug' => $cate->$slug_key])}}">{!! $cate->$name_key !!}</a>
+                            </li>
+                            @endforeach
 						</ul>
 					</li>
-					
-					
-					
-					<li class="nav-item "><a class="nav-link" href="/lien-he">Liên hệ</a></li>
-					
-					
+
+					<li class="nav-item ">
+						<a class="nav-link" href="{{ route('news', $lang) }}">{!! $textArr['tin-tuc']->$text_key !!} </a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="{{ route('contact', $lang) }}">{!! $textArr['lien-he']->$text_key !!} </a>
+					</li>					
 				</ul>
 			</nav>
 		</div>

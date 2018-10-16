@@ -4724,12 +4724,15 @@ a:hover,a:focus{
     }
     .col-100-h .mobile-search i{
         color:#1a5f92;
-        font-size:22px
+        font-size:22px;
+        margin-bottom: 5px;
     }
-    .col-100-h .mobile-cart{
-        position:absolute;
-        right:15px;
-        top:8px
+    .col-100-h .mobile-cart{     
+        top:8px;
+        text-align: right;
+    }
+    .col-100-h .mobile-cart ul li{     
+        display: inline;
     }
     .col-100-h .mobile-cart a{
         color:#1a5f92

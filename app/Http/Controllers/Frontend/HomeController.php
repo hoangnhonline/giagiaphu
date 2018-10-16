@@ -104,8 +104,19 @@ class HomeController extends Controller
         $seo['keywords'] = 'Liên hệ';
         $socialImage = '';
         
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
-        return view('frontend.contact.index', compact('seo', 'socialImage', 'lang'));
+        $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
+        $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang; 
+        return view('frontend.contact.index', compact('seo', 'socialImage', 
+                'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang'));
     }
 
     public function newsList(Request $request)

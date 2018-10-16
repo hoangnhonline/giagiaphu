@@ -3,11 +3,11 @@
 Route::group(['namespace' => 'Frontend'], function()
 {
     
-    Route::get('/{lang?}', ['as' => 'home', 'uses' => 'HomeController@index']);    
-    Route::get('{lang}/contact.html', ['as' => 'contact', 'uses' => 'HomeController@contact']);
+    Route::get('/{lang?}', ['as' => 'home', 'uses' => 'HomeController@index']);        
     Route::get('{lang}/{slug}-{id}.html', ['as' => 'detail', 'uses' => 'DetailController@index']); 
     Route::get('{lang}/{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
     Route::get('{lang}/news', ['as' => 'news', 'uses' => 'NewsController@index']);
+    Route::get('{lang}/contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
     Route::get('{lang}/{slug}', ['as' => 'cates', 'uses' => 'CateController@index']);
     Route::get('/lang/set-lang', ['as' => 'set-lang', 'uses' => 'HomeController@setLang']);
 
