@@ -46,17 +46,4 @@
 			</nav>
 		</div>
 	</aside>
-
-
-	<div class="aside-item margin-bottom-20">
-		<div class="heading">
-			<h2 class="title-head">Nổi bật</h2>
-		</div>
-		<div class="list-blogs">
-												
-						
-			
-		</div>
-	</div>
-
 </aside>

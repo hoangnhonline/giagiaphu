@@ -73,7 +73,7 @@
                         </div>                                               
                         <div class="form-group">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" alue="1"> Hiện trang chủ </label>
+                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}> Hiện trang chủ </label>
                           </div>                          
                         </div>   
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  

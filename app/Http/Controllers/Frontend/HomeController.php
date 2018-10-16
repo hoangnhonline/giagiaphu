@@ -37,6 +37,7 @@ class HomeController extends Controller
     {            
            
         $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
+        $lang = in_array($lang,['vi', 'en', 'cn']) ? $lang : 'vi';
         $productArr = [];        
         $lang_id = $lang == 'vi' ? ($lang == 'en' ? 2 : 1) : 3;        
         $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->limit(3)->get();     
@@ -50,14 +51,16 @@ class HomeController extends Controller
         $slug_key = "slug_".$lang;
         $name_key = "name_".$lang;
         $title_key = "title_".$lang;
-        $content_key = "content_".$lang;        
+        $content_key = "content_".$lang;
+        $productList = Product::where('is_hot', 1)->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();         
         return view('frontend.home.index', compact( 'socialImage', 'seo', 'articlesList', 
                 'text_key',
                 'slug_key',
                 'name_key',
                 'title_key',
                 'content_key',
-                'lang'));
+                'lang', 
+                'productList'));
     }
 
     

@@ -75,6 +75,7 @@
                 </p>
             </div>
         </div>
+        @if($productList->count() > 0)
         <div class="container">
             <div class="row">
                 <div class="col-md-12 e-tabs not-dqtab ajax-tab-1" data-section="ajax-tab-1">
@@ -84,27 +85,24 @@
                             <div class="tab-1 tab-content">
 
                                 <div class="section-tour-owl products products-view-grid owl-carousel" data-lg-items='6' data-md-items='6' data-sm-items='3' data-xs-items="2" data-xss-items="2" data-margin='10' data-nav="true" data-dot="true">
-
+                                    @foreach($productList as $product)                                    
                                     <div class="item">
 
                                         <div class="single-product">
                                             <div class="pro-img">
-                                                <a href="/bo-dung-cu-van-vit-da-nang-10-chi-tiet-bosch-2607019510-xanh-reu">
-                                                    <img class="primary-img img-responsive center-block" src="assets/2.jpg" alt="Bộ dụng cụ vặn vít đa năng 10 chi tiết Bosch 2607019510 (Xanh rêu)" />
+                                                <a href="{{ route('detail',['lang' => $lang, 'slug' => $product->$slug_key, 'id' => $product->id]) }}">
+                                                   <img class="primary-img img-responsive center-block" src="{{ Helper::showImage($product->image_url) }}" alt="{!! $product->$name_key !!}" >
                                                 </a>
                                             </div>
-                                            <div class="pro-content">
-                                                <div class="product-rating">
-                                                    <div class="bizweb-product-reviews-badge" data-id="12178885"></div>
-                                                </div>
-                                                <h4><a href="/bo-dung-cu-van-vit-da-nang-10-chi-tiet-bosch-2607019510-xanh-reu" title="Bộ dụng cụ vặn vít đa năng 10 chi tiết Bosch 2607019510 (Xanh rêu)">Ống thủy lực R1AT (1 lớp kẽm)</a></h4>
+                                            <div class="pro-content">                     
+                                                <h4><a href="{{ route('detail',['lang' => $lang, 'slug' => $product->$slug_key, 'id' => $product->id]) }}" title="{!! $product->$name_key !!}">{!! $product->$name_key !!}</a></h4>
                                                 
                                             </div>
 
                                         </div>
                                     </div>
                                     
-
+                                    @endforeach
                                 </div>
 
                             </div>                               
@@ -116,6 +114,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </section>
 @if($articlesList->count() >0)

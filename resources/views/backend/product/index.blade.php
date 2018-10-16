@@ -89,7 +89,7 @@
                   <strong style="color:#337ab7;font-style:italic">{{ $item->ten_cate }}</strong>            
                 </td>
                 <td style="white-space:nowrap; text-align:right">
-                  <a class="btn btn-default btn-sm" href="{{ route('chi-tiet-vi', [$item->slug_vi, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                    
+                  <a class="btn btn-default btn-sm" href="{{ route('detail',['lang' => 'vi', 'slug' => $item->slug_vi, 'id' => $item->id]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                    
                   <a href="{{ route( 'product.edit', [ 'id' => $item->sp_id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
 
                   <a onclick="return callDelete('{{ $item->name_vi }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
