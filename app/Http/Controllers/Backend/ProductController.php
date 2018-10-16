@@ -51,22 +51,17 @@ class ProductController extends Controller
             $query->where('product.name_vi', 'LIKE', '%'.$name.'%');
             $query->orWhere('product.name_en', 'LIKE', '%'.$name.'%');
         }
-        $query->join('users', 'users.id', '=', 'product.created_user');
-        $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
-        $query->leftJoin('cate', 'cate.id', '=', 'product.cate_id');
-        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
+        $query->join('users', 'users.id', '=', 'product.created_user');        
+        $query->leftJoin('cate', 'cate.id', '=', 'product.cate_id');        
         $query->orderBy('product.id', 'desc');
-        $items = $query->select(['product_img.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name_vi as ten_loai', 'cate.name_vi as ten_cate'])
+        $items = $query->select(['product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'cate.name_vi as ten_cate'])
         ->paginate(50);   
+        
+        
+        $cateArr = Cate::orderBy('display_order', 'desc')->get();
+        
 
-        $loaiSpArr = LoaiSp::all();  
-        if( $loai_id ){
-            $cateArr = Cate::where('loai_id', $loai_id)->orderBy('display_order', 'desc')->get();
-        }else{
-            $cateArr = (object) [];
-        }
-
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
+        return view('backend.product.index', compact( 'items', 'arrSearch', 'cateArr'));
     }    
     /**
     * Show the form for creating a new resource.
@@ -74,21 +69,12 @@ class ProductController extends Controller
     * @return Response
     */
     public function create(Request $request)
-    {
-        $loai_id = $request->loai_id ? $request->loai_id : null;
+    {        
         $cate_id = $request->cate_id ? $request->cate_id : null;
-        $cateArr = $loaiThuocTinhArr = (object) [];
-        $thuocTinhArr = [];
-        $loaiSpArr = LoaiSp::all();
-        $colorList = Color::all();
-        
-        if( $loai_id ){            
-            $cateArr = Cate::where('loai_id', $loai_id)->select('id', 'name_vi')->orderBy('display_order', 'desc')->get();
-        } 
-        $tagViList = Tag::where('type', 1)->orderBy('id', 'desc')->get();
-        $tagEnList = Tag::where('type', 2)->orderBy('id', 'desc')->get();
-
-        return view('backend.product.create', compact('loaiSpArr', 'cateArr', 'loai_id', 'cate_id', 'colorList', 'tagViList', 'tagEnList'));
+                   
+        $cateArr = Cate::where('status', 1)->select('id', 'name_vi')->orderBy('display_order', 'desc')->get();
+       
+        return view('backend.product.create', compact('cateArr', 'cate_id'));
     }
 
     /**
@@ -101,40 +87,30 @@ class ProductController extends Controller
     {
         $dataArr = $request->all();        
         
-        $this->validate($request,[
-            'code' => 'required',
+        $this->validate($request,[          
             'name_vi' => 'required',
-            'slug_vi' => 'required' ,
-            'name_en' => 'required',
-            'slug_en' => 'required' ,
-            'price' => 'numeric'           
+            'name_cn' => 'required' ,
+            'name_en' => 'required',              
         ],
-        [
-            'code.required' => 'Bạn chưa nhập mã sản phẩm',
-            'name_vi.required' => 'Bạn chưa nhập tên sản phẩm tiếng Việt ',
-            'slug_vi.required' => 'Bạn chưa nhập slug tiếng Việt',
+        [            
+            'name_vi.required' => 'Bạn chưa nhập tên sản phẩm tiếng Việt ',            
             'name_en.required' => 'Bạn chưa nhập tên sản phẩm tiếng Anh',
-            'slug_en.required' => 'Bạn chưa nhập slug tiếng Anh',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ'            
+            'name_cn.required' => 'Bạn chưa nhập tên sản phẩm tiếng Trung',            
         ]);
 
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;        
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;       
         
-        $dataArr['slug_vi'] = str_replace(".", "-", $dataArr['slug_vi']);
-        $dataArr['slug_vi'] = str_replace("(", "-", $dataArr['slug_vi']);
-        $dataArr['slug_vi'] = str_replace(")", "", $dataArr['slug_vi']);
+        $dataArr['alias_vi'] = str_slug($dataArr['name_vi'],' ');
+        $dataArr['alias_cn'] = str_slug($dataArr['name_cn'],' ');
+        $dataArr['alias_en'] = str_slug($dataArr['name_en'],' ');
 
-        $dataArr['slug_en'] = str_replace(".", "-", $dataArr['slug_en']);
-        $dataArr['slug_en'] = str_replace("(", "-", $dataArr['slug_en']);
-        $dataArr['slug_en'] = str_replace(")", "", $dataArr['slug_en']);
-
-        $dataArr['alias_vi'] = Helper::stripUnicode($dataArr['name_vi']);
-        $dataArr['alias_en'] = Helper::stripUnicode($dataArr['name_en']); 
+        $dataArr['slug_vi'] = str_slug($dataArr['name_vi'],'-');
+        $dataArr['slug_cn'] = "c-".str_slug($dataArr['name_en'],'-');
+        $dataArr['slug_en'] = str_slug($dataArr['name_en'],'-');
 
         $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
         $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
+        $dataArr['content_cn'] = str_replace("[Caption]", "", $dataArr['content_cn']);
         
         $dataArr['status'] = 1;
 
@@ -143,36 +119,11 @@ class ProductController extends Controller
         $dataArr['updated_user'] = Auth::user()->id;    
 
         $rs = Product::create($dataArr);     
-        $sp_id = $rs->id;
-
-        // xu ly tags
-        if( !empty( $dataArr['tags_vi'] ) && $sp_id ){           
-
-            foreach ($dataArr['tags_vi'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $sp_id;
-                $model->tag_id  = $tag_id;
-                $model->object_type  = 1;
-                $model->type = 1;
-                $model->save();
-            }
-        }
-        if( !empty( $dataArr['tags_en'] ) && $sp_id ){           
-
-            foreach ($dataArr['tags_en'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $sp_id;
-                $model->tag_id  = $tag_id;
-                $model->object_type  = 1;
-                $model->type = 2;
-                $model->save();
-            }
-        }
-        $this->storeImage( $sp_id, $dataArr);
+        $sp_id = $rs->id;      
         $this->storeMeta($sp_id, 0, $dataArr);
-        Session::flash('message', 'Tạo mới sản phẩm thành công');
+        Session::flash('message', 'Tạo mới thành công');
 
-        return redirect()->route('product.index', ['loai_id' => $dataArr['loai_id'], 'cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('product.index', ['cate_id' => $dataArr['cate_id']]);
     }
 
     public function storeMeta( $id, $meta_id, $dataArr ){
@@ -280,38 +231,15 @@ class ProductController extends Controller
     */
     public function edit($id)
     {
-        $thuocTinhArr = $phuKienArr = $soSanhArr = $tuongTuArr = [];
-        $hinhArr = (object) [];
         $detail = Product::find($id);
-
-        $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');      
-
-        $loaiSpArr = LoaiSp::all();
-            
-        $loai_id = $detail->loai_id; 
-            
-        $cateArr = Cate::where('loai_id', $loai_id)->select('id', 'name_vi')->orderBy('display_order', 'desc')->get();
-        $colorList = Color::all();
+        $cateArr = Cate::select('id', 'name_vi')->orderBy('display_order', 'desc')->get();
+       
         $meta = (object) [];
         if ( $detail->meta_id > 0){
             $meta = MetaData::find( $detail->meta_id );
         }
-        $tagViList = Tag::where('type', 1)->orderBy('id', 'desc')->get();
-        $tagEnList = Tag::where('type', 2)->orderBy('id', 'desc')->get();
-        
-        $tmpArr = TagObjects::where(['object_id' => $id, 'object_type' => 1])->get();
-        $tagSelectedVi = $tagSelectedEn = [];
-        if( $tmpArr->count() > 0 ){
-            foreach ($tmpArr as $value) {
-                if($value->type == 1){
-                    $tagSelectedVi[] = $value->tag_id;
-                }else{
-                    $tagSelectedEn[] = $value->tag_id;
-                }
-            }
-        }
-
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'loaiSpArr', 'cateArr', 'meta', 'colorList', 'tagViList', 'tagEnList', 'tagSelectedVi', 'tagSelectedEn'));
+      
+        return view('backend.product.edit', compact( 'detail','cateArr', 'meta'));
     }
     public function ajaxDetail(Request $request)
     {       
@@ -328,75 +256,44 @@ class ProductController extends Controller
     */
     public function update(Request $request)
     {
-        $dataArr = $request->all();
+       $dataArr = $request->all();        
         
-        $this->validate($request,[
-            'code' => 'required',
+        $this->validate($request,[          
             'name_vi' => 'required',
-            'slug_vi' => 'required' ,
-            'name_en' => 'required',
-            'slug_en' => 'required' ,
-            'price' => 'numeric'           
+            'name_cn' => 'required' ,
+            'name_en' => 'required',              
         ],
-        [
-            'code.required' => 'Bạn chưa nhập mã sản phẩm',
-            'name_vi.required' => 'Bạn chưa nhập tên sản phẩm tiếng Việt ',
-            'slug_vi.required' => 'Bạn chưa nhập slug tiếng Việt',
+        [            
+            'name_vi.required' => 'Bạn chưa nhập tên sản phẩm tiếng Việt ',            
             'name_en.required' => 'Bạn chưa nhập tên sản phẩm tiếng Anh',
-            'slug_en.required' => 'Bạn chưa nhập slug tiếng Anh',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',            
+            'name_cn.required' => 'Bạn chưa nhập tên sản phẩm tiếng Trung',            
         ]);
+
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;       
         
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;                
-        $dataArr['slug_vi'] = str_replace(".", "-", $dataArr['slug_vi']);
-        $dataArr['slug_vi'] = str_replace("(", "-", $dataArr['slug_vi']);
-        $dataArr['slug_vi'] = str_replace(")", "", $dataArr['slug_vi']);
+        $dataArr['alias_vi'] = str_slug($dataArr['name_vi'],' ');
+        $dataArr['alias_cn'] = str_slug($dataArr['name_cn'],' ');
+        $dataArr['alias_en'] = str_slug($dataArr['name_en'],' ');
 
-        $dataArr['slug_en'] = str_replace(".", "-", $dataArr['slug_en']);
-        $dataArr['slug_en'] = str_replace("(", "-", $dataArr['slug_en']);
-        $dataArr['slug_en'] = str_replace(")", "", $dataArr['slug_en']);
+        $dataArr['slug_vi'] = str_slug($dataArr['name_vi'],'-');
+        $dataArr['slug_cn'] = "c-".str_slug($dataArr['name_en'],'-');
+        $dataArr['slug_en'] = str_slug($dataArr['name_en'],'-');
 
-        $dataArr['alias_vi'] = Helper::stripUnicode($dataArr['name_vi']);
-        $dataArr['alias_en'] = Helper::stripUnicode($dataArr['name_en']);
-
-        $dataArr['updated_user'] = Auth::user()->id;
-        
         $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
         $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
+        $dataArr['content_cn'] = str_replace("[Caption]", "", $dataArr['content_cn']);
         
+        $dataArr['status'] = 1;
+
+        $dataArr['updated_user'] = Auth::user()->id;    
+
         $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);
         
         $sp_id = $dataArr['id'];
-        // xu ly tags
-        TagObjects::where(['object_id' => $sp_id, 'object_type' => 1])->delete();
-        if( !empty( $dataArr['tags_vi'] ) && $sp_id ){           
-
-            foreach ($dataArr['tags_vi'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $sp_id;
-                $model->tag_id  = $tag_id;
-                $model->type = 1;
-                $model->object_type  = 1;
-                $model->save();
-            }
-        }
-        if( !empty( $dataArr['tags_en'] ) && $sp_id ){           
-
-            foreach ($dataArr['tags_en'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $sp_id;
-                $model->tag_id  = $tag_id;
-                $model->object_type  = 1;
-                $model->type = 2;
-                $model->save();
-            }
-        }
-
-        $this->storeMeta( $sp_id, $dataArr['meta_id'], $dataArr);
-        $this->storeImage( $sp_id, $dataArr);
+      
+        $this->storeMeta( $sp_id, $dataArr['meta_id'], $dataArr);        
      
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 

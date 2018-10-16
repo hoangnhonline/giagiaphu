@@ -45,7 +45,7 @@ class Cate extends Model  {
         'updated_user'
     ];
 
-    public function sanPham()
+    public function product()
     {
         return $this->hasMany('App\Models\Product', 'cate_id');
     }

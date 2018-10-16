@@ -30,113 +30,47 @@ class CateController extends Controller
     */
     public function index(Request $request)
     {   
-
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';     
-        $productArr = [];
+        $proList = Product::all();        
+        $lang = $request->lang ? $request->lang : 'vi';
+      
+        $productList = [];
         $slug = $request->slug;        
-        $rs = LoaiSp::where('slug_vi', $slug)->orWhere('slug_en', $slug)->first();
-        if(!$rs){
+        $detailCate = Cate::where('slug_'.$lang, $slug)->first();
+        if(!$detailCate){
             return redirect()->route('home');
         }
-        $loai_id = $rs->id;
+        $cate_id = $detailCate->id;
         
-        $socialImage = $rs->icon_url;
-        if( $rs->meta_id > 0){                            
-           $seo = MetaData::find( $rs->meta_id )->toArray();           
+        $socialImage = $detailCate->icon_url;
+        if( $detailCate->meta_id > 0){                            
+           $seo = MetaData::find( $detailCate->meta_id )->toArray();           
            $seo['title'] = $seo['title_'.$lang];
-           $seo['description'] = $seo['description_'.$lang];
-           $seo['keywords'] = $seo['keywords_'.$lang];
+           $seo['description'] = $seo['description_'.$lang];         
         }else{
-            $seo['title'] = $seo['description'] = $seo['keywords'] = $lang == 'vi' ? $rs->name_vi : $rs->name_en;
+            $seo['title'] = $seo['description'] = $lang == 'vi' ? $detailCate->name_vi : $rs->name_en;
         }
-        
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        foreach($loaiSp as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();            
-        }
-
-        $productCount = [];
-        if($cateList[$rs->id]->count() > 0){
-            foreach($cateList[$rs->id] as $cate){
-                $productCount[$cate->id] = Product::where(['status' => 1, 'cate_id' => $cate->id])->count();
-            }
-        }
-
-        $colorList = Color::all();        
-
-        $maxPriceObj = Product::where('loai_id', $loai_id)->orderBy('price', 'desc')->first();
-        if($maxPriceObj){
-            $maxPrice = $maxPriceObj->price;
-        }else{
-            $maxPrice = -1;
-        }
-
-        $p_from = $request->pf ? $request->pf : 0;
-        $p_to = $request->pt ? $request->pt : $maxPrice;
-        $mid = $request->mid ? $request->mid : '';
-        $cid = $request->cid ? $request->cid : '';
-          
-        $query = Product::where('loai_id', $loai_id)
-                ->where('price', '>=', $p_from)                
-                ->where('price', '<=', $p_to);
-        $cateSelected = $colorSelected = (object) [];
-        if($cid > 0){
-            $query->where('cate_id', $cid);
-            $cateSelected = Cate::find($cid);
-        }
-        if($mid > 0){
-            $query->where('color_id', $mid);
-            $colorSelected = Color::find($mid); 
-        };
-            
-        $s = $request->s ? $request->s : 1; // sort
-        $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-            ->select('product_img.image_url', 'product.*');                      
-        if($s == 1){       
-            $query->orderBy('product.id', 'desc');
-        }elseif($s == 2){
-            $query->orderBy('product.id', 'asc');
-        }elseif($s == 3){
-            $query->orderBy('price', 'desc');
-        }else{
-            $query->orderBy('price', 'asc');
-        }
-
-        $ip = $request->ip ? $request->ip : 24; // item per page
-
-        $productArr = $query->paginate($ip);
-
-        $productColorCount = [];
-        foreach($colorList as $color){
-            $queryColor = Product::where(['status' => 1, 'color_id' => $color->id, 'loai_id' => $loai_id])
-                            ->where('price', '>=', $p_from)
-                            ->where('price', '<=', $p_to);        
-                    if($cid > 0){
-                        $queryColor->where('cate_id', $cid);
-                    }
-                    $productColorCount[$color->id] =  $queryColor->count();
-        }
-        //sale product
-        $saleList = Product::where(['is_sale' => 1, 'loai_id' => $loai_id])->where('price_sale', '>', 0)
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-                    ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();
-        return view('frontend.cate.parent', compact(
-                    'productArr', 
+         $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang;  
+        $query = Product::where('cate_id', $cate_id);
+        $productList = $query->paginate(100);
+        return view('frontend.cate.index', compact(
+                    'productList', 
                     'cateArr', 
-                    'rs',
+                    'detailCate',
                     'socialImage', 
-                    'seo', 
-                    'loaiSp', 
-                    'cateList', 
-                    'lang', 
-                    'productCount', 
-                    'cateSelected',
-                    'colorSelected',
-                    'saleList',
-                    'productColorCount', 'colorList', 'maxPrice', 'p_from', 'p_to', 'mid', 'cid', 'ip', 's')
+                    'seo',
+                'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang')
         );
     }
-
+    
     public function cate(Request $request)
     {        
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';

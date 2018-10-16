@@ -49,7 +49,7 @@
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#infoVi" aria-controls="infoVi" role="tab" data-toggle="tab">VN</a></li>
                     <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>  
-                    <li role="presentation"><a href="#infoEn" aria-controls="infoCn" role="tab" data-toggle="tab">CN</a></li>                   
+                    <li role="presentation"><a href="#infoCn" aria-controls="infoCn" role="tab" data-toggle="tab">CN</a></li>                   
                   </ul>
 
                   <!-- Tab panes -->
@@ -142,7 +142,8 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#seoVi" aria-controls="seoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li> 
+                    <li role="presentation"><a href="#seoCn" aria-controls="seoCn" role="tab" data-toggle="tab">CN</a></li>                    
                   </ul>
 
                   <!-- Tab panes -->
@@ -155,16 +156,11 @@
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Thẻ desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_vi" id="meta_description_vi">{{ !empty((array)$meta) ? $meta->description_vi : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Thẻ keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_vi" id="meta_keywords_vi">{{ !empty((array)$meta) ? $meta->keywords_vi : "" }}</textarea>
+                            <textarea class="form-control" rows="4" name="meta_description_vi" id="meta_description_vi">{{ !empty((array)$meta) ? $meta->description_vi : "" }}</textarea>
                           </div>  
                           <div class="form-group">
                             <label>Nội dung tùy chỉnh</label>
-                            <textarea class="form-control" rows="6" name="custom_text_vi" id="custom_text_vi">{{ !empty((array)$meta) ? $meta->custom_text_vi : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_vi" id="custom_text_vi">{{ !empty((array)$meta) ? $meta->custom_text_vi : ""  }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
                     <div role="tabpanel" class="tab-pane" id="seoEn">                        
@@ -175,19 +171,29 @@
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Meta desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_en" id="meta_description_en">{{ !empty((array)$meta) ? $meta->description_en : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Meta keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_en" id="meta_keywords_en">{{ !empty((array)$meta) ? $meta->keywords_en : "" }}</textarea>
+                            <textarea class="form-control" rows="4" name="meta_description_en" id="meta_description_en">{{ !empty((array)$meta) ? $meta->description_en : "" }}</textarea>
                           </div>  
                           <div class="form-group">
                             <label>Custom text</label>
-                            <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ !empty((array)$meta) ? $meta->custom_text_en : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_en" id="custom_text_en">{{ !empty((array)$meta) ? $meta->custom_text_en : ""  }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
-                   
+                    <div role="tabpanel" class="tab-pane" id="seoCn">                        
+                        <div class="form-group">
+                            <label>Meta title </label>
+                            <input type="text" class="form-control" name="meta_title_cn" id="meta_title_cn" value="{{ !empty((array)$meta) ? $meta->title_cn : "" }}">
+                          </div>
+                          <!-- textarea -->
+                          <div class="form-group">
+                            <label>Meta desciption</label>
+                            <textarea class="form-control" rows="4" name="meta_description_cn" id="meta_description_cn">{{ !empty((array)$meta) ? $meta->description_cn : "" }}</textarea>
+                          </div>  
+                          <div class="form-group">
+                            <label>Custom text</label>
+                            <textarea class="form-control" rows="4" name="custom_text_cn" id="custom_text_cn">{{ !empty((array)$meta) ? $meta->custom_text_cn : ""  }}</textarea>
+                          </div>
+                    </div><!--end thong tin co ban--> 
+                   <input type="hidden" name="loai_id" value="1">
                   </div>
 
                 </div>             

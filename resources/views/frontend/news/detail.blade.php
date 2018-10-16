@@ -1,54 +1,67 @@
-@extends('frontend.layout')
-
+@extends('frontend.layout') 
+@include('frontend.partials.meta') 
 @section('content')
-<div class="block-headline-detail container">
-  <ul class="breadcrumb breadcrumb-customize">
-      <li><a href="{{ route('home') }}">{{ trans('text.home') }}</a></li>
-      <li><a href="{{ $lang == 'vi' ? route('news-vi') : route('news-en') }}">{{ $lang == 'vi' ? "Tin tức" : "News" }}</a></li>
-      <li><a href="{{ $lang == 'vi' ? route('news-detail-vi', [$detail->slug, $detail->id]) : route('news-detail-en', [$detail->slug, $detail->id]) }}">{{ $detail->title }}</a></li>
-  </ul>
-</div>
-<div class="container page">
-          <div class="row">
+<section class="bread-crumb margin-bottom-10">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">         
+          <li class="home">
+            <a itemprop="url" href="{{ route('home', $lang)}}" title="Trang chủ"><span itemprop="title">{!! $textArr['trang-chu']->$text_key !!}</span></a>           
+            <span><i class="fa fa-angle-right"></i></span>
+          </li>
+          
+          <li><strong itemprop="title">{!! $detail->title !!}</strong></li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container article-wraper" style="margin-bottom: 150px;">
+    <div class="row">
+        <section class="right-content col-md-9 col-md-push-3">
+      <article class="article-main" itemscope="" itemtype="http://schema.org/Article">        
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="title-head">{!! $detail->title !!}</h1>
             
-        @include('frontend.detail.sidebar')
-
-        <div class="block-main col-lg-9 col-md-8 col-sm-8">
-          <div class="page-view">
-
-            <div class="title-page">
-              <h2 class="page-title">{{ trans('text.news-detail') }}</h2>
+            <div class="postby">
+              <span>{{ date('d/m/Y', strtotime($detail->created_at)) }}</span>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="newsdetail">
-              <div class="contentdetail">
-                <h1>{{ $detail->title }}</h1>
-                <div class="contentdetail-content">
-                    <?php echo $detail->content; ?>
-                </div>
-
-                <div class="ttin_tag">
-                  <div class="top_tt">
-                    <img src="{{ URL::asset('assets/images/icon_ttin_tag.png') }}" class="ttin_left_tag">
-                    <div class="chu_tag">
-                      <a href="#">dây nịt nam</a>,
-                      <a href="#">day nit nam</a>,
-                      <a href="h#">day lung nam</a>,
-                      <a href="h#">dây lưng nam</a>,
-                      <a href="#">thắt lưng nam</a>
-                    </div>
+            <div class="article-details">           
+              <div class="article-content">
+                <div class="rte">
+                  <div class="caption">
+                    {!! $detail->content !!}
                   </div>
                 </div>
               </div>
             </div>
-
-          </div><!--/ end product-view -->
-        </div><!--/ end block-main -->
-
-        <div class="clearfix"></div>
           </div>
-        </div>
+          
+          
+          <div class="col-md-12">
+         
+          </div>
+          
+          <div class="col-md-12">
+            <div class="blog_related">
+              <h2>Bài viết liên quan</h2>
+              @foreach($relatedList as $articles)
+              <article class="blog_entry clearfix">
+                <h3 class="blog_entry-title"><a rel="bookmark" href="{{ route('news-detail',['lang' => $lang, 'slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}"><i class="fa fa-angle-right" aria-hidden="true"></i> {!! $articles->title !!}</a></h3>
+              </article>              
+              @endforeach
+            </div>
+          </div>         
+          
+        </div>        
+      </article>
+    </section>
 
+        @include('frontend.pages.sidebar')
+
+    </div>
+</div>
 @endsection

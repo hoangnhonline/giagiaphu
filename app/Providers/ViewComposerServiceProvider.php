@@ -6,13 +6,10 @@ use App\Models\LoaiSp;
 use App\Models\Cate;
 use App\Models\Blocks;
 use App\Models\Settings;
+use App\Models\Text;
+use App\Models\Pages;
+use Session;
 
-//use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
-
-/**
- * This is provider for using view share
- * @author AnPCD
- */
 class ViewComposerServiceProvider extends ServiceProvider
 {
 	/**
@@ -45,16 +42,22 @@ class ViewComposerServiceProvider extends ServiceProvider
 		
 		view()->composer( '*' , function( $view ){			
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');	       
-	        $loaiSpList = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-
-	       	foreach( $loaiSpList as $loai){
-            	$cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();         
-        	} 
+	        
+            $cateList = Cate::orderBy('display_order')->get();         
+        	$textList = Text::all();
+        	foreach($textList as $text){
+        		$textArr[$text->text_key] = $text;
+        	}       	
+        	
         	$tmp = Blocks::all();
         	foreach($tmp as $tp){
         		$footerArr[$tp->id] = $tp;
         	}
-			$view->with(['settingArr' => $settingArr, 'loaiSpList' => $loaiSpList, 'cateList' => $cateList, 'footerArr' => $footerArr]);
+        	$aboutList = Pages::whereIn('id', [1,2])->get();
+			$view->with(['settingArr' => $settingArr,'cateList' => $cateList, 'footerArr' => $footerArr, 'textArr' => $textArr, 'aboutList' => $aboutList,
+				
+
+		]);
 		});
 	}
 	

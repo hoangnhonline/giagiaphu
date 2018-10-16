@@ -36,47 +36,28 @@ class HomeController extends Controller
     public function index(Request $request)
     {            
            
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
-        $productArr = [];
-        
-        $loaiSpList = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        //public static function getList($is_hot, $is_sale, $cate_id, $loai_id, $limit
-        $newProduct = Product::getList(0, 0, 0, 0, 4);        
-        $hotProduct = Product::getList(1, 0, 0, 0, 4);
-        $saleProduct = Product::getList(0, 1, 0, 0, 4);
-        $albumList = Album::where('status', 1)->join('album_img', 'thumbnail_id', '=', 'album_img.id')
-                                ->select('album.*', 'album_img.image_url')
-                                ->orderBy('id', 'desc')->limit(4)->get();
-        $videoList = Video::where('status', 1)->orderBy('id', 'desc')->limit(4)->get();
-        
-        $lang_id = $lang == 'vi' ? 1 : 2;
-        $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->limit(4)->get();        
-
-        foreach( $loaiSpList as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
-            $productArr[$loai->slug_vi] = Product::where(['status' => 1, 'loai_id' => $loai->id])
-                                ->join('product_img', 'thumbnail_id', '=', 'product_img.id')
-                                ->select('product.*', 'product_img.image_url')
-                                ->orderBy('id', 'desc')->limit(8)->get();
-            if($cateList[$loai->id]->count() > 0){
-                foreach($cateList[$loai->id] as $cate){
-                    $productArr[$cate->id] = Product::where(['status' => 1, 'cate_id' => $cate->id])
-                                ->join('product_img', 'thumbnail_id', '=', 'product_img.id')
-                                ->select('product.*', 'product_img.image_url')
-                                ->orderBy('id', 'desc')->limit(8)->get();
-                }
-            }            
-            
-            $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-            $seo = $settingArr;
-            $seo['title'] = $settingArr['site_title_'.$lang];
-            $seo['description'] = $settingArr['site_description_'.$lang];
-            $seo['keywords'] = $settingArr['site_keywords_'.$lang];
-            $socialImage = $settingArr['banner'];
-        }    
-        //$articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
-                
-        return view('frontend.home.index', compact('loaiSpList', 'cateList', 'productArr', 'socialImage', 'seo', 'newProduct', 'hotProduct', 'saleProduct', 'lang', 'albumList', 'videoList', 'articlesList'));
+        $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
+        $productArr = [];        
+        $lang_id = $lang == 'vi' ? ($lang == 'en' ? 2 : 1) : 3;        
+        $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->limit(3)->get();     
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');   
+        $seo = $settingArr;
+        $seo['title'] = $settingArr['site_title_'.$lang];
+        $seo['description'] = $settingArr['site_description_'.$lang];
+        $seo['keywords'] = $settingArr['site_keywords_'.$lang];
+        $socialImage = $settingArr['banner'];        
+        $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang;        
+        return view('frontend.home.index', compact( 'socialImage', 'seo', 'articlesList', 
+                'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang'));
     }
 
     

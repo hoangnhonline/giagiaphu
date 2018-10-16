@@ -25,13 +25,14 @@ class MetaData extends Model  {
      */
     protected $fillable = [
         'title_vi', 
-        'description_vi', 
-        'keywords_vi', 
+        'description_vi',        
         'custom_text_vi', 
         'title_en', 
-        'description_en', 
-        'keywords_en', 
+        'description_en',         
         'custom_text_en', 
+        'title_cn', 
+        'description_cn',         
+        'custom_text_cn', 
         'created_user', 
         'updated_user'
     ];

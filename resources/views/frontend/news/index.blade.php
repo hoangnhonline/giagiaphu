@@ -1,59 +1,59 @@
-@extends('frontend.layout')
-
+@extends('frontend.layout') 
+@include('frontend.partials.meta') 
 @section('content')
-<div class="block-headline-detail container">
-  <ul class="breadcrumb breadcrumb-customize">
-      <li><a href="{{ route('home') }}">{{ trans('text.home') }}</a></li>
-      <li><a href="{{ $lang == 'vi' ? route('news-vi') : route('news-en') }}">{{ $lang == 'vi' ? "Tin tức" : "News" }}</a></li>
-  </ul>
-</div>
-<div class="container page">
-<div class="row">
-	
-	@include('frontend.detail.sidebar')
-	<div class="block-main col-lg-9 col-md-8 col-sm-8">
-		<div class="page-view">
-
-			<div class="title-page">
-				<h2 class="page-title">{{ trans('text.news') }}</h2>
+<section class="bread-crumb margin-bottom-10">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">         
+          <li class="home">
+            <a itemprop="url" href="{{ route('home', $lang)}}" title="Trang chủ"><span itemprop="title">{!! $textArr['trang-chu']->$text_key !!}</span></a>           
+            <span><i class="fa fa-angle-right"></i></span>
+          </li>
+          
+          <li><strong itemprop="title">{!! $textArr['tin-tuc']->$text_key !!}</strong></li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container" style="margin-bottom: 150px;">
+    <div class="row">
+        <section class="right-content col-md-9 list-blog-page">	
+			<div class="box-heading hidden">
+				<h1 class="title-head">Tin tức</h1>
 			</div>
-
-			<div class="clearfix"></div>
-
-			<div class="page-layout-2columns page-child grid page-child-grid">
-				<div class="page-child-items row">
-					@if($articlesList->count() > 0)
-					@foreach($articlesList as $articles)
-					<div class="page-child-item">
-                        <div class="news-item">
-							<div class="news-img">
-								<a title="{{ $articles->title }}" href="{{ $lang == 'vi' ? route('news-detail-vi', [$articles->slug, $articles->id]) : route('news-detail-en', [$articles->slug, $articles->id]) }}">
-									<img class="lazy" src="{{ Helper::showImage($articles->image_url) }}" alt="{{ $articles->title }}">
+			<section class="list-blogs blog-main margin-top-30">
+				<div class="row">
+					@foreach($articlesList as $articles)	
+					<div class="col-md-12 col-sm-12 col-xs-12 clearfix">
+						<article class="blog-item">
+							<div class="blog-item-thumbnail">						
+								<a href="{{ route('news-detail',['lang' => $lang, 'slug' => $articles->slug, 'id' => $articles->id]) }}">
+									
+									<img src="{{ Helper::showImage($articles->image_url) }}" alt="{!! $articles->title !!}" class="img-responsive center-block">
+									
 								</a>
+								<div class="created-date">
+									<i class="fa fa-calendar"></i> <span>{{ date('d/m/Y', strtotime($articles->created_at)) }}</span>
+								</div>
 							</div>
-							<div class="news-info">
-								<h2 class="news-info-name">
-									<a title="{{ $articles->title }}" href="{{ $lang == 'vi' ? route('news-detail-vi', [$articles->slug, $articles->id]) : route('news-detail-en', [$articles->slug, $articles->id]) }}">{{ $articles->title }}</a>
-								</h2>
-								<p class="news-contents">{{ $articles->description }}</p>
+							<div class="blog-item-mains">
+								<h3 class="blog-item-name"><a href="{{ route('news-detail',['lang' => $lang, 'slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}">{!! $articles->title !!}</a></h3>								
+								<p class="blog-item-summary margin-bottom-5">{!! $articles->description !!}</p>
 							</div>
-						</div>
-                    </div><!-- end page child item -->
-                    @endforeach
-                    @endif
+						</article>
+					</div>
+					@endforeach
+				</div>
+			</section>
+			
+			
+		</section>
 
-				</div><!-- end page child items -->
+        @include('frontend.detail.sidebar')
 
-				<div class="text-center">
-                   {{ $articlesList->links() }}
-                </div><!-- pagination -->
-			</div>
-
-		</div><!--/ end product-view -->
-	</div><!--/ end block-main -->
-
-	<div class="clearfix"></div>
-
-</div>
+    </div>
 </div>
 @endsection

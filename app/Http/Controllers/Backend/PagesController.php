@@ -56,35 +56,26 @@ class PagesController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[
-            'title_vi' => 'required',
-            'slug_vi' => 'required',
-            'title_en' => 'required',
-            'slug_en' => 'required'            
+            'title_vi' => 'required',           
+            'title_en' => 'required',                
         ],
         [
-            'title_vi.required' => 'Bạn chưa nhập tên trang VI',
-            'slug_vi.required' => 'Bạn chưa nhập slug VI',
+            'title_vi.required' => 'Bạn chưa nhập tên trang VI',            
             'title_en.required' => 'Bạn chưa nhập tên trang EN',
-            'slug_en.required' => 'Bạn chưa nhập slug EN'            
-        ]);        
-        
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
+                   
+        ]);
 
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
+        $dataArr['alias_vi'] = str_slug($dataArr['title_vi'],' ');
+        $dataArr['alias_cn'] = str_slug($dataArr['title_cn'],' ');
+        $dataArr['alias_en'] = str_slug($dataArr['title_en'],' ');
 
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('decoos.upload_path').$dataArr['image_url'], config('decoos.upload_path').$destionation);
-            
-            $dataArr['image_url'] = $destionation;
-        } 
+        $dataArr['slug_vi'] = str_slug($dataArr['title_vi'],'-');
+        $dataArr['slug_cn'] = "c-".str_slug($dataArr['title_en'],'-');
+        $dataArr['slug_en'] = str_slug($dataArr['title_en'],'-');
 
-        $dataArr['alias_vi'] = Helper::stripUnicode($dataArr['title_vi']);
-        $dataArr['alias_en'] = Helper::stripUnicode($dataArr['title_en']);
+        $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
+        $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
+        $dataArr['content_cn'] = str_replace("[Caption]", "", $dataArr['content_cn']);
                    
         $dataArr['created_user'] = Auth::user()->id;
         $dataArr['updated_user'] = Auth::user()->id;
@@ -139,34 +130,28 @@ class PagesController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[
-            'title_vi' => 'required',
-            'slug_vi' => 'required',
+            'title_vi' => 'required',           
             'title_en' => 'required',
-            'slug_en' => 'required'
+  
         ],
         [
             'title_vi.required' => 'Bạn chưa nhập tên trang VI',
-            'slug_vi.required' => 'Bạn chưa nhập slug VI',
+           
             'title_en.required' => 'Bạn chưa nhập tên trang EN',
-            'slug_en.required' => 'Bạn chưa nhập slug EN',
+        
         ]);
 
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
+        $dataArr['alias_vi'] = str_slug($dataArr['title_vi'],' ');
+        $dataArr['alias_cn'] = str_slug($dataArr['title_cn'],' ');
+        $dataArr['alias_en'] = str_slug($dataArr['title_en'],' ');
 
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
+        $dataArr['slug_vi'] = str_slug($dataArr['title_vi'],'-');
+        $dataArr['slug_cn'] = "c-".str_slug($dataArr['title_en'],'-');
+        $dataArr['slug_en'] = str_slug($dataArr['title_en'],'-');
 
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('decoos.upload_path').$dataArr['image_url'], config('decoos.upload_path').$destionation);
-            
-            $dataArr['image_url'] = $destionation;
-        }
-        $dataArr['alias_vi'] = Helper::stripUnicode($dataArr['title_vi']);
-        $dataArr['alias_en'] = Helper::stripUnicode($dataArr['title_en']);
+        $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
+        $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
+        $dataArr['content_cn'] = str_replace("[Caption]", "", $dataArr['content_cn']);
             
         $dataArr['updated_user'] = Auth::user()->id; 
 

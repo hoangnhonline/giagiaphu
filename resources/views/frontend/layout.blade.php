@@ -1,215 +1,450 @@
-<?php 
-Helper::counter();
-$counter = Helper::showCounter();
-?>
-<!DOCTYPE HTML>
-<html lang="en-US">
+<!DOCTYPE html>
+<html lang="vi">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>@yield('title')</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="robots" content="index,follow"/>
-  <meta http-equiv="content-language" content="en"/>
-  <meta name="description" content="@yield('site_description')"/>
-  <meta name="keywords" content="@yield('site_keywords')"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-  <link rel="shortcut icon" href="@yield('favicon')" type="image/x-icon"/>
-  <link rel="canonical" href="{{ url()->current() }}"/>        
-  <meta property="og:locale" content="vi_VN" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="@yield('title')" />
-  <meta property="og:description" content="@yield('site_description')" />
-  <meta property="og:url" content="{{ url()->current() }}" />
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/font-awesome.min.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/font-linearicons.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">  
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/bootstrap.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/bootstrap-theme.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/jquery.fancybox.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/jquery-ui.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/owl.carousel.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/owl.transitions.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/owl.theme.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/jquery.mCustomScrollbar.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/js/slideshow/settings.css') }}"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/theme.css') }}" media="all"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/responsive.css') }}" media="all"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/custom.css') }}" media="all"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/sweet.css') }}" media="all"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/square/green.css') }}" rel="stylesheet">
-
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>@yield('title')</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index,follow"/>
+    <meta http-equiv="content-language" content="en"/>
+    <meta name="description" content="@yield('site_description')"/>      
+    <link rel="canonical" href="http://giagiaphu.com.vn" />
+    <meta name='revisit-after' content='1 days' />    
+    <link rel="icon" href="{{ URL::asset('public/assets/favicon.png') }}" type="image/x-icon" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gia Gia Phú">
+    <meta property="og:image" content="http:assets/logo.png">
+    <meta property="og:image:secure_url" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="http://giagiaphu.com,vn">
+    <meta property="og:site_name" content="Gia Gia Phú">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.1.1/dist/css/ionicons.min.css">
+    <link href="{{ URL::asset('public/assets/plugin.scss.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ URL::asset('public/assets/owl.carousel.min.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ URL::asset('public/assets/base.scss.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ URL::asset('public/assets/style.scss.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ URL::asset('public/assets/ant-construction.scss.css') }}" rel='stylesheet' type='text/css' />
+    <script src="{{ URL::asset('public/assets/jquery-2.2.3.min.js') }}" type='text/javascript'></script>
 </head>
+
 <body>
-<div class="wrap">
-  @include('frontend.partials.header')
-  <!-- End Header -->
-  <div id="content">
+    <!-- Main content -->
+    <header class="header">
+
+        <div class="container">
+            <div class="header-main">
+                <div class="row">
+                    <div class="col-md-6 col-100-h">
+                        <button type="button" class="navbar-toggle collapsed visible-sm visible-xs" id="trigger-mobile">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="logo">
+                            <a href="{{ route('home') }}" class="logo-wrapper ">
+                                <img class="img-responsive center-block" src="{{ URL::asset('public/assets/logo.gif') }}" alt="logo Gia Gia Phú">
+                            </a>
+                        </div>
+                        <div class="mobile-cart visible-sm visible-xs">
+                            <div class="mobile-search">
+                                <i class="ion ion-ios-search"></i>
+                            </div>
+                            <a href="/cart" title="Giỏ hàng">
+                                <i class="ion ion-md-appstore"></i>
+                                <div class="cart-right">
+                                    <span class="count_item_pr">0</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="search">
+                            <div class="header_search search_form">
+                                <form class="input-group search-bar search_form" action="/search" method="get" role="search">
+                                    <input type="search" name="query" value="" placeholder="Tìm kiếm sản phẩm... " class="input-group-field st-default-search-input search-text" autocomplete="off">
+                                    <span class="input-group-btn">
+			<button class="btn icon-fallback-text">
+				<i class="fa fa-search"></i>
+			</button>
+		</span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm hidden-xs">                       
+                        <div id="TopMenu">
+					    	<ul>
+                            @if($lang != 'vi')
+					    	<li><a href="{{ route('home', 'vi')}}"><img src="{{ URL::asset('public/assets/images/vn.png') }}"> Vietnamese</a></li>	
+                            @endif
+                            @if($lang != 'cn')
+					    	<li><a href="{{ route('home', 'cn')}}"><img src="{{ URL::asset('public/assets/flag_cn.gif') }}"> Chineses</a></li>
+					    	@endif
+                            @if($lang != 'en')
+					    	<li><a href="{{ route('home', 'en')}}"><img src="{{ URL::asset('public/assets/flag_en.gif') }}"> English</a></li>	        
+					        @endif
+					      </ul> 
+					    </div>
+                                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="hidden-sm hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul id="nav" class="nav">
+
+                            <li class="nav-item active"><a class="nav-link" href="{{ route('home') }}">{!! $textArr['trang-chu']->$text_key !!}</a></li>
+
+                            <li class="nav-item "> 
+                                <a href="javascript:;" class="nav-link">{!! $textArr['gioi-thieu']->$text_key !!} <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+                                <ul class="dropdown-menu">
+                                    @foreach($aboutList as $about)
+                                    <li>
+                                        <a class="nav-link" href="{{ route('pages', ['lang' => $lang, 'slug' => $about->$slug_key])}}">{!! $about->$title_key !!}</a>
+                                    </li>
+                                    @endforeach
+                                </ul></li>
+
+                            <li class="nav-item ">
+                                <a href="javascript:;" class="nav-link">{!! $textArr['san-pham']->$text_key !!}  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+                                <ul class="dropdown-menu">
+                                    @foreach($cateList as $cate)
+                                    <li>
+                                        <a class="nav-link" href="{{ route('cates', ['lang' => $lang, 'slug' => $cate->$slug_key])}}">{!! $cate->$name_key !!}</a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ route('news', $lang) }}" class="nav-link">{!! $textArr['tin-tuc']->$text_key !!}</a>
+                            </li>
+
+                            <li class="nav-item "><a class="nav-link" href="/lien-he">{!! $textArr['lien-he']->$text_key !!}</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>  
+
     @yield('content')
-  </div>
-  <!-- End Content -->
-  @include('frontend.partials.footer')
-</div>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.fancybox.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery-ui.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/owl.carousel.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/TimeCircles.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.countdown.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.bxslider.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/modernizr.custom.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.hoverdir.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.revolution.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.plugins.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/theme.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/sweet.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/icheck.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/js/lazy.js') }}"></script>
-<input type="hidden" id="route-add-cart" value="{{ route('them-sanpham') }}">
-<input type="hidden" id="route-cart" value="{{ route('gio-hang') }}">
-<div class="modal fade" id="modalLoginFrom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
-        <div class="head">
-          <p> <span>Bạn chưa có tài khoản? </span> <a href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterFrom">Đăng ký</a> </p>
-        </div>
-      </div>
-      <div class="modal-body">
 
-          <form method="POST" action="#" id="login_popup_form">
-            <div class="form-group popup_email has-feedback" id="popup_login">
-              <label class="control-label">Email</label>
-              <input data-bv-field="email" id="popup-login-email" class="form-control login" name="email" placeholder="Nhập Email" type="text">
-              <small data-bv-result="NOT_VALIDATED" data-bv-for="email" data-bv-validator="notEmpty" class="help-block" style="display: none;">Vui lòng nhập Email hợp lệ</small></div>
-            <div class="form-group popup_password has-feedback" id="popup_password">
-              <label class="control-label">Mật khẩu</label>
-              <input data-bv-field="password" id="popup-login-password" class="form-control login" name="password" placeholder="Nhập mật khẩu" autocomplete="off" type="password">
-               <small data-bv-result="NOT_VALIDATED" data-bv-for="password" data-bv-validator="notEmpty" class="help-block" style="display: none;">Vui lòng nhập Mật khẩu</small></div>
-            <div class="login-ajax-captcha" style="display:none">
-              <div id="login-popup-recaptcha"></div>
-            </div>
-            <div class="form-group" id="error_captcha" style="margin-bottom: 15px;color:red;font-style:italic"> <span class="help-block ajax-message"></span> </div>
-            <div class="form-group">
-              <p class="reset">Quên mật khẩu? Nhấn vào <a href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalResetPasswordFrom">đây</a></p>
-            </div>
-            <div class="form-group">
-              <div  id="login_popup_submit" class="btn btn-danger btn-block">Đăng nhập</div>
-            </div>
-            <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" title="Đăng nhập bằng Facebook" data-url=""> <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
-          </form>
-      </div><!-- end modal-body -->
-    </div>
-  </div><!-- end modal-dialog -->
-</div><!-- end modal -->
+    <footer class="footer">
+        <div class="site-footer">
+            <div class="container">
+                <div class="footer-inner padding-top-25 padding-bottom-10">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-no-mb">
+                            <div class="footer-widget">
+                                <h3><span>Thông tin liên hệ</span></h3>
+                                <ul class="list-menu ul-footer-contact">
 
-<!-- Modal -->
-<div class="modal fade" id="modalRegisterFrom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Đăng ký tài khoản</h4>
-        <div class="head">
-          <p> <span>Bạn đã có tài khoản?</span> <a href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalLoginFrom">Đăng nhập</a> </p>
-        </div>
-      </div>
-      <div class="modal-body">
+                                    <li><span>Địa chỉ:</span> 22 đường số 8 Cư xá Bình Thới, P8, Quận 11,<br>TP Hồ Chí Minh</li>
+                                    <li><span>Điện thoại:</span> <a class="a-phone" href="tel:02839626288">028 39 62 62 88 - 028 39 62 62 99</a></li>
+                                    <li><span>Email:</span> <a href="mailto:anhthu@giagiaphu.com.vn">anhthu@giagiaphu.com.vn </a></li>
+                                    <li><span>Website:</span> <a href="http://giagiaphu.com.vn">https://giagiaphu.com.vn</a></li>
 
-          <form method="POST" action="#" id="register_popup_form" class="row">
-            <div class="col-sm-6">
-              <div class="form-group" id="register_email">
-                <label class="control-label" for="email"><strong>Email:</strong></label>
-                <div class="input-wrap has-feedback">
-                  <input data-bv-field="email" class="form-control register register-email-input" name="email" id="popup-register-email" placeholder="Nhập Email" type="text">
-                  <small data-bv-result="NOT_VALIDATED" data-bv-for="email" er="notEmpty" class="help-block" style="display: none;">Vui lòng nhập Email</small><small er="NOT_VALIDATED" data-bv-for="email" data-bv-validator="remote" class="help-block" style="display: none;">Email đã tồn tại</small></div>
-              </div>
-              <div class="form-group" id="register_password">
-                <label class="control-label" for="pasword"><strong>Mật khẩu:</strong></label>
-                <div class="input-wrap has-feedback">
-                  <input data-bv-field="password" class="form-control register" name="password" id="popup-register-password" placeholder="Mật khẩu từ 6 đến 32 ký tự" autocomplete="off" type="password">
-                  <small data-bv-result="NOT_VALIDATED" data-bv-for="password" data-bv-validator="notEmpty" class="help-block" style="display: none;">Vui lòng nhập Mật khẩu</small><small data-bv-result="NOT_VALIDATED" data-bv-for="password" data-bv-validator="stringLength" class="help-block" style="display: none;">Mật khẩu phải dài từ 6 đến 32 ký tự</small></div>
-              </div>
-              <div class="form-group" id="register_name">
-                <label class="control-label">Họ tên</label>
-                <div class="input-wrap has-feedback">
-                  <input class="form-control register" name="full_name" id="popup-register-name" placeholder="Nhập họ tên" data-bv-field="full_name" type="text">
-                   <small class="help-block" data-bv-validator="notEmpty" data-bv-for="full_name" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Họ tên</small></div>
-              </div>
-              <div class="form-group">
-                  <label class="checkbox-inline" style="padding-left:0px">
-                    <input type="checkbox"> Nhận các thông tin và chương trình khuyến mãi của shop.com qua email.
-                  </label>
-              </div>
-              <div class="form-group policy-group">
-                <div class="input-wrap">
-                  <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#">điều kiện sử dụng và chính sách của shop.com</a>.</p>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 col-mb">
+                            <div class="footer-widget">
+                                <h3><span>Menu</span></h3>
+                                <ul class="list-menu footer-has-border">
+
+                                    <li><a href="{{ route('home') }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> {!! $textArr['trang-chu']->$text_key !!}</a></li>
+
+                                    <li><a href="{{ route('pages', [$lang, 'gioi-thieu-cong-ty'])}}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> {!! $textArr['gioi-thieu']->$text_key !!}</a></li>
+
+                                    <li><a href="/collections/all"><i class="fa fa-angle-double-right" aria-hidden="true"></i> {!! $textArr['san-pham']->$text_key !!}</a></li>
+
+                                    <li><a href=""><i class="fa fa-angle-double-right" aria-hidden="true"></i> {!! $textArr['tin-tuc']->$text_key !!}</a></li>
+
+                                    <li><a href="{{ route('contact', $lang) }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> {!! $textArr['lien-he']->$text_key !!}</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-mb">
+                            <div class="footer-widget dat-hang">
+                                <h3><span>{!! $textArr['ho-tro-dat-hang']->$text_key !!}</span></h3>
+                                <ul class="list-menu">
+                                    <li>
+                                       <p>028 39 62 62 98</p>                                       
+                                    </li>
+                                    <li>
+                                       <p>028 39 62 62 99</p>                                       
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-mb">
+                            <div class="footer-widget">
+                                <h3><span>{!! $textArr['ho-tro-online']->$text_key !!}</span></h3>
+                                <ul class="list-menu footer-has-border online">
+
+                                    <li>
+                                       <p>Ms Anh Thư - 0935.174.238</p>                                       
+                                    </li>
+                                    <li>
+                                       <p>Mr Tường - 0932.662.633</p>                                       
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
-              </div>
-              <div class="form-group last">
-                <div class="input-wrap">
-                  <div id="register_popup_submit" class="btn btn-danger btn-block btn-register-submit">Đăng ký</div>
-                </div>
-              </div>
             </div>
-
-            <div class="col-sm-6">
-              <p class="text" style="margin-bottom:5px">Đăng nhập vào shop.com bằng facebook</p>
-              <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" title="Đăng nhập bằng Facebook" data-url="#"> <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
-            </div>
-          </form>
-
-      </div><!-- end modal-body -->
-    </div>
-  </div><!-- end modal-dialog -->
-</div><!-- end modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="modalResetPasswordFrom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Quên mật khẩu?</h4>
-        <div class="head">
-          <p><span style="font-size:13px">Vui lòng gửi email. Chúng tôi sẽ gửi link khởi tạo mật khẩu mới qua email của bạn.</span></p>
         </div>
-      </div>
-      <div class="modal-body" id="body_reset_pass">
-          <div id="forgot_successful" class="alert alert-success" style="display:none">
-            <span>Email đã được gửi, vui lòng kiểm tra mail để cập nhật thông tin!</span>
-        </div>                        
-            <div class="form-group" id="forgot_pass">
-              <input name="email_reset" id="email_reset" class="form-control" value="" required="required" placeholder="Nhập email" type="email">
-              <small class="help-block" id="error_reset"></small>
-            </div>
-            <div class="form-group last">
-              <button type="button" id="btnForgotPass" class="btn btn-danger btn-block">Gửi</button>
-            </div>
-          
+        <div class="constrot-strip"></div>
+        <div class="copyright clearfix">
+            <div class="container">
+                <div class="inner clearfix">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <span>© Bản quyền thuộc về <b>GIA GIA PHU</b> <span class="s480-f">|</span> Cung cấp bởi <a href="http://sahoweb.com" title="sahoweb" target="_blank" rel="nofollow">sahoweb</a></span>
 
-      </div><!-- end modal-body -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back-to-top"><i class="fa  fa-arrow-circle-up"></i></div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Bizweb javascript -->
+    <script src="{{ URL::asset('public/assets/option-selectors.js') }}" type='text/javascript'></script>
+    <script src="{{ URL::asset('public/assets/api.jquery.js') }}" type='text/javascript'></script>
+    <!-- Plugin JS -->
+    <script src="{{ URL::asset('public/assets/owl.carousel.min.js') }}" type='text/javascript'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $.validate({});
+    </script>   
+    <script src="{{ URL::asset('public/assets/appear.js') }}" type='text/javascript'></script>
+    <script src="{{ URL::asset('public/assets/cs.script.js') }}" type='text/javascript'></script>
+
+    <script src="{{ URL::asset('public/assets/counterup-min.js') }}" type='text/javascript'></script>   
+
+    <script src="{{ URL::asset('public/assets/main.js') }}" type='text/javascript'></script>
+
+    <div class="backdrop__body-backdrop___1rvky"></div>
+    <div class="mobile-main-menu">
+        <div class="drawer-header">
+            <a href="account/login">
+                <div class="drawer-header--auth">
+                    <div class="_object">
+                        <img src="assets/user.svg" alt="Gia Gia Phú" />
+                    </div>
+
+                    <div class="_body">
+                        ĐĂNG NHẬP
+                        <br> Nhận nhiều ưu đãi hơn
+                    </div>
+
+                </div>
+            </a>
+        </div>
+        <ul class="ul-first-menu">
+            <li>
+                <a href="/">
+                    <i class="ion ion-ios-home"></i> {!! $textArr['trang-chu']->$text_key !!}
+                </a>
+            </li>
+            <li>
+                <a href="/collections/all">
+                    <i class="ion ion-ios-albums"></i> Danh sách sản phẩm
+                </a>
+            </li>
+
+            <li><a href="/account/login"><i class="ion ion-ios-log-in"></i> Đăng nhập</a></li>
+            <li><a href="/account/register"><i class="ion ion-ios-person-add"></i> Đăng ký</a></li>
+
+        </ul>
+        <div class="la-scroll-fix-infor-user">
+            <!--CATEGORY-->
+            <div class="la-nav-menu-items">
+                <div class="la-title-nav-items">Danh mục</div>
+                <ul class="la-nav-list-items">
+
+                    <li class="ng-scope">
+                        <a href="/">{!! $textArr['trang-chu']->$text_key !!}</a>
+                    </li>
+
+                    <li class="ng-scope">
+                        <a href="/gioi-thieu">Giới thiệu</a>
+                    </li>
+
+                    <li class="ng-scope ng-has-child1">
+                        <a href="/collections/all">Sản phẩm <i class="fa fa-plus fa1" aria-hidden="true"></i></a>
+                        <ul class="ul-has-child1">
+
+                            <li class="ng-scope">
+                                <a href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/vat-dung-khac">Vật dụng khác</a>
+                            </li>
+
+                            <li class="ng-scope">
+                                <a href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="ng-scope ng-has-child1">
+                        <a href="/tin-tuc">Tin tức <i class="fa fa-plus fa1" aria-hidden="true"></i></a>
+                        <ul class="ul-has-child1">
+
+                            <li class="ng-scope ng-has-child2">
+                                <a href="/">Sản phẩm <i class="fa fa-plus fa2" aria-hidden="true"></i></a>
+                                <ul class="ul-has-child2">
+
+                                    <li class="ng-scope">
+                                        <a href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/vat-dung-khac">Vật dụng khác</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="ng-scope ng-has-child2">
+                                <a href="/">Sản phẩm <i class="fa fa-plus fa2" aria-hidden="true"></i></a>
+                                <ul class="ul-has-child2">
+
+                                    <li class="ng-scope">
+                                        <a href="/dung-cu-cam-tay">Dụng cụ cầm tay</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/nhom-su-dung-dien">Nhóm sử dụng điện</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/phu-kien-gia-dinh">Phụ kiện gia đình</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/van-chuyen-nang-do">Vận chuyển, nâng đỡ</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/dung-cu-lam-vuon">Dụng cụ làm vườn</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/son-dau-mo-hoa-chat">Sơn, dầu mỡ, hoá chất</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/vat-dung-khac">Vật dụng khác</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/kim-khi-bao-ho-lao-dong">Kim khí, bảo hộ lao động</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="ng-scope ng-has-child2">
+                                <a href="/">Tin tức <i class="fa fa-plus fa2" aria-hidden="true"></i></a>
+                                <ul class="ul-has-child2">
+
+                                    <li class="ng-scope">
+                                        <a href="/">Sản phẩm</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/">Sản phẩm</a>
+                                    </li>
+
+                                    <li class="ng-scope">
+                                        <a href="/">Tin tức</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="ng-scope">
+                        <a href="/lien-he">Liên hệ</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <ul class="mobile-support">
+            <li>
+                <div class="drawer-text-support">HỖ TRỢ</div>
+            </li>
+
+            <li><i class="fa fa-phone" aria-hidden="true"></i> HOTLINE: <a href="tel:0982362509">0982 362 509</a></li>
+            <li><i class="fa fa-envelope" aria-hidden="true"></i> EMAIL: <a href="mailto:baotrung304@gmail.com">baotrung304@gmail.com</a></li>
+
+        </ul>
     </div>
-  </div><!-- end modal-dialog -->
-</div><!-- end modal -->  
-<!--<a href="#" class="scroll_top" title="Scroll to Top" style="display: inline;">Scroll</a>-->
-<!-- Script-->
-<input type="hidden" id="route-ajax-login-fb" value="{{route('ajax-login-by-fb')}}">
-<input type="hidden" id="route-cap-nhat-thong-tin" value="{{ route('cap-nhat-thong-tin') }}">
-<input type="hidden" id="fb-app-id" value="{{ env('FACEBOOK_APP_ID') }}">
-<input type="hidden" id="route-register-customer-ajax" value="{{ route('register-customer-ajax') }}">
-<input type="hidden" id="route-register-newsletter" value="{{ route('register.newsletter') }}">
-<input type="hidden" id="route-add-to-cart" value="{{ route('them-sanpham') }}" />
-<input type="hidden" id="route-cart" value="{{ route('gio-hang') }}" />
-<input type="hidden" id="route-auth-login-ajax" value="{{ route('auth-login-ajax') }}">
-<input type="hidden" id="route-set-lang" value="{{ route('set-lang') }}">
-<input type="hidden" id="route-home" value="{{ route('home') }}">
-@yield('javascript')
 </body>
+
 </html>

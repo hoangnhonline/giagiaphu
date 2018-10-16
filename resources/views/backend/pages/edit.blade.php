@@ -21,7 +21,7 @@
     <div class="row">
       <!-- left column -->
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
@@ -48,7 +48,8 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#infoVi" aria-controls="infoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#infoEn" aria-controls="infoEn" role="tab" data-toggle="tab">EN</a></li>   
+                    <li role="presentation"><a href="#infoCn" aria-controls="infoCn" role="tab" data-toggle="tab">CN</a></li>                  
                   </ul>
 
                   <!-- Tab panes -->
@@ -59,15 +60,11 @@
                         <div class="form-group">
                           <label>Tiêu đề <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="title_vi" id="title_vi" value="{{ old('title_vi') ? old('title_vi') : $detail->title_vi }}">
-                        </div>
-                        <div class="form-group">
-                          <label>Slug <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') ? old('slug_vi') : $detail->slug_vi }}">
-                        </div>                                                                
+                        </div>                                                                                      
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                           <label class="col-md-3 row">Thumbnail </label>    
                           <div class="col-md-9">
-                            <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
+                            <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
                             
                             <input type="file" id="file-image" style="display:none" />
                          
@@ -75,13 +72,7 @@
                           </div>
                           <div style="clear:both"></div>
                         </div>
-                        <div class="clearfix"></div>  
-                        <div class="clearfix"></div>
-                        <!-- textarea -->
-                        <div class="form-group">
-                          <label>Mô tả</label>
-                          <textarea class="form-control" rows="6" name="description_vi" id="description_vi">{{ old('description_vi') ? old('description_vi') : $detail->description_vi }}</textarea>
-                        </div>
+                        <div class="clearfix"></div>                       
                         <div class="form-group">
                           <label>Chi tiết</label>
                           <textarea class="form-control" rows="10" name="content_vi" id="content_vi">{{ old('content_vi') ? old('content_vi') : $detail->content_vi }}</textarea>
@@ -93,18 +84,22 @@
                           <label>Name <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="title_en" id="title_en" value="{{ old('title_en') ? old('title_en') : $detail->title_en }}">
                         </div>
-                        <div class="form-group">
-                          <label>Slug <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') ? old('slug_en') : $detail->slug_en }}">
-                        </div>                         
-                        <!-- textarea -->
-                        <div class="form-group">
-                          <label>Description</label>
-                          <textarea class="form-control" rows="6" name="description_en" id="description_en">{{ old('description_en') ? old('description_en') : $detail->description_en }}</textarea>
-                        </div>
+                     
                         <div class="form-group">
                           <label>Content</label>
                           <textarea class="form-control" rows="10" name="content_en" id="content_en">{{ old('content_en') ? old('content_en') : $detail->content_en }}</textarea>
+                        </div>
+                    </div><!--end thong tin co ban--> 
+                    <div role="tabpanel" class="tab-pane" id="infoCn">                        
+                          <!-- text input -->
+                        <div class="form-group">
+                          <label>Name <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="title_cn" id="title_cn" value="{{ old('title_cn', $detail->title_cn) }}">
+                        </div>
+                     
+                        <div class="form-group">
+                          <label>Content</label>
+                          <textarea class="form-control" rows="10" name="content_cn" id="content_cn">{{ old('content_cn', $detail->content_cn) }}</textarea>
                         </div>
                     </div><!--end thong tin co ban--> 
                    
@@ -124,7 +119,7 @@
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-5">      
+      <div class="col-md-4">      
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Thông tin SEO</h3>
@@ -138,7 +133,8 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#seoVi" aria-controls="seoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li> 
+                    <li role="presentation"><a href="#seoCn" aria-controls="seoCn" role="tab" data-toggle="tab">CN</a></li>                   
                   </ul>
 
                   <!-- Tab panes -->
@@ -151,16 +147,12 @@
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Thẻ desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_vi" id="meta_description_vi">{{ !empty((array)$meta) ? $meta->description_vi : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Thẻ keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_vi" id="meta_keywords_vi">{{ !empty((array)$meta) ? $meta->keywords_vi : "" }}</textarea>
-                          </div>  
+                            <textarea class="form-control" rows="4" name="meta_description_vi" id="meta_description_vi">{{ !empty((array)$meta) ? $meta->description_vi : "" }}</textarea>
+                          </div> 
+ 
                           <div class="form-group">
                             <label>Nội dung tùy chỉnh</label>
-                            <textarea class="form-control" rows="6" name="custom_text_vi" id="custom_text_vi">{{ !empty((array)$meta) ? $meta->custom_text_vi : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_vi" id="custom_text_vi">{{ !empty((array)$meta) ? $meta->custom_text_vi : ""  }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
                     <div role="tabpanel" class="tab-pane" id="seoEn">                        
@@ -171,22 +163,30 @@
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Meta desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_en" id="meta_description_en">{{ !empty((array)$meta) ? $meta->description_en : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Meta keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_en" id="meta_keywords_en">{{ !empty((array)$meta) ? $meta->keywords_en : "" }}</textarea>
-                          </div>  
+                            <textarea class="form-control" rows="4" name="meta_description_en" id="meta_description_en">{{ !empty((array)$meta) ? $meta->description_en : "" }}</textarea>
+                          </div>
                           <div class="form-group">
                             <label>Custom text</label>
-                            <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ !empty((array)$meta) ? $meta->custom_text_en : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_en" id="custom_text_en">{{ !empty((array)$meta) ? $meta->custom_text_en : ""  }}</textarea>
+                          </div>
+                    </div><!--end thong tin co ban--> 
+                    <div role="tabpanel" class="tab-pane" id="seoCn">                        
+                        <div class="form-group">
+                            <label>Meta title </label>
+                            <input type="text" class="form-control" name="meta_title_cn" id="meta_title_cn" value="{{ !empty((array)$meta) ? $meta->title_cn : "" }}">
+                          </div>
+                          <!-- textarea -->
+                          <div class="form-group">
+                            <label>Meta desciption</label>
+                            <textarea class="form-control" rows="4" name="meta_description_cn" id="meta_description_cn">{{ !empty((array)$meta) ? $meta->description_cn : "" }}</textarea>
+                          </div>
+                          <div class="form-group">
+                            <label>Custom text</label>
+                            <textarea class="form-control" rows="4" name="custom_text_cn" id="custom_text_cn">{{ !empty((array)$meta) ? $meta->custom_text_cn : ""  }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
                    
                   </div>
-                  <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>          
-                  <input type="hidden" name="image_name" id="image_name" value="{{ $detail->image_name }}"/>
                 </div>             
             
           </div>
@@ -215,6 +215,16 @@
             filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
         });
         var editor2 = CKEDITOR.replace( 'content_en',{
+            language : 'vi',
+            height: 300,
+            filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
+            filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
+            filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
+            filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
+            filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
+            filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
+        });   
+        var editor2 = CKEDITOR.replace( 'content_cn',{
             language : 'vi',
             height: 300,
             filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",

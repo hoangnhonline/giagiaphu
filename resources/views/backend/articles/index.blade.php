@@ -31,7 +31,8 @@
                 <label for="email">Ngôn ngữ :</label>
                 <select class="form-control" name="lang_id" id="lang_id">                                
                   <option value="1" {{ 1 == $lang_id ? "selected" : "" }}>Tiếng Việt</option>
-                  <option value="2" {{ 2 == $lang_id ? "selected" : "" }}>Tiếng Anh</option>                
+                  <option value="2" {{ 2 == $lang_id ? "selected" : "" }}>Tiếng Anh</option> 
+                   <option value="3" {{ 3 == $lang_id ? "selected" : "" }}>Tiếng Trung</option>                
                 </select>
              </div>           
             <div class="form-group">
@@ -74,7 +75,7 @@
                   <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
                   
                   @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('public/admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
 
                   <p>{{ $item->description }}</p>

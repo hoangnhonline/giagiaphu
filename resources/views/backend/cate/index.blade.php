@@ -45,18 +45,18 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
                 <td style="vertical-align:middle;text-align:center">
-                  <img src="{{ URL::asset('admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
+                  <img src="{{ URL::asset('public/admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
                 </td>
                 <td>                  
                   <a href="{{ route( 'cate.edit', [ 'id' => $item->id ]) }}">{{ $item->name_vi }}</a>                
 
                   <p>{{ $item->description }}</p>
                 </td> 
-                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->sanPham->count() }}</a></td>                           
+                <td style="text-align:center"><a class="btn btn-info" href="{{ route('product.index', ['cate_id' => $item->id])}}">{{ $item->product->count() }}</a></td>                           
                 
                 <td style="white-space:nowrap; text-align:right">                 
                   <a href="{{ route( 'cate.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
-                  @if($item->sanPham->count() == 0)
+                  @if($item->product->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cate.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
                   @endif
                   

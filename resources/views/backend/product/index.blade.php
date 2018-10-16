@@ -27,20 +27,9 @@
         </div>
         <div class="panel-body">
           <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">
-           
-          
             
-            <div class="form-group">
-              <label for="email">Danh mục cha</label>
-              <select class="form-control" name="loai_id" id="loai_id">
-                <option value="">--Tất cả--</option>
-                @foreach( $loaiSpArr as $value )
-                <option value="{{ $value->id }}" {{ $value->id == $arrSearch['loai_id'] ? "selected" : "" }}>{{ $value->name_vi }}</option>
-                @endforeach
-              </select>
-            </div>
               <div class="form-group">
-              <label for="email">Danh mục con</label>
+              <label for="email">Danh mục</label>
 
               <select class="form-control" name="cate_id" id="cate_id">
                 <option value="">--Tất cả--</option>
@@ -52,18 +41,7 @@
             <div class="form-group">
               <label for="email">Tên</label>
               <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
-            </div>
-            <!--<div class="form-group">
-              <label for="email">Ẩn/hiện :</label>
-              <label class="radio-inline"><input type="radio" {{ $arrSearch['status'] == 1 ? "checked" : "" }} name="status" value="1">Hiện</label>
-              <label class="radio-inline"><input type="radio" {{ $arrSearch['status'] == 0 ? "checked" : "" }} name="status" value="0">Ẩn</label>              
-            </div>-->
-            <div class="form-group">
-              <label><input type="checkbox" name="is_hot" value="1" {{ $arrSearch['is_hot'] == 1 ? "checked" : "" }}> Hiện trang chủ</label>              
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> Giảm giá</label>              
-            </div>            
+            </div>        
             <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
@@ -86,7 +64,7 @@
               <th style="width: 1%;white-space:nowrap">Thứ tự</th>
               @endif
               <th width="100px">Hình ảnh</th>
-              <th style="text-align:center">Thông tin sản phẩm</th>                              
+              <th style="text-align:left">Thông tin sản phẩm</th>                              
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -94,7 +72,7 @@
               <?php $i = 0; ?>
               @foreach( $items as $item )
                 <?php $i ++; 
-
+              //  dd($item);
                 ?>
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
@@ -107,30 +85,12 @@
                   <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_url ? Helper::showImage($item->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="Nổi bật" title="Nổi bật" />
                 </td>
                 <td>                  
-                  <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name_vi }} / {{ $item->name_en }} </a> &nbsp; @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
-                  @endif<br />
-                  <strong style="color:#337ab7;font-style:italic"> {{ $item->ten_loai }}  {{ $item->ten_cate }}</strong>
-                 <p style="margin-top:10px">
-                    @if( $item->is_sale == 1)
-                   <b style="color:red">                  
-                    {{ number_format($item->price_sale) }}$
-                   </b>
-                   <span style="text-decoration: line-through">
-                    {{ number_format($item->price) }}  
-                    </span>
-                    @else
-                    <b style="color:red">                  
-                    {{ number_format($item->price) }}$
-                   </b>
-                    @endif 
-                    <p style="color:red">{{ number_format($item->price_vnd) }} đ</p>
-                  </p>
-                  
+                  <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name_vi }} / {{ $item->name_en }}/ {{ $item->name_cn }} </a> &nbsp; <br />
+                  <strong style="color:#337ab7;font-style:italic">{{ $item->ten_cate }}</strong>            
                 </td>
                 <td style="white-space:nowrap; text-align:right">
                   <a class="btn btn-default btn-sm" href="{{ route('chi-tiet-vi', [$item->slug_vi, $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                    
-                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'product.edit', [ 'id' => $item->sp_id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
 
                   <a onclick="return callDelete('{{ $item->name_vi }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
 

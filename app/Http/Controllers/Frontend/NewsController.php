@@ -30,27 +30,29 @@ class NewsController extends Controller
     }
     public function index(Request $request){
   
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';    
-        $lang_id = $lang == 'vi' ? 1 : 2;
+        $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');   
+        $lang_id = $lang == 'vi' ? ($lang == 'en' ? 2 : 1) : 3; 
         $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->paginate(24);
 
-        $seo['title'] = $seo['description'] = $seo['keywords'] = "Articles";
-
-          //sale product
-        $saleList = Product::where(['is_sale' => 1])->where('price_sale', '>', 0)                    
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-                    ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        foreach($loaiSp as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
-        }
-        return view('frontend.news.index', compact('articlesList', 'seo', 'lang', 'loaiSp', 'cateList', 'saleList'
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Tin tức";
+        $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang; 
+        return view('frontend.news.index', compact('articlesList', 'seo', 'lang', 
+                'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang'
             ));
     }
     public function detail(Request $request)
     {             
        
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
+        $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
         $id = $request->id;
         $detail = Articles::find($id);
         if(!$detail){
@@ -64,21 +66,21 @@ class NewsController extends Controller
            $seo['keywords'] = $meta['keywords_'.$lang] != '' ? $meta['keywords_'.$lang] : $detail->name_vi;
         }else{
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name_vi;
-        }               
-
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        foreach($loaiSp as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
         }
-
-         //sale product
-        $saleList = Product::where(['is_sale' => 1, 'cate_id' => $detail->cate_id])->where('price_sale', '>', 0)
-                    ->where('product.id', '<>', $id)
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-                    ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();
-
-
-        return view('frontend.news.detail', compact('detail', 'hinhArr', 'seo', 'lang', 'loaiSp', 'cateList', 'saleList'));
+        $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang; 
+        $relatedList = Articles::where('cate_id', $detail->cate_id)->where('id', '<>', $id)->orderBy('id', 'desc')->limit(5)->get(); 
+        return view('frontend.news.detail', compact('detail', 'hinhArr', 'seo', 'lang', 'loaiSp', 'cateList', 'saleList', 
+                'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang',
+                'relatedList'));
     }
 
     

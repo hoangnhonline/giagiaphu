@@ -1,35 +1,49 @@
 @extends('frontend.layout')
 
 @section('content')
-<div class="block-headline-detail container">
-  <ul class="breadcrumb breadcrumb-customize">
-      <li><a href="{{ route('home') }}">{{ trans('text.home') }}</a></li>
-      <li><a href="{{ $lang == 'vi' ? route('pages', $detail->slug_vi) : route('pages', $detail->slug_en) }}">{{ $lang == 'vi' ? $detail->title_vi : $detail->title_en }}</a></li>
-  </ul>
-</div>
-<div class="container page">
-<div class="row">
-	
-	@include('frontend.pages.sidebar')
-
-	<div class="block-main col-lg-9 col-md-8 col-sm-8">
-		<div class="page-view">
-
-			<div class="title-page">
-				<h2 class="page-title">{{ $lang == 'vi' ? $detail->title_vi : $detail->title_en }}</h2>
+<section class="bread-crumb margin-bottom-10">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">					
+					<li class="home">
+						<a itemprop="url" href="{{ route('home', $lang)}}" title="Trang chủ"><span itemprop="title">{!! $textArr['trang-chu']->$text_key !!}</span></a>						
+						<span><i class="fa fa-angle-right"></i></span>
+					</li>
+					
+					<li><strong itemprop="title">{!! $detail->$title_key !!}</strong></li>
+					
+				</ul>
 			</div>
-
-			<div class="clearfix"></div>
-
-			<div class="bg_gioithieu">
-				<?php echo $lang == 'vi' ? $detail->content_vi : $detail->content_en; ?>
-			</div>
-
-		</div><!--/ end product-view -->
-	</div><!--/ end block-main -->
-
-	<div class="clearfix"></div>	
-
-</div>
+		</div>
+	</div>
+</section>
+<div class="container article-wraper" style="margin-bottom: 150px;">
+	<div class="row">		
+		<section class="right-content col-md-9 col-md-push-3">
+			<article class="article-main" itemscope="" itemtype="http://schema.org/Article">				
+				
+				<div class="row">
+					<div class="col-md-12">
+						<h1 class="title-head">{!! $detail->$title_key !!}</h1>
+						
+						
+						<div class="article-details">						
+							<div class="article-content">
+								<div class="rte">
+									{!! $detail->$content_key !!}
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				
+				</div>				
+			</article>
+		</section>		
+		
+		@include('frontend.pages.sidebar')
+		
+	</div>
 </div>
 @endsection

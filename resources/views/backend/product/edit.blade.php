@@ -9,17 +9,15 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('product.index') }}">Sản phẩm</a></li>
-      <li class="active">Chỉnh sửa</li>
+      <li class="active">Cập nhật</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-  <input type="hidden" id="editor_active" value="vi" />
     <a class="btn btn-default btn-sm" href="{{ route('product.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('product.update') }}" id="dataForm">
-    <input type="hidden" name="id" value="{{ $detail->id }}">
-
+      <input type="hidden" name="id" value="{{ $detail->id }}">
     <div class="row">
       <!-- left column -->
 
@@ -27,14 +25,11 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Chỉnh sửa</h3>
+            <h3 class="box-title">Cập nhật</h3>
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}          
             <div class="box-body">
-              @if(Session::has('message'))
-              <p class="alert alert-info" >{{ Session::get('message') }}</p>
-              @endif
                 @if (count($errors) > 0)
                   <div class="alert alert-danger">
                     <ul>
@@ -48,150 +43,62 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" data-editor="vi" class="tab_editor" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
-                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-editor="en" class="tab_editor" data-toggle="tab">Thông tin English</a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
+                    <li role="presentation" class="active"><a href="#home" data-editor="vi" class="tab_editor" aria-controls="home" role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>                    
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <div class="form-group col-md-6 none-padding">
-                          <label for="email">Danh mục cha<span class="red-star">*</span></label>
-                          <select class="form-control" name="loai_id" id="loai_id">
-                            <option value="">--Chọn--</option>
-                            @foreach( $loaiSpArr as $value )
-                            <option value="{{ $value->id }}" {{ $value->id == $detail->loai_id ? "selected" : "" }}>{{ $value->name_vi }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                          <div class="form-group col-md-6 none-padding pleft-5">
-                          <label for="email">Danh mục con</label>
+                    <div role="tabpanel" class="tab-pane active" id="home">                        
+                          <div class="form-group">
+                          <label for="email">Danh mục</label>
 
                           <select class="form-control" name="cate_id" id="cate_id">
                             <option value="">--Chọn--</option>
                             @foreach( $cateArr as $value )
-                            <option value="{{ $value->id }}" {{ $value->id == $detail->cate_id ? "selected" : "" }}>{{ $value->name_vi }}</option>
+                            <option value="{{ $value->id }}" {{ $value->id == old('cate_id', $detail->cate_id)? "selected" : "" }}>{{ $value->name_vi }}</option>
                             @endforeach
                           </select>
                         </div>  
                         <div class="form-group" >                  
-                          <label>Mã <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="code" id="code" value="{{ old('code') ? old('code') : $detail->code }}">
+                          <label>Tên tiếng Việt <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi', $detail->name_vi) }}">
                         </div>
                         <div class="form-group" >                  
-                          <label>Tên <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi') ? old('name_vi') : $detail->name_vi }}">
+                          <label>Tên tiếng Anh <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="name_en" id="name_en" value="{{ old('name_en', $detail->name_en) }}">
                         </div>
-                        <input type="hidden" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') ? old('slug_vi') : $detail->slug_vi }}">
-                        <div class="col-md-6 none-padding">
+                        <div class="form-group" >                  
+                          <label>Tên tiếng Trung <span class="red-star">*</span></label>
+                          <input type="text" class="form-control" name="name_cn" id="name_cn" value="{{ old('name_cn', $detail->name_cn) }}">
+                        </div>                                               
+                        <div class="form-group">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}> Sản phẩm HOT </label>
+                              <label><input type="checkbox" name="is_hot" alue="1"> Hiện trang chủ </label>
                           </div>                          
-                        </div>
-                        <div class="col-md-6 none-padding pleft-5">
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" value="1" {{ $detail->is_sale == 1 ? "checked" : "" }}> Sản phẩm SALE </label>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-6 none-padding" >                  
-                            <label>Giá USD ( $ )</label>
-                            @if($detail->price > 0)
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $detail->price }}">
-                            @else
-                            <input type="text" class="form-control" name="price" id="price" value="">
-                            @endif
-                        </div>
-                        <div class="form-group col-md-6 " >                  
-                            <label>Giá VNĐ</label>
-                            @if($detail->price_vnd > 0)
-                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="{{ old('price_vnd') ? old('price_vnd') : $detail->price_vnd }}">
-                            @else
-                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="">
-                            @endif
-                        </div>
-                        
-                       
-                        <div class="form-group" >                  
-                          <label>Màu sắc</label>
-                          <select name="color_id" class="form-control">
-                            <option value="0">--select--</option>
-                            @foreach($colorList as $color)
-                            <option value="{{ $color->id  }}" {{ $color->id == $detail->color_id ? "selected" : "" }}>{{ $color->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="form-group">                  
-                          <label>Video URL</label>                  
-                          <input type="text" class="form-control" name="video_url" id="video_url" value="{{ old('video_url') ? old('video_url') : $detail->video_url }}">
-                        </div>
-                         <!--<div class="form-group">
-                          <label>Tags VI</label>
-                          <select class="form-control select2" name="tags_vi[]" id="tags_vi" multiple="multiple" style="width:100% !important;">                  
-                            @if( $tagViList->count() > 0)
-                              @foreach( $tagViList as $value )
-                              <option value="{{ $value->id }}" {{ in_array($value->id, $tagSelectedVi) ? "selected" : "" }}>{{ $value->name }}</option>
-                              @endforeach
-                            @endif
-                          </select>
-                        </div>-->
-                         <div class="form-group">
-                          <label>Chi tiết</label>
-                          <textarea class="form-control" rows="10" name="content_vi" id="content_vi">{{ old('content_vi') ? old('content_vi') : $detail->content_vi }}</textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div><!--end thong tin co ban--> 
-                    <div role="tabpanel" class="tab-pane" id="homeEn">                        
-                        <div class="form-group" >                  
-                          <label>Name <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="name_en" id="name_en" value="{{ old('name_en') ? old('name_en') : $detail->name_en }}">
-                        </div>
-                        <input type="hidden" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') ? old('slug_en') : $detail->slug_en }}">                        
-                        <!--<div class="form-group">
-                          <label>Tags EN</label>
-                          <select class="form-control select2" name="tags_en[]" id="tags_en" multiple="multiple" style="width:100% !important;">                  
-                            @if( $tagEnList->count() > 0)
-                              @foreach( $tagEnList as $value )
-                              <option value="{{ $value->id }}" {{ in_array($value->id, $tagSelectedEn) ? "selected" : "" }}>{{ $value->name }}</option>
-                              @endforeach
-                            @endif
-                          </select>
-                        </div>-->
-                         <div class="form-group">
-                          <label>Detail</label>
-                          <textarea class="form-control" rows="10" name="content_en" id="content_en">{{ old('content_en') ? old('content_en') : $detail->content_en }}</textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div><!--end thong tin co ban--> 
-                     <div role="tabpanel" class="tab-pane" id="settings">
+                        </div>   
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
+                          <label class="col-md-3 row">Hình ảnh</label>    
+                          <div class="col-md-9">
+                            <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
                          
-                          <div class="col-md-12" style="text-align:center">                            
-                            
-                            <input type="file" id="file-image"  style="display:none" multiple/>
-                         
-                            <button class="btn btn-primary" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                            <div class="clearfix"></div>
-                            <div id="div-image" style="margin-top:10px">                              
-                              @if( $hinhArr )
-                                @foreach( $hinhArr as $k => $hinh)
-                                  <div class="col-md-3">
-                                    <img class="img-thumbnail" src="{{ Helper::showImage($hinh) }}" style="width:100%">
-                                    <div class="checkbox">                                   
-                                      <label><input type="radio" name="thumbnail_id" class="thumb" value="{{ $k }}" {{ $detail->thumbnail_id == $k ? "checked" : "" }}> Ảnh đại diện </label>
-                                      <button class="btn btn-danger btn-sm remove-image" type="button" data-value="{{  $hinh }}" data-id="{{ $k }}" >Xóa</button>
-                                    </div>
-                                    <input type="hidden" name="image_id[]" value="{{ $k }}">
-                                  </div>
-                                @endforeach
-                              @endif
-
-                            </div>
+                            <button class="btn btn-default btn-sm btnSingleUpload" data-set="image_url" data-image="thumbnail_image" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                           </div>
                           <div style="clear:both"></div>
+                        </div>                                                               
+                         <div class="form-group">
+                          <label>Chi tiết tiếng Việt</label>
+                          <textarea class="form-control" rows="10" name="content_vi" id="content_vi">{{ old('content_vi', $detail->content_vi) }}</textarea>
                         </div>
-
-                     </div><!--end hinh anh-->
+                        <div class="form-group">
+                          <label>Chi tiết tiếng Anh</label>
+                          <textarea class="form-control" rows="10" name="content_en" id="content_en">{{ old('content_en', $detail->content_en) }}</textarea>
+                        </div>
+                        <div class="form-group">
+                          <label>Chi tiết tiếng Trung</label>
+                          <textarea class="form-control" rows="10" name="content_cn" id="content_cn">{{ old('content_cn', $detail->content_cn) }}</textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!--end thong tin co ban-->                     
                   </div>
 
                 </div>
@@ -205,7 +112,7 @@
             
         </div>
         <!-- /.box -->     
-
+<input type="hidden" id="editor_active" value="vi" />
       </div>
       <div class="col-md-4">      
         <div class="box box-primary">
@@ -215,66 +122,76 @@
 
           <!-- /.box-header -->
             <div class="box-body">
-              <input type="hidden" name="meta_id" value="{{ $detail->meta_id }}">
+
                <div>
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#seoVi" aria-controls="seoVi" role="tab" data-toggle="tab">VN</a></li>
-                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li>  
+                    <li role="presentation"><a href="#seoCn" aria-controls="seoCn" role="tab" data-toggle="tab">CN</a></li>                    
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
+                    <input type="hidden" name="meta_id" value="{{ $detail->meta_id }}">
                     <div role="tabpanel" class="tab-pane active" id="seoVi">
                          <div class="form-group">
                             <label>Thẻ title </label>
-                            <input type="text" class="form-control" name="meta_title_vi" id="meta_title_vi" value="{{ !empty((array)$meta) ? $meta->title_vi : "" }}">
+                            <input type="text" class="form-control" name="meta_title_vi" id="meta_title_vi" value="{{ old('meta_title_vi', $meta->title_vi) }}">
                           </div>
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Thẻ desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_vi" id="meta_description_vi">{{ !empty((array)$meta) ? $meta->description_vi : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Thẻ keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_vi" id="meta_keywords_vi">{{ !empty((array)$meta) ? $meta->keywords_vi : "" }}</textarea>
+                            <textarea class="form-control" rows="4" name="meta_description_vi" id="meta_description_vi">{{ old('meta_description_vi', $meta->description_vi) }}</textarea>
                           </div>  
                           <div class="form-group">
                             <label>Nội dung tùy chỉnh</label>
-                            <textarea class="form-control" rows="6" name="custom_text_vi" id="custom_text_vi">{{ !empty((array)$meta) ? $meta->custom_text_vi : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_vi" id="custom_text_vi">{{ old('custom_text_vi', $meta->custom_text_vi) }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
                     <div role="tabpanel" class="tab-pane" id="seoEn">                        
                         <div class="form-group">
                             <label>Meta title </label>
-                            <input type="text" class="form-control" name="meta_title_en" id="meta_title_en" value="{{ !empty((array)$meta) ? $meta->title_en : "" }}">
+                            <input type="text" class="form-control" name="meta_title_en" id="meta_title_en" value="{{ old('meta_title_en', $meta->title_en) }}">
                           </div>
                           <!-- textarea -->
                           <div class="form-group">
                             <label>Meta desciption</label>
-                            <textarea class="form-control" rows="6" name="meta_description_en" id="meta_description_en">{{ !empty((array)$meta) ? $meta->description_en : "" }}</textarea>
-                          </div>  
-
-                          <div class="form-group">
-                            <label>Meta keywords</label>
-                            <textarea class="form-control" rows="4" name="meta_keywords_en" id="meta_keywords_en">{{ !empty((array)$meta) ? $meta->keywords_en : "" }}</textarea>
-                          </div>  
+                            <textarea class="form-control" rows="4" name="meta_description_en" id="meta_description_en">{{ old('meta_description_en', $meta->description_en) }}</textarea>
+                          </div> 
                           <div class="form-group">
                             <label>Custom text</label>
-                            <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ !empty((array)$meta) ? $meta->custom_text_en : ""  }}</textarea>
+                            <textarea class="form-control" rows="4" name="custom_text_en" id="custom_text_en">{{ old('custom_text_en', $meta->custom_text_en) }}</textarea>
+                          </div>
+                    </div><!--end thong tin co ban-->
+                    <div role="tabpanel" class="tab-pane" id="seoCn">                        
+                        <div class="form-group">
+                            <label>Meta title </label>
+                            <input type="text" class="form-control" name="meta_title_cn" id="meta_title_cn" value="{{ old('meta_title_cn', $meta->title_cn) }}">
+                          </div>
+                          <!-- textarea -->
+                          <div class="form-group">
+                            <label>Meta desciption</label>
+                            <textarea class="form-control" rows="4" name="meta_description_cn" id="meta_description_cn">{{ old('meta_description_cn', $meta->description_cn) }}</textarea>
+                          </div> 
+                          <div class="form-group">
+                            <label>Custom text</label>
+                            <textarea class="form-control" rows="4" name="custom_text_cn" id="custom_text_cn">{{ old('custom_text_cn', $meta->custom_text_cn) }}</textarea>
                           </div>
                     </div><!--end thong tin co ban--> 
                    
                   </div>
 
-                </div>             
+                </div>
+
+
+             
             
-          </div>
+        </div>
         <!-- /.box -->     
 
-      </div><!--meta SEO-->
+      </div>
       <!--/.col (left) -->      
     </div>
  <input type="hidden" name="image_pro" id="image_pro" value="{{ old('image_pro') }}"/> 
@@ -304,11 +221,14 @@ $(document).on('click', '.remove-image', function(){
 function validateData(){
   if($('#loai_id').val() == 0){
     alert('Chưa chọn danh mục cha.'); return false;
-  }  
+  } 
   return true;  
 }
     $(document).ready(function(){
-         
+      $('.tab_editor').click(function(){
+        var active = $(this).attr('data-editor');
+        $('#editor_active').val(active);
+      });
       $('#loai_id').change(function(){
         var loai_id = $(this).val();
         
@@ -331,26 +251,33 @@ function validateData(){
           swal("Lỗi!", "Chưa chọn danh mục cha", "error");
           return false;
         }       
-       
+        
         $('#btnSave').hide();
         $('#btnLoading').show();
       });
-      CKEDITOR.editorConfig = function( config ) {     
-
-      config.removeButtons = 'Image';
-    };
       var editor = CKEDITOR.replace( 'content_vi',{
           language : 'vi',
           height: 300,
+          removeButtons : 'Image',
           filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
           filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
           filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
           filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}",
-          removeButtons : 'Image'
+          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
       });
       var editor2 = CKEDITOR.replace( 'content_en',{
+          language : 'vi',
+          height: 300,
+          removeButtons : 'Image',
+          filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
+          filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
+          filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
+          filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
+          filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
+          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
+      });
+      var editor2 = CKEDITOR.replace( 'content_cn',{
           language : 'vi',
           height: 300,
           removeButtons : 'Image',
@@ -456,11 +383,7 @@ function validateData(){
               }
             });
          }
-      });
-      $('.tab_editor').click(function(){
-        var active = $(this).attr('data-editor');
-        $('#editor_active').val(active);
-      });
+      }); 
     });
     
 </script>

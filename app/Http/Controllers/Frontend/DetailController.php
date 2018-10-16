@@ -38,46 +38,39 @@ class DetailController extends Controller
     */
     public function index(Request $request)
     {   
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
+        $lang = $request->lang ? $request->lang : 'vi';
         $productArr = [];
         $id = $request->id;
         $detail = Product::find($id);
         if(!$detail){
             return redirect()->route('home');
-        }
-        $rsLoai = LoaiSp::find( $detail->loai_id );
-        $rsCate = Cate::find( $detail->cate_id );
-
-        $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();                
-        $lienquanArr = Product::where('product.loai_id', $detail->loai_id)                
-                ->where('product.id', '<>', $detail->id)
-                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->select('product.id as product_id', 'name_vi', 'slug_vi', 'name_en', 'slug_en', 'price', 'price_sale', 'product_img.image_url', 'product.price_vnd')->limit(5)->get();
+        }       
+        $rsCate = Cate::find( $detail->cate_id );                   
+        $lienquanArr = Product::where('status', 1)                
+                ->where('product.id', '<>', $detail->id)              
+               ->limit(5)->get();
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
            $seo['title'] = $meta['title_'.$lang] != '' ? $meta['title_'.$lang] : $detail->name_vi;
-           $seo['description'] = $meta['description_'.$lang] != '' ? $meta['description_'.$lang] : $detail->name_vi;
-           $seo['keywords'] = $meta['keywords_'.$lang] != '' ? $meta['keywords_'.$lang] : $detail->name_vi;
+           $seo['description'] = $meta['description_'.$lang] != '' ? $meta['description_'.$lang] : $detail->name_vi;          
         }else{
-            $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name_vi;
+            $seo['title'] = $seo['description'] = $detail->name_vi;
         }           
-        $socialImage = '';    
-        if($detail->thumbnail_id > 0){
-                $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
-        }
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        foreach($loaiSp as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
-        }
-        //sale product
-        $saleList = Product::where(['is_sale' => 1, 'loai_id' => $detail->loai_id])->where('price_sale', '>', 0)
-                    ->where('product.id', '<>', $id)
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-                    ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();
+        $socialImage = '';       
+        $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang;
 
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'productArr', 'lienquanArr', 'seo', 'socialImage', 'lang', 
-            'loaiSp', 'cateList', 'saleList'
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'productArr','seo', 'socialImage',
+            'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang'
             ));
     }
 

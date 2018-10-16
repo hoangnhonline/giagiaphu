@@ -51,15 +51,11 @@ class ArticlesController extends Controller
         
         $cate_id = $request->cate_id;
 
-        $tagArr = Tag::where('type', 1)->orderBy('id', 'desc')->get();
-
-        return view('backend.articles.create', compact( 'tagArr', 'cateArr', 'cate_id'));
+        return view('backend.articles.create', compact( 'cateArr', 'cate_id'));
     }
     public function ajaxTag(Request $request){
 
-        $type = $request->type ? $request->type : 1; // 1 = tieng viet 
-
-        $tagList = Tag::where('type', $type)->orderBy('id', 'desc')->get();
+        $type = $request->type ? $request->type : 1;
 
         return view('backend.articles.ajax-tag', compact('tagList'));
     }
@@ -76,33 +72,16 @@ class ArticlesController extends Controller
         
         $this->validate($request,[            
             'lang_id' => 'required',            
-            'title' => 'required',            
-            'slug' => 'required|unique:articles,slug',
+            'title' => 'required'
         ],
         [            
             'lang_id.required' => 'Bạn chưa chọn danh mục',            
             'title.required' => 'Bạn chưa nhập tiêu đề',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'slug.unique' => 'Slug đã được sử dụng.'
+           
         ]);       
         
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
-        
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('decoos.upload_path').$dataArr['image_url'], config('decoos.upload_path').$destionation);
-            
-            $dataArr['image_url'] = $destionation;
-        }        
-        
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);  
+        $dataArr['slug'] = str_slug($dataArr['title'], '-');
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
@@ -112,19 +91,6 @@ class ArticlesController extends Controller
         $rs = Articles::create($dataArr);
 
         $object_id = $rs->id;
-
-        // xu ly tags
-        if( !empty( $dataArr['tags'] ) && $object_id ){           
-
-            foreach ($dataArr['tags'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $object_id;
-                $model->tag_id  = $tag_id;
-                $model->type = $dataArr['lang_id'];
-                $model->object_type = 4;
-                $model->save();
-            }
-        }
 
         Session::flash('message', 'Tạo mới tin tức thành công');
 
@@ -154,19 +120,9 @@ class ArticlesController extends Controller
 
         $detail = Articles::find($id);
         
-        $cateArr = ArticlesCate::all();        
+        $cateArr = ArticlesCate::all();
 
-        $tmpArr = TagObjects::where(['type' => $detail->lang_id, 'object_id' => $id, 'object_type' => 4])->get();
-        
-        if( $tmpArr->count() > 0 ){
-            foreach ($tmpArr as $value) {
-                $tagSelected[] = $value->tag_id;
-            }
-        }
-        
-        $tagArr = Tag::where('type', $detail->lang_id)->get();
-
-        return view('backend.articles.edit', compact('tagArr', 'tagSelected', 'detail', 'cateArr' ));
+        return view('backend.articles.edit', compact('detail', 'cateArr' ));
     }
 
     /**
@@ -182,53 +138,22 @@ class ArticlesController extends Controller
         
         $this->validate($request,[            
             'lang_id' => 'required',            
-            'title' => 'required',            
-            'slug' => 'required|unique:articles,slug,'.$dataArr['id'],
+            'title' => 'required'
         ],
         [            
             'lang_id.required' => 'Bạn chưa chọn danh mục',            
             'title.required' => 'Bạn chưa nhập tiêu đề',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'slug.unique' => 'Slug đã được sử dụng.'
         ]);       
         
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);
-        
-        if($dataArr['image_url'] && $dataArr['image_name']){
-            
-            $tmp = explode('/', $dataArr['image_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('decoos.upload_path').$dataArr['image_url'], config('decoos.upload_path').$destionation);
-            
-            $dataArr['image_url'] = $destionation;
-        }
+        $dataArr['alias'] = Helper::stripUnicode($dataArr['title']);        
+        $dataArr['slug'] = str_slug($dataArr['title'], '-');
         $dataArr['content'] = str_replace("[Caption]", "", $dataArr['content']);
         $dataArr['updated_user'] = Auth::user()->id;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
-        //$dataArr['status'] = isset($dataArr['status']) ? 1 : 0;  
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
         $model = Articles::find($dataArr['id']);
 
         $model->update($dataArr);
-
-        TagObjects::where(['object_id' => $dataArr['id'], 'object_type' => 4])->delete();
-        // xu ly tags
-        if( !empty( $dataArr['tags'] ) ){
-                       
-            foreach ($dataArr['tags'] as $tag_id) {
-                $modelTagObject = new TagObjects; 
-                $modelTagObject->object_id = $dataArr['id'];
-                $modelTagObject->tag_id  = $tag_id;
-                $modelTagObject->type = $dataArr['lang_id'];
-                $modelTagObject->object_type = 4;
-                $modelTagObject->save();
-            }
-        }
+       
         Session::flash('message', 'Cập nhật tin tức thành công');        
 
         return redirect()->route('articles.edit', $dataArr['id']);

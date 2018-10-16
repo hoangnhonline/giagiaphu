@@ -18,22 +18,25 @@ class PageController extends Controller
     public function index(Request $request)
     {
 
-        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
+       $lang = $request->lang ? $request->lang : 'vi';
+       $text_key = "text_".$lang;
+        $slug_key = "slug_".$lang;
+        $name_key = "name_".$lang;
+        $title_key = "title_".$lang;
+        $content_key = "content_".$lang;
        $slug = $request->slug;
-       $detail = Pages::where('slug_vi', $slug)->orWhere('slug_en', $slug)->first();
+       $detail = Pages::where('slug_'.$lang, $slug)->first();
        
        if(!$detail){
           return redirect()->route('home');
-       }
-       $saleList = Product::where(['is_sale' => 1])->where('price_sale', '>', 0)                    
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
-                    ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-        foreach($loaiSp as $loai){
-            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
-        }
+       }      
         return view('frontend.pages.index', compact('detail', 'lang', 'loaiSp', 'cateList', 'saleList'
-            ));
+           ,'text_key',
+                'slug_key',
+                'name_key',
+                'title_key',
+                'content_key',
+                'lang' ));
     }
 }
 
