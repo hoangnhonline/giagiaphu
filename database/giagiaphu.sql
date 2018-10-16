@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 11:35 AM
+-- Generation Time: Oct 16, 2018 at 10:17 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.0.29
 
@@ -41,12 +41,22 @@ CREATE TABLE `articles` (
   `meta_id` bigint(20) NOT NULL,
   `content` text,
   `display_order` tinyint(4) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_user` tinyint(4) NOT NULL,
   `updated_user` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `title`, `slug`, `alias`, `description`, `image_url`, `cate_id`, `is_hot`, `lang_id`, `meta_id`, `content`, `display_order`, `status`, `created_at`, `updated_at`, `created_user`, `updated_user`) VALUES
+(1, 'Hướng đi nào cho Tập đoàn Dầu khí Việt Nam?', 'huong-di-nao-cho-tap-doan-dau-khi-viet-nam', 'Huong di nao cho Tap doan Dau khi Viet Nam', 'Gần đây có dư luận cho rằng, khai thác dầu khí là ngành “độc quyền” nên “hơi một tí” là đòi phải có “đặc thù”. Người ta hiểu đặc thù nghĩa là được “ưu đãi” về chế độ, cơ chế tài chính; về quyền tự chủ nọ, kia mà không hiểu được tính chuyên biệt của ngành dầu khí là ở đâu, đơn vị, nghề nào?', '/public/uploads/images/tin-tuc/tinh-dac-thu-1-1539675456.jpg', 1, 1, 1, 0, '<p><strong>Đặc th&ugrave; ở đ&acirc;u?</strong></p>\r\n\r\n<p>N&oacute;i một c&aacute;ch s&ograve;ng phẳng, trong năm lĩnh vực cốt l&otilde;i của Tập đo&agrave;n Dầu kh&iacute; gồm: T&igrave;m kiếm - thăm d&ograve; - khai th&aacute;c, c&ocirc;ng nghiệp kh&iacute;, c&ocirc;ng nghiệp điện, c&ocirc;ng nghiệp chế biến v&agrave; dịch vụ dầu kh&iacute; kỹ thuật cao th&igrave; chỉ c&oacute; lĩnh vực t&igrave;m kiếm - thăm d&ograve; - khai th&aacute;c l&agrave; c&oacute; t&iacute;nh đặc th&ugrave; cao nhất.</p>\r\n\r\n<p>Vậy lĩnh vực n&agrave;y, t&iacute;nh đặc th&ugrave; l&agrave; g&igrave;? Ở đ&acirc;u?</p>\r\n\r\n<p>Đầu ti&ecirc;n l&agrave;: Ng&agrave;nh dầu kh&iacute; chịu rủi ro nhiều nhất so với tất cả c&aacute;c ng&agrave;nh nghề kh&aacute;c. V&igrave; đ&oacute; l&agrave; nghề &ldquo;ăn cơm dương gian, l&agrave;m việc &acirc;m phủ&rdquo;.</p>\r\n\r\n<p>Do cấu tạo địa chất, c&aacute;c t&iacute;ch tụ dầu kh&iacute; ph&acirc;n bố kh&ocirc;ng đồng đều trong từng khu vực, trong từng l&ocirc;, từng mỏ dầu, kh&iacute;. V&agrave;&nbsp; kh&ocirc;ng mỏ n&agrave;o giống mỏ n&agrave;o. Cho n&ecirc;n t&igrave;m kiếm, thăm d&ograve; l&agrave; việc &ldquo;m&ograve; kim đ&aacute;y biển&rdquo;. Ai từng phải đi khoan giếng lấy nước th&igrave; sẽ hiểu phần n&agrave;o. Một mảnh vườn, chỉ v&agrave;i trăm m&eacute;t vu&ocirc;ng, c&oacute; khi khoan 3 - 4 giếng m&agrave; kh&ocirc;ng thấy nước, trong khi c&aacute;ch bức tường, nh&agrave; h&agrave;ng x&oacute;m, nước phun th&agrave;nh cột.</p>\r\n\r\n<p>Hiện nay, tỷ lệ th&agrave;nh c&ocirc;ng trong t&igrave;m kiếm, thăm d&ograve; của thế giới v&agrave;o khoảng 30%. Nghĩa l&agrave;&nbsp; &nbsp;cứ 3 giếng khoan thăm d&ograve; th&igrave; chỉ c&oacute; 1 giếng ph&aacute;t hiện c&oacute; t&iacute;ch tụ dầu kh&iacute;. Hai giếng c&ograve;n lại, với chi ph&iacute; h&agrave;ng chục triệu USD, c&oacute; khi l&ecirc;n đến h&agrave;ng trăm triệu USD coi như &ldquo;mất trắng&rdquo;. V&agrave; cứ khoảng 3 đến 5 giếng &ldquo;c&oacute; t&iacute;ch tụ dầu&rdquo; th&igrave; chỉ 1 giếng c&oacute; trữ lượng dầu thương mại.</p>\r\n\r\n<p>Minh chứng dễ thấy nhất l&agrave; trong mấy chục năm qua, nhiều c&ocirc;ng ty dầu kh&iacute; quốc tế đầu tư v&agrave;o thăm d&ograve; ở Việt Nam, nhưng &ldquo;mất trắng&rdquo; 3 tỷ USD v&igrave; l&yacute; do như tr&ecirc;n. Nhiều c&ocirc;ng ty đ&atilde; phải chấm dứt hợp đồng, r&uacute;t khỏi Việt Nam sau khi khoan kh&ocirc;ng th&agrave;nh c&ocirc;ng, trong đ&oacute; c&oacute; nhưng t&ecirc;n tuổi lớn như: BP; Total, Shell&hellip;</p>\r\n\r\n<p>Mỏ dầu cũng c&oacute; v&ograve;ng đời như con người. Cũng phải chịu quy luật Sinh, L&atilde;o, Bệnh, Tử. Ch&iacute;nh v&igrave; thế, việc &ldquo;chăm s&oacute;c&rdquo; sức khỏe để k&eacute;o d&agrave;i tuổi thọ của mỏ l&agrave; cả một nghệ thuật, v&agrave; kh&iacute;a cạnh n&agrave;o đ&oacute;, cũng đ&ograve;i hỏi người thợ khai th&aacute;c phải biết &ldquo;y&ecirc;u thương, chăm ch&uacute;t&rdquo; cho mỏ.&nbsp;</p>\r\n\r\n<p>Để c&oacute; một mũi khoan t&igrave;m ra dầu, phải c&oacute; sự tham gia của 60 ng&agrave;nh khoa học kh&aacute;c nhau, trong đ&oacute; c&oacute; cả vật l&yacute; hạt nh&acirc;n v&agrave; thi&ecirc;n văn học. Để khoan một mũi khoan tr&ecirc;n biển với độ s&acirc;u mặt nước khoảng 100 m&eacute;t phải tốn từ 15 đến 30 triệu USD, trong khi cứ trung b&igrave;nh 10 mũi khoan, may ra mới c&oacute; 2 mũi t&igrave;m thấy dầu v&agrave; 10 giếng t&igrave;m thấy dầu th&igrave; cũng chỉ c&oacute; v&agrave;i ba giếng c&oacute; gi&aacute; trị thương mại.</p>\r\n\r\n<p><img alt=\"\" src=\"http://www.pvn.vn/DataStore/Images/2018/5/30/tinh%20dac%20thu%201.jpg\" /><br />\r\n<em>Một cụm gi&agrave;n khai th&aacute;c v&agrave; xử l&yacute; của Vietsovpetro</em></p>\r\n\r\n<p><strong>Rủi ro cao</strong></p>\r\n\r\n<p>Dầu kh&iacute; l&agrave; một ng&agrave;nh si&ecirc;u lợi nhuận nhưng cũng si&ecirc;u rủi ro.</p>\r\n\r\n<p>Nếu t&igrave;m thấy mỏ dầu c&oacute; trữ lượng lớn, khai th&aacute;c dễ d&agrave;ng cộng với gi&aacute; dầu cao, ổn định th&igrave; đ&uacute;ng l&agrave; si&ecirc;u lợi nhuận. Nhưng nếu khoan kh&ocirc;ng thấy dầu hoặc c&oacute; dầu nhưng kh&ocirc;ng đủ trữ lượng khai th&aacute;c th&igrave; c&oacute; nghĩa l&agrave; mất trắng h&agrave;ng chục, thậm ch&iacute; h&agrave;ng trăm triệu USD. Ch&iacute;nh v&igrave; thế, tr&ecirc;n thế giới c&aacute;c c&ocirc;ng ty dầu kh&iacute; thường phải li&ecirc;n doanh với nhau trong c&ocirc;ng t&aacute;c t&igrave;m kiếm, thăm d&ograve; m&agrave; mục đ&iacute;ch ch&iacute;nh l&agrave; để chia sẻ rủi ro.</p>\r\n\r\n<p>Một dự &aacute;n dầu kh&iacute;, kể từ l&uacute;c t&igrave;m kiếm, thăm d&ograve; đến l&uacute;c khoan thẩm định trữ lượng, rồi thiết kế mỏ v&agrave; x&acirc;y dựng gi&agrave;n khai th&aacute;c phải mất từ 5 đến 7 năm - ấy l&agrave; trong điều kiện thuận lợi 100%. V&agrave; phải mất 7 đến 10 năm mới h&ograve;a vốn đầu tư, rồi sau đ&oacute; mới c&oacute; &ldquo;đồng tiền dương&rdquo;&hellip; V&igrave; thế, đầu tư cho một dự &aacute;n dầu kh&iacute; cần dăm bảy trăm triệu USD l&agrave; b&igrave;nh thường.</p>\r\n\r\n<p>Kh&ocirc;ng hiếm người cho rằng ng&agrave;nh dầu kh&iacute; l&agrave; &ldquo;độc quyền&rdquo;, n&ecirc;n doanh nghiệp kh&aacute;c kh&ocirc;ng thể tham gia&hellip; Sự thật l&agrave;: Kh&ocirc;ng một tập đo&agrave;n kinh tế tư nh&acirc;n n&agrave;o ở Việt Nam d&aacute;m bỏ tiền ra đi t&igrave;m kiếm, thăm d&ograve; mỏ dầu. Bởi họ kh&ocirc;ng thể chịu đựng nổi khi chỉ v&agrave;i mũi khoan kh&ocirc;ng thấy dầu l&agrave; mất đứt h&agrave;ng chục, thậm ch&iacute; h&agrave;ng trăm triệu USD.</p>\r\n\r\n<p>Một rủi ro kh&aacute;c của ng&agrave;nh dầu kh&iacute;, m&agrave; kh&ocirc;ng ai c&oacute; thể dự b&aacute;o trước được, l&agrave; những sự biến động về ch&iacute;nh trị ở c&aacute;c quốc gia hoặc biến động về gi&aacute; dầu. V&iacute; dụ điển h&igrave;nh cho sự rủi ro của dầu kh&iacute; khi gặp biến động về ch&iacute;nh trị, đ&oacute; l&agrave; trường hợp PVN đầu tư v&agrave;o mỏ Juni 2 ở Venezuela.</p>\r\n\r\n<p>Dầu ở Juni 2 l&agrave; loại dầu si&ecirc;u nặng, gi&aacute; th&agrave;nh khai th&aacute;c kh&aacute; cao (khoảng 90 USD/th&ugrave;ng) nhưng v&agrave;o thời điểm những năm 2008 - 2009 khi gi&aacute; dầu đang ở mức cao ngất ngưởng l&agrave; hơn 100 USD/th&ugrave;ng th&igrave; việc được khai th&aacute;c ở mỏ Juni 2 l&agrave; một thắng lợi lớn cho chiến lược đầu tư ra nước ngo&agrave;i của PVN. Bởi lẽ nếu kh&ocirc;ng đầu tư ra nước ngo&agrave;i, t&igrave;m kiếm mỏ dầu mới th&igrave; chỉ đến năm 2025, những mỏ dầu ở v&ugrave;ng thềm lục địa của ch&uacute;ng ta sẽ cạn kiệt, l&uacute;c đ&oacute; việc đảm bảo an ninh năng lượng quốc gia sẽ rất kh&oacute; khăn.</p>\r\n\r\n<p>Nhưng kh&ocirc;ng ai c&oacute; thể ngờ rằng sau khi Tổng thống Hugo Chavez mất, Venezuela l&acirc;m v&agrave;o khủng hoảng, kinh tế kh&oacute; khăn, lạm ph&aacute;t tăng ch&oacute;ng mặt; cộng v&agrave;o đ&oacute;, từ cuối năm 2014, gi&aacute; dầu suy giảm đến mức ti&ecirc;u cực, c&oacute; l&uacute;c chỉ c&ograve;n chưa đến 30 USD/th&ugrave;ng. V&agrave; thế l&agrave; Dự &aacute;n &ldquo;giậm ch&acirc;n tại chỗ&rdquo;, trong khi PVN đ&atilde; chi hơn nửa tỷ USD v&agrave;o đ&acirc;y.</p>\r\n\r\n<p>Hiện tại gi&aacute; dầu đ&atilde; l&ecirc;n ở ngưỡng 70 USD, nhưng với t&igrave;nh h&igrave;nh&nbsp; như hiện nay ở Venezuela th&igrave; việc khai th&aacute;c Juni 2 vẫn chưa thể được. Cũng phải n&oacute;i th&ecirc;m, th&ocirc;ng tin cho rằng ch&uacute;ng ta đ&atilde; mất trắng h&agrave;ng trăm triệu USD l&agrave; kh&ocirc;ng đ&uacute;ng. Bởi lẽ quyền sở hữu của ch&uacute;ng ta ở Juni 2 vẫn c&ograve;n, chỉ c&oacute; điều bao giờ khai th&aacute;c được v&agrave; tới đ&acirc;y, nếu c&oacute; biến động ở v&ugrave;ng Trung Đ&ocirc;ng, gi&aacute; dầu sẽ vọt l&ecirc;n tr&ecirc;n 100 USD/th&ugrave;ng, t&igrave;nh h&igrave;nh Venezuela ổn định, th&igrave; chưa biết chừng l&uacute;c đ&oacute; Juni 2 sẽ lại l&agrave; &ldquo;con g&agrave; đẻ trứng v&agrave;ng&rdquo; cho PVN.</p>\r\n\r\n<p>Một rủi ro nữa đ&oacute; ch&iacute;nh l&agrave; gi&aacute; dầu. Gi&aacute; dầu tr&ecirc;n thế giới l&agrave; thứ kh&ocirc;ng ai c&oacute; thể &ldquo;điều tiết&rdquo; được. Việc gi&aacute; dầu tăng giảm phụ thuộc v&agrave;o t&igrave;nh h&igrave;nh địa ch&iacute;nh trị của c&aacute;c quốc gia; v&agrave;o sự tăng giảm sản lượng ở c&aacute;c mỏ dầu, thậm ch&iacute;, chỉ một gi&agrave;n khoan ở đ&acirc;u đ&oacute; ngừng khai th&aacute;c l&agrave; gi&aacute; dầu đ&atilde; biến động.</p>\r\n\r\n<p>Rủi ro trong khai th&aacute;c dầu kh&iacute; l&agrave; như vậy. Ch&iacute;nh v&igrave; thế m&agrave; cần phải c&oacute; một cơ chế t&agrave;i ch&iacute;nh mang t&iacute;nh đặc th&ugrave; cho kh&acirc;u thượng nguồn.</p>\r\n\r\n<p>Ở nhiều c&ocirc;ng ty lớn tr&ecirc;n thế giới, họ l&agrave;m việc n&agrave;y rất đơn giản. Khi khai th&aacute;c được một th&ugrave;ng dầu, trừ thuế v&agrave; chi ph&iacute; đầu tư, họ cắt lại từ 15 - 20% tiền l&atilde;i đưa v&agrave;o quỹ ri&ecirc;ng gọi l&agrave; Quỹ thăm d&ograve;. Khi đi thăm d&ograve; ở đ&acirc;u, họ lấy tiền ở quỹ n&agrave;y ra m&agrave; kh&ocirc;ng sử dụng đến ng&acirc;n s&aacute;ch, nếu gặp rủi ro bị mất th&igrave; cũng chẳng ảnh hưởng g&igrave; đến t&uacute;i tiền của Nh&agrave; nước. Trước đ&acirc;y, ở PVN cũng đ&atilde; c&oacute; quỹ thăm d&ograve;, khai th&aacute;c nhưng v&igrave; PVN l&agrave; tập đo&agrave;n kinh tế 100% vốn Nh&agrave; nước n&ecirc;n nh&agrave; nước c&oacute; quyền lấy tiền từ quỹ n&agrave;y để chi d&ugrave;ng cho những việc cấp b&aacute;ch kh&aacute;c. Khi gi&aacute; dầu l&ecirc;n cao th&igrave; mọi việc đơn giản nhưng khi gi&aacute; dầu xuống thấp, kh&ocirc;ng c&oacute; tiền cho thăm d&ograve; l&agrave; sẽ gặp kh&oacute; khăn. Trong v&agrave;i năm trở lại đ&acirc;y, c&ocirc;ng t&aacute;c t&igrave;m kiếm thăm d&ograve;, gia tăng trữ lượng của PVN gặp rất nhiều trở ngại. Tiền d&agrave;nh cho t&igrave;m kiếm, thăm d&ograve; bị hạn chế; việc t&igrave;m kiếm ở v&ugrave;ng nước s&acirc;u xa bờ đ&ograve;i hỏi vốn cực lớn v&agrave; một kh&oacute; khăn nữa đối với PVN đ&oacute; l&agrave; t&igrave;nh h&igrave;nh bất ổn tr&ecirc;n biển Đ&ocirc;ng.</p>\r\n\r\n<p>C&oacute; thể khẳng định, nếu kh&ocirc;ng sớm x&acirc;y dựng được cơ chế đặc th&ugrave; về t&agrave;i ch&iacute;nh cho PVN, kh&ocirc;ng tạo được quyền chủ động tối đa cho PVN khi tham gia v&agrave;o c&aacute;c hoạt động c&oacute; t&iacute;nh quốc tế th&igrave; kh&oacute; c&oacute; thể tạo ra được một PVN c&oacute; sự ph&aacute;t triển bền vững.</p>\r\n\r\n<p style=\"text-align: justify;\"><strong>Nguyễn Như Phong</strong><br />\r\n(B&aacute;o Đại biểu Nh&acirc;n d&acirc;n)</p>\r\n', 0, 1, '2018-10-16 14:39:09', '2018-10-16 14:39:09', 1, 1),
+(2, 'Tìm hiểu máy ép tuy ô thủy lực', 'tim-hieu-may-ep-tuy-o-thuy-luc', 'Tim hieu may ep tuy o thuy luc', 'Máy ép tuy ô thủy lực là một loại máy ép bằng cách sử dụng xi lanh thủy lực để tạo ra một lực nén. Nó sử dụng tương đương với thủy lực của một đòn bảy cơ khí, và cũng được biết đến như là một máy ép Bramah, sau khi nhà phát minh, Joseph Bramah, Anh. ', '/public/uploads/images/tin-tuc/53a10d6d5329a-1-1539675630.jpg', 1, 1, 1, 0, '<div style=\"text-align: center;\"><img alt=\"\" src=\"/public/uploads/images/tin-tuc/53a10d6d5329a-1-1539675630.jpg\" style=\"width: 500px; height: 328px;\" /></div>\r\nNguồn gốc của m&aacute;y &eacute;p tuy &ocirc; thủy lực:<br />\r\n<br />\r\nM&aacute;y &eacute;p tuy &ocirc; thủy lực l&agrave; một m&aacute;y c&ocirc;ng cụ sử dụng nguồn lực l&agrave; hệ thống thủy lực, dựa tr&ecirc;n nguy&ecirc;n l&yacute; định luật Pascal: &aacute;p lực trong suốt một hệ thống k&eacute;p k&iacute;n l&agrave; kh&ocirc;ng đổi. Một phần của hệ thống l&agrave; một piston hoạt động như một m&aacute;y bơm, với một lực khi&ecirc;m tốn cơ kh&iacute; hoạt động tr&ecirc;n một diện t&iacute;ch mặt cắt ngang nhỏ, một phần kh&aacute;c l&agrave; một piston với một diện t&iacute;ch lớn hơn tạo ra một lực tương ứng lớn cơ kh&iacute;. Chỉ c&oacute; ống đường k&iacute;nh nhỏ ( dễ d&agrave;ng hơn chống lại &aacute;p lực) l&agrave; cần thiết nếu m&aacute;y bơm được t&aacute;c ra từ xi lanh &eacute;p.<br />\r\n<br />\r\nNguy&ecirc;n tắc pascal trong m&aacute;y: &Aacute;p lưc l&ecirc;n một chất lỏng hạn chế được truyền đi kh&ocirc;ng hề suy giảm v&agrave; c&aacute;c h&agrave;nh vi với lực lượng bằng nhau v&agrave;o c&aacute;c lĩnh vực b&igrave;nh đẳng v&agrave; 90 độ v&agrave;o th&agrave;nh container<br />\r\n<br />\r\nKết cấu của m&aacute;y bao gồm c&aacute;c cụm ch&iacute;nh sau:<br />\r\n<br />\r\n+ Th&acirc;n khung m&aacute;y<br />\r\n<br />\r\n+ Hệ thống thủy lực<br />\r\n<br />\r\n+ Hệ thống điều khiển<br />\r\n<br />\r\nNguy&ecirc;n l&yacute; hoạt động của m&aacute;y:<br />\r\n<br />\r\nXi lanh c&ocirc;ng t&aacute;c 4 được cố định tr&ecirc;n dầm ngang tr&ecirc;n 6 v&agrave; li&ecirc;n kết với dầm ngang cố định dưới 9 th&ocirc;ng qua c&aacute;c trụ dẫn dưới 7, tạo th&agrave;nh phần khung m&aacute;y. Pittong 5 chuyển động trong xi lanh 4, được gắn với dầm di động 8, được trượt theo trụ dẫn hướng. Tr&ecirc;n dầm di động c&oacute; b&agrave;n m&aacute;y tr&ecirc;n với c&aacute;c r&atilde;nh lắp bul&ocirc;ng để lắp ở khu&ocirc;n tr&ecirc;n. Dầm di động được chuyển động xuống nhờ pitt&ocirc;ng trở về 11. Tr&ecirc;n dầm cố đinh dưới c&oacute; lắp b&agrave;n m&aacute;y ( dưới ) d&ugrave;ng để lắp ở khu&ocirc;n dưới. Do m&aacute;y sử dụng nguồn chất lỏng &aacute;p suất cao, n&ecirc;n giữa xi lanh v&agrave; pitt&ocirc;ng thường d&ugrave;ng c&aacute;c loại đệm k&iacute;n (gioăng) để tr&aacute;nh r&ograve; rỉ l&agrave;m giảm &aacute;p lực chất lỏng.<br />\r\n<br />\r\nPh&acirc;n loại m&aacute;y &eacute;p tuy &ocirc; thủy lực:<br />\r\n<br />\r\nT&ugrave;y theo chức năng c&ocirc;ng nghệ, m&aacute;y được ph&acirc;n th&agrave;nh:<br />\r\n<br />\r\n+ M&aacute;y &eacute;p tay: Được thiết kế ống bơm tay, kết hợp l&ograve; xo đ&agrave;n hồi<br />\r\n<br />\r\nM&aacute;y &eacute;p thủy lực hoạt động bằng điện:<br />\r\n<br />\r\nTrong b&agrave;i n&agrave;y chủ yếu giới thiệu về m&aacute;y &eacute;p kim loại. M&aacute;y được chia th&agrave;nh 5 nh&oacute;m:<br />\r\n<br />\r\n+ M&aacute;y &eacute;p r&egrave;m tự do &ndash; dập thể t&iacute;ch<br />\r\n<br />\r\n+ M&aacute;y &eacute;p chảy kim loại<br />\r\n<br />\r\n+ M&aacute;y &eacute;p dập tấm<br />\r\n<br />\r\n+ M&aacute;y &eacute;p d&ugrave;ng trong lắp r&aacute;p<br />\r\n<br />\r\n+ M&aacute;y &eacute;p kim loại phế thải<br />\r\n<br />\r\nNg&agrave;y nay c&ugrave;ng với sự ph&aacute;t triển của c&ocirc;ng nghệ gia c&ocirc;ng &aacute;p lực, c&aacute;c dạng m&aacute;y mới dần xuất hiện nhằm đ&aacute;p ứng y&ecirc;u cầu của từng c&ocirc;ng nghệ ri&ecirc;ng biệt.<br />\r\n<br />\r\nƯu điểm của m&aacute;y &eacute;p thủy lực:<br />\r\n<br />\r\n-M&aacute;y l&agrave;m việc &ecirc;m, kh&ocirc;ng g&acirc;y tiếng ồn. Cho &aacute;p lực theo danh nghĩa v&agrave; c&oacute; thể duy tr&igrave; &aacute;p lực đ&oacute; trong suốt qu&aacute; tr&igrave;nh c&ocirc;ng nghệ, kh&ocirc;ng như m&aacute;y &eacute;p trục khuỷu.<br />\r\n<br />\r\n-T&aacute;c động ri&ecirc;ng biệt hoặc đa t&aacute;c động. M&aacute;y c&oacute; thể thiết kế theo y&ecirc;u cầu của kh&aacute;ch h&agrave;ng, m&aacute;y đơn t&aacute;c động d&ugrave;ng cho động t&aacute;c &eacute;p m&aacute;y, m&aacute;y đa t&aacute;c động d&ugrave;ng cho nhiều động t&aacute;c kh&aacute;c nhau như &eacute;p bi&ecirc;n &ndash; &eacute;p s&acirc;u; &eacute;p theo chương tr&igrave;nh, tăng &aacute;p theo h&agrave;m hoặc theo từng bước biến dạng. Sự điều khiển lực &eacute;p rất mềm dẻo t&ugrave;y theo y&ecirc;u cầu c&ocirc;ng nghệ kết hợp với kết cấu khu&ocirc;n tương ứng.<br />\r\n<br />\r\n-M&aacute;y c&oacute; thiết kế kết cấu hệ thống đơn giản, sử dụng c&aacute;c bộ phận được ti&ecirc;u chuẩn h&oacute;a cao như bơm b&aacute;nh răng, bơm cao &aacute;p pitt&ocirc;ng, c&aacute;c van, c&aacute;c đường ống&hellip;. ch&iacute;nh v&igrave; vậy gi&aacute; sản phẩm đ&atilde; hạ xuống<br />\r\n<br />\r\n-M&aacute;y kh&ocirc;ng bị &aacute;p lực &eacute;p hạn chế. C&oacute; thể thiết kế m&aacute;y cho lực &eacute;p l&ecirc;n tr&ecirc;n, lực &eacute;p xuống dưới, lực &eacute;p ngang v&agrave; c&oacute; thể theo hướng n&agrave;o đ&oacute; theo c&ocirc;ng nghệ v&agrave; khu&ocirc;n.<br />\r\n<br />\r\nDo c&aacute;c ưu điểm kể tr&ecirc;n m&agrave; trong c&ocirc;ng nghệ chế tạo m&aacute;y, m&aacute;y &eacute;p tuy &ocirc; thủy lực được sử dụng rộng r&atilde;i.', 0, 1, '2018-10-16 14:40:55', '2018-10-16 15:02:58', 1, 1),
+(3, 'Hướng dẫn lắp đặt tuy ô thủy lực mềm', 'huong-dan-lap-dat-tuy-o-thuy-luc-mem', 'Huong dan lap dat tuy o thuy luc mem', 'Việc lắp đặt tuy ô thủy lực mềm đúng cách sẽ góp phần làm tăng tuổi thọ làm việc của ống và tránh được các rủi ro đáng tiếc trong quá trình vận hành thiết bị thủy lực.', '/public/uploads/images/tin-tuc/medhose2-768x503-1539675680.jpg', 1, 1, 1, 0, '<p>Việc lắp đặt tuy &ocirc; thủy lực mềm đ&uacute;ng c&aacute;ch sẽ g&oacute;p phần l&agrave;m tăng tuổi thọ l&agrave;m việc của ống v&agrave; tr&aacute;nh được c&aacute;c rủi ro đ&aacute;ng tiếc trong qu&aacute; tr&igrave;nh vận h&agrave;nh thiết bị thủy lực.</p>\r\n\r\n<p>Dưới đ&acirc;y l&agrave; hưỡng dẫn lắp đặt tuy &ocirc; thủy lực mềm:</p>\r\n\r\n<p>Nếu b&aacute;n k&iacute;nh uốn uống nhỏ hơn gi&aacute; trị cho ph&eacute;p trong bảng th&igrave; h&atilde;y đổi sang loại đầu nối cong để tr&aacute;nh ống bị uốn</p>\r\n\r\n<p>N&ecirc;n sử dụng loại đầu nối th&iacute;ch hợp để tr&aacute;nh ống bị cong</p>\r\n\r\n<p>Để tr&aacute;nh vặn, xoắn ống bằng c&aacute;ch uốn ống theo c&ugrave;ng một mặt phẳng với hướng chuyển động cửa dầu m&agrave; ống nối tới.</p>\r\n\r\n<p>H&atilde;y giữ c&aacute;c ống thẳng bằng đầu c&aacute;c nối ống cong 45 v&agrave; 90 hoặc c&aacute;c đầu nối. Tr&aacute;nh trường hợp để ống qu&aacute; d&agrave;i.</p>\r\n\r\n<p>Khi lắp ống thẳng, n&ecirc;n để ống tr&ugrave;ng vừa phải để đ&aacute;p ứng được sự thay đổi chiều d&agrave;i của ống khi c&oacute; &aacute;p suất.</p>\r\n\r\n<p>Đối với c&aacute;c cơ cấu chuyển động, chiều d&agrave;i của ống phải th&iacute;ch hợp để tr&aacute;nh ống bị m&agrave;i m&ograve;n do bị cọ s&aacute;t.</p>\r\n\r\n<p>Khi lắp đặt tuy &ocirc; thủy lực Yokohama mềm n&ecirc;n tr&aacute;nh để ống bị uốn, xoắn khi l&agrave;m việc ở hai mặt phẳng kh&aacute;c nhau. Sử dụng kẹp ống để cố định một mặt phẳng.</p>\r\n\r\n<p>Trong qu&aacute; tr&igrave;nh ống l&agrave;m việc với &aacute;p suất, chiều d&agrave;i ống sẽ bị thay đổi. Kh&ocirc;ng n&ecirc;n kẹp ống tại chỗ uốn ống hoặc kẹp ống cao &aacute;p v&agrave; thấp &aacute;p c&ugrave;ng với nhau.</p>\r\n\r\n<p>Nhiệt độ cao sẽ l&agrave;m giảm tuổi thọ l&agrave;m việc của ống. N&ecirc;n c&aacute;ch ly ống ra khỏi vật n&oacute;ng bằng lớp c&aacute;ch nhiệt.</p>\r\n\r\n<p>Để tr&aacute;nh cho ống kh&ocirc;ng bị bẹp, g&acirc;y ra cản trở d&ograve;ng chảy, h&atilde;y đi với ống b&aacute;n k&iacute;nh cong c&agrave;ng lớn c&agrave;ng tốt.</p>\r\n\r\n<p>Khi lắp ống, h&atilde;y chắc rằng ống kh&ocirc;ng bị vặn m&agrave; dẫn đến g&acirc;y hư hỏng ống hay l&agrave;m hỏng c&aacute;c đầu nối ống .</p>\r\n\r\n<p>N&ecirc;n sử dụng c&aacute;c đầu nối cong, đầu nối ống th&iacute;ch hợp để l&agrave;m gọn g&agrave;ng v&agrave; dễ d&agrave;ng cho việc kiểm tra, sửa chữa sau n&agrave;y.</p>\r\n\r\n<p>Khi lắp ống tuy &ocirc; thủy lực semperit mềm n&ecirc;n tr&aacute;nh sự tiếp x&uacute;c cọ s&aacute;t v&agrave; m&agrave;i m&ograve;n với vật kh&aacute;c. H&atilde;y sử dụng kẹp ống th&iacute;ch hợp để cố định c&aacute;c phần ống kh&ocirc;ng di chuyển.</p>\r\n\r\n<p><img alt=\"medhose2\" height=\"393\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/MedHose2.jpg\" srcset=\"http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/MedHose2.jpg 800w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/MedHose2-230x150.jpg 230w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/MedHose2-450x295.jpg 450w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/MedHose2-768x503.jpg 768w\" width=\"600\" /></p>\r\n', 0, 1, '2018-10-16 14:41:35', '2018-10-16 14:41:35', 1, 1),
+(4, 'Bấm ống thủy lực đúng quy cách', 'bam-ong-thuy-luc-dung-quy-cach', 'Bam ong thuy luc dung quy cach', 'Bấm ống thủy lực đúng quy cách là việc làm vô cùng quan trọng, nếu bấm ống thủy lực cẩu thả có thể khiến hỏng ống, gây ảnh hưởng đến hoạt động của các thiết bị máy móc.', '/public/uploads/images/tin-tuc/c228-1539675757.png', 1, 1, 1, 0, '<p><img alt=\"c228\" height=\"394\" sizes=\"(max-width: 800px) 100vw, 800px\" src=\"http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/c228.png\" srcset=\"http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/c228.png 1000w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/c228-450x222.png 450w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/c228-768x379.png 768w, http://ongthuylucvietkom.vn/wp-content/uploads/2016/11/c228-230x113.png 230w\" width=\"800\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Ống thủy lực l&agrave; một bộ phận quan trọng trong c&aacute;c sản phẩm m&aacute;y m&oacute;c, thiết bị, phương tiện như xe n&acirc;ng, xe cẩu, xe đ&agrave;o,&hellip; Ống thủy lực được sử dụng với nhiều c&ocirc;ng dụng ri&ecirc;ng v&agrave; th&ocirc;ng thường, bấm ống thủy lực l&agrave; một giai đoạn gia c&ocirc;ng tạo h&igrave;nh sản phẩm hoặc đ&acirc;y cũng l&agrave; giai đoạn tu sửa ống sau khi ống đ&atilde; hoạt động trong một thời gian v&agrave; bị vỡ ống cần phải phục chế lại.</p>\r\n\r\n<p><strong>L&agrave;m sao để bấm ống thủy lực chất lượng?</strong><br />\r\nTh&ocirc;ng thường, qu&aacute; tr&igrave;nh ống thủy lực được sử dụng lần đầu ti&ecirc;n sẽ cho chất lượng cao hơn v&agrave; c&oacute; thời gian sử dụng l&acirc;u d&agrave;i, đ&oacute; l&agrave; l&yacute; do m&agrave; việc sử dụng c&aacute;c ống thủy lực zin nguy&ecirc;n h&atilde;ng sẽ bền hơn việc ống bị vỡ v&agrave; sau đ&oacute; tiến h&agrave;nh bấm ống lại.</p>\r\n\r\n<p>Để đảm bảo việc&nbsp;<strong>bấm ống thủy lực</strong>&nbsp;đ&uacute;ng quy c&aacute;ch th&igrave; trước hết cần phải sử dụng đ&uacute;ng loại m&aacute;y bấm ống tốt, cho hiệu quả bấm ống s&aacute;t, kh&ocirc;ng c&oacute; khe hở, chất liệu sử dụng để bấm ống phải bền, chịu được nhiệt, xung lực cũng như c&aacute;c t&aacute;c động ngoại cảnh kh&aacute;c. Bấm ch&iacute;nh x&aacute;c đ&uacute;ng vị tr&iacute;, ước t&iacute;nh lực t&aacute;c dụng khi bấm để tr&aacute;nh l&agrave;m ảnh hưởng đến bộ phận kh&aacute;c của ống. Kh&ocirc;ng n&ecirc;n d&ugrave;ng qu&aacute; nhiều lực hoặc sử dụng kh&ocirc;ng đủ lực đều dẫn đến t&igrave;nh trạng bấm kh&ocirc;ng s&aacute;t, ống bị ảnh hưởng hoặc nhanh ch&oacute;ng r&ograve; rỉ ống sau khi sử dụng được một thời gian.</p>\r\n', 0, 1, '2018-10-16 14:42:55', '2018-10-16 14:42:55', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -114,6 +124,13 @@ CREATE TABLE `blocks` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `blocks`
+--
+
+INSERT INTO `blocks` (`id`, `name_vi`, `name_en`, `content_vi`, `content_en`, `is_show`, `created_at`, `updated_at`) VALUES
+(1, 'aaaa', '', '', '', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -144,6 +161,17 @@ CREATE TABLE `cate` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cate`
+--
+
+INSERT INTO `cate` (`id`, `name_vi`, `name_en`, `alias_vi`, `alias_en`, `slug_vi`, `slug_en`, `description_vi`, `description_en`, `name_cn`, `alias_cn`, `slug_cn`, `description_cn`, `is_menu`, `loai_id`, `meta_id`, `display_order`, `status`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'Đầu bóp ống dầu', 'PRESSURE FITTING', 'Dau bop ong dau', 'PRESSURE FITTING', 'dau-bop-ong-dau', 'pressure-fitting', '', '', '高壓接頭組', '高壓接頭組', 'c-pressure-fitting', '', 1, 1, 1, 1, 1, 1, 1, '2018-10-23 00:00:00', '2018-10-16 08:32:14'),
+(2, 'Ống dầu thủy lực', 'HYDRAULIC HOSE', 'Ong dau thuy luc', 'HYDRAULIC HOSE', 'ong-dau-thuy-luc', 'hydraulic-hose', '', '', '液压油管', '液压油管', 'c-hydraulic-hose', '', 1, 1, 2, 2, 1, 1, 1, '2018-10-05 16:52:13', '2018-10-16 08:32:32'),
+(3, 'Máy bấm ống dầu', 'HYDRAULIC CRIMPING MACHINE', 'May bam ong dau', 'HYDRAULIC CRIMPING MACHINE', 'may-bam-ong-dau', 'hydraulic-crimping-machine', '', '', '扣壓機', '扣壓機', 'c-hydraulic-crimping-machine', '', 1, 1, 3, 3, 1, 1, 1, '2018-10-05 16:55:11', '2018-10-16 08:32:43'),
+(4, 'ỐNG TEFLON', 'PTFE braided stainless steel tube', 'ONG TEFLON', 'PTFE braided stainless steel tube', 'ong-teflon', 'PTFE-braided-stainless-steel-tube', '', '', '铁氟龙编织管', '铁氟龙编织管', 'c-PTFE-braided-stainless-steel-tube', '', 1, 1, 4, 4, 1, 1, 1, '2018-10-31 00:00:00', '2018-10-16 08:32:54'),
+(5, 'ĐẦU NỐI PU SUNCOS', 'SUNCOS PU Connectors Pneumatic', 'DAU NOI PU SUNCOS', 'SUNCOS PU Connectors Pneumatic', 'dau-noi-PU-SUNCOS', 'SUNCOS-PU-connectors-pneumatic', '', '', 'SUNCOS PU 连接器', 'SUNCOS PU 连接器', 'c-SUNCOS-PU-connectors-pneumatic', '', 1, 1, 5, 5, 1, 1, 1, '2018-08-20 00:00:00', '2018-10-16 08:33:06');
 
 -- --------------------------------------------------------
 
@@ -3246,6 +3274,13 @@ CREATE TABLE `loai_sp` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `loai_sp`
+--
+
+INSERT INTO `loai_sp` (`id`, `name_vi`, `name_en`, `alias_vi`, `alias_en`, `slug_vi`, `slug_en`, `description_vi`, `description_en`, `display_order`, `is_menu`, `meta_id`, `status`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(0, '123\r\n', NULL, '', NULL, '', NULL, NULL, NULL, 0, 1, NULL, 1, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -3257,17 +3292,52 @@ CREATE TABLE `meta_data` (
   `title_vi` varchar(255) DEFAULT NULL,
   `title_en` varchar(255) NOT NULL,
   `description_vi` varchar(255) DEFAULT NULL,
-  `description_en` varchar(255) NOT NULL,
+  `description_en` varchar(255) DEFAULT NULL,
   `title_cn` varchar(255) DEFAULT NULL,
   `description_cn` varchar(255) DEFAULT NULL,
   `custom_text_vi` text,
-  `custom_text_en` text NOT NULL,
-  `custome_text_cn` text,
+  `custom_text_en` text,
+  `custom_text_cn` text,
   `created_user` int(11) NOT NULL,
   `updated_user` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `meta_data`
+--
+
+INSERT INTO `meta_data` (`id`, `title_vi`, `title_en`, `description_vi`, `description_en`, `title_cn`, `description_cn`, `custom_text_vi`, `custom_text_en`, `custom_text_cn`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'Đầu bóp ống dầu', 'PRESSURE FITTING', '', '', NULL, NULL, '', '', NULL, 1, 1, '2018-10-16 08:32:14', '2018-10-16 08:32:14'),
+(2, 'Ống dầu thủy lực', 'HYDRAULIC HOSE', '', '', NULL, NULL, '', '', NULL, 1, 1, '2018-10-16 08:32:32', '2018-10-16 08:32:32'),
+(3, 'Máy bấm ống dầu', 'HYDRAULIC CRIMPING MACHINE', '', '', NULL, NULL, '', '', NULL, 1, 1, '2018-10-16 08:32:43', '2018-10-16 08:32:43'),
+(4, 'ỐNG TEFLON', 'PTFE braided stainless steel tube', '', '', NULL, NULL, '', '', NULL, 1, 1, '2018-10-16 08:32:54', '2018-10-16 08:32:54'),
+(5, 'ĐẦU NỐI PU SUNCOS', 'SUNCOS PU Connectors Pneumatic', '', '', 'SUNCOS PU 连接器', '', '', '', '', 1, 1, '2018-10-16 08:33:06', '2018-10-16 08:35:06'),
+(6, 'Đầu bóp Đài Loan', 'PRESSURE FITTING', '', '', '高压接头组', '', '', '', '', 1, 1, '2018-10-16 09:17:22', '2018-10-16 09:27:39'),
+(7, 'Ống thủy lực R12 (4 lớp kẽm)', 'Hydraulic Hose / R12 (Four Wire Spiral Hose)', '', '', '液压胶管 / R12 (工程机械专用4层钢丝缠绕液压胶管)', '', '', '', '', 1, 1, '2018-10-16 09:32:13', '2018-10-16 09:32:13'),
+(8, 'Ống thủy lực R2AT (2 lớp kẽm)', 'Hydraulic Hose / R2AT (Two Wire Braid Hose)', '', '', '液压胶管 / R2AT (工程机械专用2层钢丝编织软管)', '', '', '', '', 1, 1, '2018-10-16 09:33:35', '2018-10-16 09:33:35'),
+(9, 'Ống thủy lực R1AT (1 lớp kẽm)', 'Hydraulic Hose / R1AT (One Wire Braid Hose)', '', '', '液压胶管 / R1AT (工程机械专用1层钢丝编织软管)', '', '', '', '', 1, 1, '2018-10-16 09:34:37', '2018-10-16 09:34:37'),
+(10, 'MÁY BÓP ỐNG DẦU YEONGLONG YL-20', 'Workshop crimpers / Yeong Long YL20', '', '', '一般生产型扣压机 / Yeong Long YL-20', '', '', '', '', 1, 1, '2018-10-16 09:38:14', '2018-10-16 09:38:14'),
+(11, 'MÁY BÓP ỐNG DẦU YEONGLONG YL-32', 'Workshop crimpers / Yeong Long YL-32', '', '', '一般生产型扣压机 / Yeong Long YL-32', '', '', '', '', 1, 1, '2018-10-16 09:38:58', '2018-10-16 09:38:58'),
+(12, 'Ống Teflon', 'PTFE braided stainless steel tube', '', '', '', '', '', '', '', 1, 1, '2018-10-16 09:43:11', '2018-10-16 09:43:11'),
+(13, 'ESL ( JSC )', 'ESL ( JSC )', '', '', 'ESL ( JSC )', '', '', '', '', 1, 1, '2018-10-16 09:48:21', '2018-10-16 09:48:21'),
+(14, 'PB', 'PB', '', '', 'PB', '', '', '', '', 1, 1, '2018-10-16 09:48:53', '2018-10-16 09:48:53'),
+(15, 'PD', 'PD', '', '', 'PD', '', '', '', '', 1, 1, '2018-10-16 09:49:09', '2018-10-16 09:49:09'),
+(16, 'PX', 'PX', '', '', 'PX', '', '', '', '', 1, 1, '2018-10-16 09:49:24', '2018-10-16 09:49:24'),
+(17, 'PKG', 'PKG', '', '', 'PKG', '', '', '', '', 1, 1, '2018-10-16 09:49:43', '2018-10-16 09:49:43'),
+(18, 'PU', 'PU', '', '', 'PU', '', '', '', '', 1, 1, '2018-10-16 09:50:04', '2018-10-16 09:50:04'),
+(19, 'PC', 'PC', '', '', 'PC', '', '', '', '', 1, 1, '2018-10-16 09:50:34', '2018-10-16 09:50:34'),
+(20, 'PV', 'PV', '', '', 'PV', '', '', '', '', 1, 1, '2018-10-16 09:51:03', '2018-10-16 09:51:03'),
+(21, 'PCF', 'PCF', '', '', 'PCF', '', '', '', '', 1, 1, '2018-10-16 09:51:19', '2018-10-16 09:51:19'),
+(22, 'PE', 'PE', '', '', 'PE', '', '', '', '', 1, 1, '2018-10-16 09:51:40', '2018-10-16 09:51:40'),
+(23, 'PL', 'PL', '', '', 'PL', '', '', '', '', 1, 1, '2018-10-16 09:51:57', '2018-10-16 09:51:57'),
+(24, 'PY', 'PY', '', '', 'PY', '', '', '', '', 1, 1, '2018-10-16 09:52:13', '2018-10-16 09:52:13'),
+(25, 'PZA', 'PZA', '', '', 'PZA', '', '', '', '', 1, 1, '2018-10-16 09:52:30', '2018-10-16 09:52:30'),
+(26, 'SPA', 'SPA', '', '', 'SPA', '', '', '', '', 1, 1, '2018-10-16 09:52:55', '2018-10-16 09:52:55'),
+(27, 'PG', 'PG', '', '', 'PG', '', '', '', '', 1, 1, '2018-10-16 09:53:12', '2018-10-16 09:53:12'),
+(28, 'Giới thiệu công ty', 'About our company', '', '', '关于公司', '', '', '', '', 1, 1, '2018-10-16 12:06:33', '2018-10-16 12:07:54'),
+(29, 'Lĩnh vực hoạt động', 'Scope of work', '', '', '工作范围', '', '', '', '', 1, 1, '2018-10-16 12:09:03', '2018-10-16 12:09:22');
 
 -- --------------------------------------------------------
 
@@ -3321,7 +3391,8 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `title_vi`, `title_en`, `slug_vi`, `slug_en`, `alias_vi`, `alias_en`, `image_url`, `description_vi`, `description_en`, `content_vi`, `content_en`, `title_cn`, `slug_cn`, `alias_cn`, `description_cn`, `content_cn`, `status`, `meta_id`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
-(1, 'Giới thiệu', 'About us', 'gioi-thieu', 'about-us', 'Gioi thieu', 'About us', '', 'Trang gioi thieu', 'About us page', 'Nội dung giới thiệu Decoos.com', 'Content about us decoos.com', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 1, '2016-12-23 00:00:00', '2016-12-31 00:00:00');
+(1, 'Giới thiệu công ty', 'About our company', 'gioi-thieu-cong-ty', 'about-our-company', '', '', '', '', '', 'L&agrave; một trong những c&ocirc;ng ty h&agrave;ng đầu Việt Nam chuy&ecirc;n cung cấp dịch vụ thưong mại kỹ thuật.C&ocirc;ng ty TNHH DV TM GIA GIA PH&Uacute; đ&atilde; ra đời v&agrave; hoạt động nhiều năm trong lĩnh vực mua b&aacute;n v&agrave; giới thiệu c&aacute;c sản phẩm nhập khẩu chuy&ecirc;n dụng như :<br />\r\n<br />\r\n&nbsp; + Độc quyền ống dầu thủy lực hiệu HPFLEX &reg;.GPFLEX &reg;.<br />\r\n<br />\r\n&nbsp; + Độc quyền khớp nối PU hiệu SUNCOS &reg;.<br />\r\n<br />\r\n&nbsp; + Độc quyền ống PU hiệu HPRESS ( MADE IN TAIWAN )<br />\r\n<br />\r\n&nbsp; + Khớp nối nhanh d&ugrave;ng cho ống thủy lực.<br />\r\n<br />\r\n&nbsp; + M&aacute;y b&oacute;p ống dầu YEONGLONG YL-20;YL-32.. ( MADE IN TAIWAN ).<br />\r\n<br />\r\n&nbsp; + C&aacute;c linh kiện dẫn kh&iacute; như EMC, MINDMAN ....<br />\r\n&nbsp;<br />\r\nVới quy tr&igrave;nh tr&ecirc;n ch&uacute;ng t&ocirc;i lu&ocirc;n đảm bảo chất lượng ho&agrave;n hảo nhất v&agrave; chủ động thời gian giao h&agrave;ng.', 'Content of company introduction', '关于公司', 'c-about-our-company', '', NULL, '本公司专提供和贸易独权各种产品如下：<br />\r\n<br />\r\n+ GPFLEX &reg; HPFLEX &reg; 液压油管.<br />\r\n<br />\r\n+ SUNCOS &reg; 快速接头.<br />\r\n<br />\r\n+ PU 管 MADE IN TAIWAN.<br />\r\n<br />\r\n+ 铁氟龙编织管.<br />\r\n<br />\r\n+ 液压油管快速接头.<br />\r\n<br />\r\n+ 中国扣压机 DX 68 DX69.<br />\r\n<br />\r\n+ 台湾扣压机 YEONGLONG YL-20 &nbsp;YL-32...<br />\r\n<br />\r\n+ 各种气压零件 E.M.C - MINDMAN...', 1, 28, 1, 1, '2016-12-23 00:00:00', '2018-10-16 12:07:37'),
+(2, 'Lĩnh vực hoạt động', 'Scope of work', 'linh-vuc-hoat-dong', 'scope-of-work', '', '', '', NULL, NULL, '<strong>Phương ch&acirc;m hoạt động :&nbsp;&nbsp;</strong><br />\r\n<br />\r\nVới phương ch&acirc;m hoạt động mang đến sự h&agrave;i l&ograve;ng cho kh&aacute;ch h&agrave;ng,khi đến với CTY GIA GIA PH&Uacute;. Qu&yacute; kh&aacute;ch sẽ được phục vụ bởi một đội ngũ chuy&ecirc;n nghiệp,nhiệt t&igrave;nh,s&aacute;ng tạo trong c&ocirc;ng việc,lu&ocirc;n nỗ lực mang đến cho kh&aacute;ch h&agrave;ng những sản phẩm :&nbsp;<br />\r\n<br />\r\n<strong>- Chất lượng đạt y&ecirc;u cầu.<br />\r\n- Gi&aacute; th&agrave;nh cạnh tranh.<br />\r\n- Giao h&agrave;ng đ&uacute;ng hẹn.</strong><br />\r\n&nbsp;<br />\r\nHo&agrave;i b&atilde;o của ch&uacute;ng t&ocirc;i l&agrave; đưa CTY GIA GIA PH&Uacute; trở th&agrave;nh nh&agrave; nhập khẩu v&agrave; cung cấp ống thủy lực h&agrave;ng đầu VIỆT NAM.', 'Content', '工作范围', 'c-scope-of-work', '', NULL, '经营方针：<br />\r\n<br />\r\n- 家家富贸易有限公司以诚信和热情的工作态度。<br />\r\n<br />\r\n- 带给客户满意的服务。<br />\r\n<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + 产品质量<br />\r\n<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + 价格竞争<br />\r\n<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + 准时送货<br />\r\n<br />\r\n- 本公司志向是成为越南最大的液压油管进口商之一。<br />\r\n<br />\r\n- 务求与客户共创造双赢。', 1, 29, 1, 1, '2018-10-16 12:09:03', '2018-10-16 12:10:44');
 
 -- --------------------------------------------------------
 
@@ -3331,7 +3402,6 @@ INSERT INTO `pages` (`id`, `title_vi`, `title_en`, `slug_vi`, `slug_en`, `alias_
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `code` char(20) DEFAULT NULL,
   `name_vi` varchar(255) NOT NULL,
   `name_en` varchar(255) DEFAULT NULL,
   `alias_vi` varchar(255) NOT NULL,
@@ -3344,19 +3414,11 @@ CREATE TABLE `product` (
   `slug_cn` varchar(255) DEFAULT NULL,
   `alias_cn` varchar(255) DEFAULT NULL,
   `content_cn` text,
-  `thumbnail_id` bigint(20) DEFAULT NULL,
-  `video_url` varchar(255) DEFAULT NULL,
-  `loai_id` tinyint(4) NOT NULL,
   `cate_id` tinyint(4) NOT NULL,
   `is_hot` tinyint(1) NOT NULL,
-  `is_sale` tinyint(1) NOT NULL,
-  `price` int(11) NOT NULL,
-  `price_vnd` int(11) DEFAULT NULL,
-  `price_sale` int(11) DEFAULT NULL,
-  `color_id` int(11) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `views` int(11) NOT NULL DEFAULT '0',
   `display_order` tinyint(4) NOT NULL COMMENT 'danh cho sp hot',
-  `sale_percent` tinyint(1) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `meta_id` bigint(20) DEFAULT NULL,
   `created_user` tinyint(4) NOT NULL,
@@ -3364,6 +3426,34 @@ CREATE TABLE `product` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name_vi`, `name_en`, `alias_vi`, `alias_en`, `slug_vi`, `slug_en`, `content_vi`, `content_en`, `name_cn`, `slug_cn`, `alias_cn`, `content_cn`, `cate_id`, `is_hot`, `image_url`, `views`, `display_order`, `status`, `meta_id`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'ĐẦU BÓP ỐNG ĐÀI LOAN', 'PRESSURE FITTING', 'dau bop ong dai loan', 'pressure fitting', 'dau-bop-ong-dai-loan', 'pressure-fitting', '', '', '高压接头组', 'c-pressure-fitting', 'c-pressure fitting', '', 1, 0, '/public/uploads/images/dau-bop-ong-dau/dau-bop-ong-dau-1539656236.png', 0, 0, 1, 6, 1, 1, '2018-10-16 09:17:22', '2018-10-16 13:41:00'),
+(2, 'Ống thủy lực R12 (4 lớp kẽm)', 'Hydraulic Hose / R12 (Four Wire Spiral Hose)', 'ong thuy luc r12 4 lop kem', 'hydraulic hose r12 four wire spiral hose', 'ong-thuy-luc-r12-4-lop-kem', 'hydraulic-hose-r12-four-wire-spiral-hose', '', '', '液压胶管 / R12 (工程机械专用4层钢丝缠绕液压胶管)', 'c-hydraulic-hose-r12-four-wire-spiral-hose', 'c-hydraulic hose r12 four wire spiral hose', '', 2, 0, '/public/uploads/images/ong-dau-thuy-luc/r12-1539657120.png', 0, 0, 1, 7, 1, 1, '2018-10-16 09:32:13', '2018-10-16 13:41:00'),
+(3, 'Ống thủy lực R2AT (2 lớp kẽm)', 'Hydraulic Hose / R2AT (Two Wire Braid Hose)', 'ong thuy luc r2at 2 lop kem', 'hydraulic hose r2at two wire braid hose', 'ong-thuy-luc-r2at-2-lop-kem', 'hydraulic-hose-r2at-two-wire-braid-hose', '', '', '液压胶管 / R2AT (工程机械专用2层钢丝编织软管)', 'c-hydraulic-hose-r2at-two-wire-braid-hose', 'c-hydraulic hose r2at two wire braid hose', '', 2, 0, '/public/uploads/images/ong-dau-thuy-luc/r2at-1539657182.png', 0, 0, 1, 8, 1, 1, '2018-10-16 09:33:35', '2018-10-16 13:41:00'),
+(4, 'Ống thủy lực R1AT (1 lớp kẽm)', 'Hydraulic Hose / R1AT (One Wire Braid Hose)', 'ong thuy luc r1at 1 lop kem', 'hydraulic hose r1at one wire braid hose', 'ong-thuy-luc-r1at-1-lop-kem', 'hydraulic-hose-r1at-one-wire-braid-hose', '', '', '液压胶管 / R1AT (工程机械专用1层钢丝编织软管)', 'c-hydraulic-hose-r1at-one-wire-braid-hose', 'c-hydraulic hose r1at one wire braid hose', '', 2, 0, '/public/uploads/images/ong-dau-thuy-luc/r1at-1539657273.png', 0, 0, 1, 9, 1, 1, '2018-10-16 09:34:37', '2018-10-16 13:41:00'),
+(5, 'MÁY BÓP ỐNG DẦU YEONGLONG YL-20', 'Workshop crimpers / Yeong Long YL20', 'may bop ong dau yeonglong yl 20', 'workshop crimpers yeong long yl20', 'may-bop-ong-dau-yeonglong-yl-20', 'workshop-crimpers-yeong-long-yl20', '', '', '一般生产型扣压机 / Yeong Long YL-20', 'c-workshop-crimpers-yeong-long-yl20', 'c-workshop crimpers yeong long yl20', '', 3, 0, '/public/uploads/images/may-bam-ong-dau/yl20-1539657487.png', 0, 0, 1, 10, 1, 1, '2018-10-16 09:38:14', '2018-10-16 13:41:00'),
+(6, 'MÁY BÓP ỐNG DẦU YEONGLONG YL-32', 'Workshop crimpers / Yeong Long YL-32', 'may bop ong dau yeonglong yl 32', 'workshop crimpers yeong long yl 32', 'may-bop-ong-dau-yeonglong-yl-32', 'workshop-crimpers-yeong-long-yl-32', '', '', '一般生产型扣压机 / Yeong Long YL-32', 'c-workshop-crimpers-yeong-long-yl-32', 'c-workshop crimpers yeong long yl 32', '', 3, 0, '/public/uploads/images/may-bam-ong-dau/yl32-1539657489.png', 0, 0, 1, 11, 1, 1, '2018-10-16 09:38:58', '2018-10-16 13:41:00'),
+(7, 'Ống Teflon', 'PTFE braided stainless steel tube', 'ong teflon', 'ptfe braided stainless steel tube', 'ong-teflon', 'ptfe-braided-stainless-steel-tube', '', '', '铁氟龙编织管', 'c-ptfe-braided-stainless-steel-tube', 'c-ptfe braided stainless steel tube', '', 4, 0, '/public/uploads/images/ong-teflon/ong-teflon-1539657787.png', 0, 0, 1, 12, 1, 1, '2018-10-16 09:43:11', '2018-10-16 13:41:00'),
+(8, 'ESL ( JSC )', 'ESL ( JSC )', 'esl jsc', 'esl jsc', 'esl-jsc', 'esl-jsc', '', '', 'ESL ( JSC )', 'c-esl-jsc', 'c-esl jsc', '', 5, 0, '/public/uploads/images/suncos-pu/esl-1539658086.png', 0, 0, 1, 13, 1, 1, '2018-10-16 09:48:21', '2018-10-16 13:41:01'),
+(9, 'PB', 'PB', 'pb', 'pb', 'pb', 'pb', '', '', 'PB', 'c-pb', 'c-pb', '', 5, 0, '/public/uploads/images/suncos-pu/pb-1539658086.png', 0, 0, 1, 14, 1, 1, '2018-10-16 09:48:53', '2018-10-16 13:41:01'),
+(10, 'PD', 'PD', 'pd', 'pd', 'pd', 'pd', '', '', 'PD', 'c-pd', 'c-pd', '', 5, 0, '/public/uploads/images/suncos-pu/pd-1539658086.png', 0, 0, 1, 15, 1, 1, '2018-10-16 09:49:09', '2018-10-16 13:41:01'),
+(11, 'PX', 'PX', 'px', 'px', 'px', 'px', '', '', 'PX', 'c-px', 'c-px', '', 5, 0, '/public/uploads/images/suncos-pu/px-1539658086.png', 0, 0, 1, 16, 1, 1, '2018-10-16 09:49:24', '2018-10-16 13:41:01'),
+(12, 'PKG', 'PKG', 'pkg', 'pkg', 'pkg', 'pkg', '', '', 'PKG', 'c-pkg', 'c-pkg', '', 5, 0, '/public/uploads/images/suncos-pu/bkg-1539658086.png', 0, 0, 1, 17, 1, 1, '2018-10-16 09:49:43', '2018-10-16 13:41:01'),
+(13, 'PU', 'PU', 'pu', 'pu', 'pu', 'pu', '', '', 'PU', 'c-pu', 'c-pu', '', 5, 0, '/public/uploads/images/suncos-pu/pu-1539658086.png', 0, 0, 1, 18, 1, 1, '2018-10-16 09:50:04', '2018-10-16 13:41:01'),
+(14, 'PC', 'PC', 'pc', 'pc', 'pc', 'pc', '', '', 'PC', 'c-pc', 'c-pc', '', 5, 0, '/public/uploads/images/suncos-pu/pc-1539658086.png', 0, 0, 1, 19, 1, 1, '2018-10-16 09:50:34', '2018-10-16 13:41:01'),
+(15, 'PV', 'PV', 'pv', 'pv', 'pv', 'pv', '', '', 'PV', 'c-pv', 'c-pv', '', 5, 0, '/public/uploads/images/suncos-pu/pv-1539658086.png', 0, 0, 1, 20, 1, 1, '2018-10-16 09:51:03', '2018-10-16 13:41:01'),
+(16, 'PCF', 'PCF', 'pcf', 'pcf', 'pcf', 'pcf', '', '', 'PCF', 'c-pcf', 'c-pcf', '', 5, 0, '/public/uploads/images/suncos-pu/pcf-1539658086.png', 0, 0, 1, 21, 1, 1, '2018-10-16 09:51:19', '2018-10-16 13:41:01'),
+(17, 'PE', 'PE', 'pe', 'pe', 'pe', 'pe', '', '', 'PE', 'c-pe', 'c-pe', '', 5, 0, '/public/uploads/images/suncos-pu/pe-1539658086.png', 0, 0, 1, 22, 1, 1, '2018-10-16 09:51:40', '2018-10-16 13:41:01'),
+(18, 'PL', 'PL', 'pl', 'pl', 'pl', 'pl', '', '', 'PL', 'c-pl', 'c-pl', '', 5, 0, '/public/uploads/images/suncos-pu/pl-1539658086.png', 0, 0, 1, 23, 1, 1, '2018-10-16 09:51:57', '2018-10-16 13:41:01'),
+(19, 'PY', 'PY', 'py', 'py', 'py', 'py', '', '', 'PY', 'c-py', 'c-py', '', 5, 0, '/public/uploads/images/suncos-pu/py-1539658086.png', 0, 0, 1, 24, 1, 1, '2018-10-16 09:52:13', '2018-10-16 13:41:01'),
+(20, 'PZA', 'PZA', 'pza', 'pza', 'pza', 'pza', '', '', 'PZA', 'c-pza', 'c-pza', '', 5, 0, '/public/uploads/images/suncos-pu/pza-1539658086.png', 0, 0, 1, 25, 1, 1, '2018-10-16 09:52:30', '2018-10-16 13:41:01'),
+(21, 'SPA', 'SPA', 'spa', 'spa', 'spa', 'spa', '', '', 'SPA', 'c-spa', 'c-spa', '', 5, 0, '/public/uploads/images/suncos-pu/spa-1539658086.png', 0, 0, 1, 26, 1, 1, '2018-10-16 09:52:55', '2018-10-16 13:41:01'),
+(22, 'PG', 'PG', 'pg', 'pg', 'pg', 'pg', '', '', 'PG', 'c-pg', 'c-pg', '', 5, 0, '/public/uploads/images/suncos-pu/pg-1539658086.png', 0, 0, 1, 27, 1, 1, '2018-10-16 09:53:12', '2018-10-16 13:41:01');
 
 -- --------------------------------------------------------
 
@@ -3407,7 +3497,10 @@ INSERT INTO `settings` (`id`, `name`, `value`, `created_at`, `updated_at`) VALUE
 (145, 'site_description_en', 'EN_DN xin giới thiệu các sản phẩm làm đẹp cao cấp nhất hiện nay với giá tốt nhất thị trường tại Việt Nam', '2017-02-02 00:00:00', '2017-02-02 15:43:57'),
 (146, 'site_keywords_en', 'EN_Sản phẩm làm đẹp cao cấp', '2017-02-02 00:00:00', '2017-02-02 15:43:57'),
 (147, 'custom_text_en', '', '2017-02-02 00:00:00', '2017-02-02 15:43:57'),
-(148, 'site_name_en', 'EN - DN - Sản phẩm làm đẹp cao cấp', '2017-02-02 00:00:00', '2017-02-02 15:43:57');
+(148, 'site_name_en', 'EN - DN - Sản phẩm làm đẹp cao cấp', '2017-02-02 00:00:00', '2017-02-02 15:43:57'),
+(999, 'site_title_cn', 'site_title_cn', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1000, 'site_description_cn', 'site_description_cn', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1001, 'site_keywords_cn', 'site_keywords_cn', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -3462,17 +3555,17 @@ CREATE TABLE `text` (
 --
 
 INSERT INTO `text` (`id`, `text_key`, `text_vi`, `text_en`, `text_cn`) VALUES
-(1, 'trang-chu', 'Trang chủ', 'Home', NULL),
-(2, 'nhap-ten-san-pham', 'Nhập tên sản phẩm...', 'Please enter product name...', NULL),
-(3, 'danh-muc', 'Danh mục', 'Category', NULL),
-(4, 'chao', 'Chào', 'Hello', NULL),
-(5, 'thong-tin-tai-khoan', 'Thông tin tài khoản', 'Account Info', NULL),
-(6, 'don-hang-cua-toi', 'Đơn hàng của tôi', 'My Orders', NULL),
-(7, 'doi-mat-khau', 'Đổi mật khẩu', 'Change password', NULL),
+(1, 'trang-chu', 'Trang chủ', 'Home', '公司首頁'),
+(2, 'gioi-thieu-trang-chu', 'Là một trong những công ty hàng đầu Việt Nam chuyên cung cấp dịch vụ thương mại kỹ thuật. Công ty TNHH DV TM Gia Gia Phú đã ra đời và hoạt động nhiều năm trong lĩnh vực mua bán và giới thiệu các sản phẩm nhập khẩu chuyên dụng như: ống dầu thuỷ lực, khớp nối nhanh dùng cho ống thuỷ lực, máy bóp ống dầu, các linh kiện dẫn khí... Với quy trình trên chúng tôi luôn đảm bảo chất lượng hoàn hảo nhất và chủ động thời gian giao hàng.', 'As one of the leading companies in Vietnam specializing in providing engineering services business. DV Trading Co. Phu Gia Gia was born and active in the field of trade and the introduction of specialized imported products such as oil and hydraulic hose, quick couplings for hydraulic hose, pipe squeeze machine oil, gas components ...With the above process we always ensure perfect quality and on-time delivery initiative.', '家家富贸易有限公司是专提供各种工程设备。在越南已诞生活跃多年和专进口各类产品如下：液压油管，石油管，扣压机，快速接头，PU管和各种接头。。。\r\n本公司宗旨：以服务为主，确保产品质量，主动配合客户准时送货。'),
+(3, 've-chung-toi', 'Về chúng tôi', 'About us', '关于'),
+(4, 'san-pham-moi-nhat', 'Sản phẩm mới nhất', 'New products', '新产品'),
+(5, 'tin-tuc', 'Tin tức', 'News', '新闻'),
+(6, 'ho-tro-dat-hang', 'Hỗ trợ đặt hàng', 'Order support', '热线电话'),
+(7, 'ho-tro-online', 'Hỗ trợ online', 'Online Support', '手机号码'),
 (8, 'thoat-tai-khoan', 'Thoát tài khoản', 'Logout', NULL),
-(9, 'dang-nhap', 'Đăng nhập', 'Login', NULL),
-(10, 'dang-nhap-bang-facebook', 'Đăng nhập bằng Facebook', 'Login with Facebook', NULL),
-(11, 'tao-tai-khoan', 'Tạo tài khoản', 'Register', NULL),
+(9, 'linh-vuc-hoat-dong', 'Lĩnh vực hoạt động', 'Scope of work', '工作范围'),
+(10, 'gioi-thieu-cong-ty', 'Giới thiệu công ty', 'About our company', '关于公司'),
+(11, 'gioi-thieu', 'Giới thiệu', 'About us', '关于'),
 (12, 'gio-hang', 'Giỏ hàng', 'Cart', NULL),
 (13, 'xem-tat-ca', 'Xem tất cả', 'View All', NULL),
 (14, 'chi-tiet', 'Chi tiết', 'View Detail', NULL),
@@ -3492,7 +3585,7 @@ INSERT INTO `text` (`id`, `text_key`, `text_vi`, `text_en`, `text_cn`) VALUES
 (28, 'khach-hang-moi', 'Khách hàng mới', 'New customer', NULL),
 (29, 'thanh-toan-don-hang-trong-1-buoc-voi', 'Thanh toán đơn hàng trong chỉ một bước với', 'Payment this order in one step with', NULL),
 (30, 'don-hang', 'Đơn hàng', 'Order', NULL),
-(31, 'san-pham', 'Sản phẩm', 'Products', NULL),
+(31, 'san-pham', 'Sản phẩm', 'Products', '產品介紹'),
 (32, 'sua', 'Sửa', 'Edit', NULL),
 (33, 'ho-ten', 'Họ tên', 'Full name', NULL),
 (34, 'nhap-ho-ten', 'Nhập họ tên', 'Input full name', NULL),
@@ -3522,7 +3615,7 @@ INSERT INTO `text` (`id`, `text_key`, `text_vi`, `text_en`, `text_cn`) VALUES
 (58, 'co-quan-cong-ty', 'Cơ quan/Công ty', ' Agency/Company', NULL),
 (59, 'cap-nhat-thong-tin-thanh-cong', 'Cập nhật thông tin thành công', 'Update info success', NULL),
 (60, 'cap-nhat', 'Cập nhật', 'Update', NULL),
-(61, 'loai-dia-chi', 'Loại địa chỉ', 'Address type', NULL),
+(61, '產品介紹', 'Sản phẩm', 'Products', '產品介紹'),
 (63, 'nhap-so-dien-thoai', 'Nhập số điện thoại', 'Enter phone number', NULL),
 (64, '52-tran-hung-dao', 'Ví dụ: 52 đường Trần Hưng Đạo', 'Ex: 52 Tran Hung Dao Street', NULL),
 (65, 'vui-long-chon', 'Vui lòng chọn', 'Please select', NULL),
@@ -3541,7 +3634,7 @@ INSERT INTO `text` (`id`, `text_key`, `text_vi`, `text_en`, `text_cn`) VALUES
 (78, 'chac-chan-huy-don-hang', 'Quý khách chắc chắn muốn hủy đơn hàng', 'Are you sure you want to cancel this order', NULL),
 (79, 'gia', 'Giá', 'Price', NULL),
 (80, 'hinh-thuc-thanh-toan', 'Hình thức thanh toán', 'Payment Method', NULL),
-(81, 'lien-he', 'Liên hệ', 'Contact us', NULL),
+(81, 'lien-he', 'Liên hệ', 'Contact us', '联系我们'),
 (82, 'tieu-de', 'Tiêu đề', 'Title', NULL),
 (83, 'gui', 'Gửi', 'Send', NULL),
 (84, 'ma-sp', 'Mã SP', 'Product Code', NULL),
@@ -3726,7 +3819,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `articles_cate`
@@ -3744,13 +3837,37 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `blocks`
 --
 ALTER TABLE `blocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cate`
 --
 ALTER TABLE `cate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `meta_data`
+--
+ALTER TABLE `meta_data`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
