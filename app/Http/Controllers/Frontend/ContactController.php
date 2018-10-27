@@ -18,15 +18,15 @@ class ContactController extends Controller
         $dataArr = $request->all();
         
         $this->validate($request,[            
-            'title' => 'required',
+           
             'email' => 'email|required',
-            'full_name' => 'required',
+            'fullname' => 'required',
             'content' => 'required',
             'phone' => 'required',            
         ],
         [
-            'title.required' => 'Bạn chưa nhập tiêu đề.',            
-            'full_name.required' => 'Bạn chưa nhập họ và tên.',
+                  
+            'fullname.required' => 'Bạn chưa nhập họ và tên.',
             'email.required' => 'Bạn chưa nhập email.',
             'email.email' => 'Địa chỉ email không hợp lệ.',
             'phone.required' => 'Bạn chưa nhập số điện thoại.',
@@ -35,10 +35,11 @@ class ContactController extends Controller
         ]);       
 
         $rs = Contact::create($dataArr);
-
+        $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
+        $lang = in_array($lang,['vi', 'en', 'cn']) ? $lang : 'vi';
         Session::flash('message', 'Gửi liên hệ thành công.');
 
-        return redirect()->route('contact');
+        return redirect()->route('contact',$lang );
     }
     
 }

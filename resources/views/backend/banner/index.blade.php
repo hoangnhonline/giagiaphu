@@ -4,18 +4,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    @if($arrSearch['object_type'] != 4) 
-    Banner của 
-    @endif
-    <span style="color:red">{{ $detail->name }}</span>
+    Banner của <span style="color:red">{{ $detail->name }}</span>
   </h1>
-  @if($arrSearch['object_type'] != 4) 
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'banner.index', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'], 'lang_id' => $arrSearch['lang_id']]) }}">Banner</a></li>
+    <li><a href="{{ route( 'banner.index', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type']]) }}">Banner</a></li>
     <li class="active">Danh sách</li>
   </ol>
-  @endif
 </section>
 
 <!-- Main content -->
@@ -25,29 +20,11 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('banner.create', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'], 'lang_id' => $arrSearch['lang_id']]) }}" class="btn btn-info" style="margin-bottom:5px;{{ $arrSearch['object_type'] == 3 && in_array($arrSearch['object_id'], [3,4]) ? 'display:none' : '' }}" 
+      <a href="{{ route('banner.create', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type']]) }}" class="btn btn-info" style="margin-bottom:5px;{{ $arrSearch['object_type'] == 3 && in_array($arrSearch['object_id'], [3,4]) ? 'display:none' : '' }}" 
 
       >Tạo mới</a>
       @if($arrSearch['object_type'] == 3)
-      <!--<a class="btn btn-default" href="{{ route('banner.list')}}" style="margin-bottom:5px;">Quay lại</a>-->
-      @endif
-      @if($arrSearch['object_type'] != 4) 
-      <div class="panel panel-default">        
-        <div class="panel-body">
-          <form class="form-inline" role="form" method="GET" action="{{ route('banner.index') }}" id="formSearch">            
-            <input name="object_type" value="{{ $arrSearch['object_type'] }}" type="hidden">
-            <input name="object_id" value="{{ $arrSearch['object_id'] }}" type="hidden">
-             <div class="form-group">
-                <label for="email">Ngôn ngữ :</label>
-                <select class="form-control" name="lang_id" id="lang_id">                                
-                  <option value="1" {{ 1 == $arrSearch['lang_id'] ? "selected" : "" }}>Tiếng Việt</option>
-                  <option value="2" {{ 2 == $arrSearch['lang_id'] ? "selected" : "" }}>Tiếng Anh</option>                
-                </select>
-             </div>            
-            <button type="submit" class="btn btn-default">Lọc</button>
-          </form>         
-        </div>
-      </div>
+      <a class="btn btn-default" href="{{ route('banner.list')}}" style="margin-bottom:5px;">Quay lại</a>
       @endif
       <div class="box">
 
@@ -61,16 +38,8 @@
             <tr>
               <th style="width: 1%">#</th>
               <th style="width: 1%;white-space:nowrap">Thứ tự</th>
-              <th style="width:150px">
-              @if($arrSearch['object_type'] != 4) 
-                Banner
-              @else
-                Logo
-              @endif
-              </th>
-              @if($arrSearch['object_type'] != 4) 
+              <th style="width:150px">Banner</th>
               <th>Liên kết</th>
-              @endif
   
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
@@ -82,16 +51,14 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
                 <td style="vertical-align:middle;text-align:center">
-                  <img src="{{ URL::asset('admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
+                  <img src="{{ URL::asset('public/admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
                 </td>
                 <td>                  
-                  <img class="img-thumbnail banner" width="200" src="{{ $item->image_url ? Helper::showImage($item->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" />
-                </td>  
-                @if($arrSearch['object_type'] != 4)                                                            
+                  <img class="img-thumbnail banner" width="200" src="{{ $item->image_url ? Helper::showImage($item->image_url) : URL::asset('public/admin/dist/img/no-image.jpg') }}" />
+                </td>                                                             
                 <td>{{ $item->ads_url }}</td>
-                @endif
                 <td style="white-space:nowrap; text-align:right">                 
-                  <a href="{{ route( 'banner.edit', [ 'id' => $item->id , 'object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'], 'lang_id' => $item->lang_id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'banner.edit', [ 'id' => $item->id , 'object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type'] ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
                 
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'banner.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
                 
@@ -133,9 +100,6 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
-  $('#lang_id').change(function(){
-    $(this).parents('form').submit();
-  });
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',
         handle: ".move",

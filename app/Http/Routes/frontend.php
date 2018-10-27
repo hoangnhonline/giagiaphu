@@ -10,9 +10,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('{lang}/contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
     Route::get('{lang}/{slug}', ['as' => 'cates', 'uses' => 'CateController@index']);
     Route::get('/lang/set-lang', ['as' => 'set-lang', 'uses' => 'HomeController@setLang']);
-
+Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
     Route::get('/{slug}', ['as' => 'danh-muc-cha', 'uses' => 'CateController@index']);
-
+ 
     Route::get('{lang}/news/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@detail']);
     Route::get('news/{slug}-{id}.html', ['as' => 'news-detail-en', 'uses' => 'NewsController@detail']);
    

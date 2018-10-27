@@ -4,7 +4,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{ URL::asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+        <img src="{{ URL::asset('public/admin/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>{{ Auth::user()->full_name }}</p>
@@ -48,12 +48,7 @@
           <span>Video</span>         
         </a>       
       </li>-->
-      <li {{ in_array(\Request::route()->getName(), ['orders.index']) ? "class=active" : "" }}>
-        <a href="{{ route('orders.index') }}">
-          <i class="fa fa-pencil-square-o"></i> 
-          <span>Đơn hàng</span>         
-        </a>       
-      </li>
+      
       <li class="treeview {{ in_array(\Request::route()->getName(), ['articles.index', 'articles.create', 'articles.edit']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-twitch"></i> 
@@ -80,32 +75,19 @@
           <li {{ in_array(\Request::route()->getName(), ['pages.create']) ? "class=active" : "" }}><a href="{{ route('pages.create') }}"><i class="fa fa-circle-o"></i> Thêm trang</a></li>          
         </ul>
       </li> 
-      <li class="treeview {{ in_array(\Request::route()->getName(), ['tag.index', 'tag.create', 'tag.edit']) ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-twitch"></i> 
-          <span>Tags</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li {{ in_array(\Request::route()->getName(), ['tag.index', 'tag.edit']) ? "class=active" : "" }}><a href="{{ route('tag.index') }}"><i class="fa fa-circle-o"></i> Tags</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['tag.create']) ? "class=active" : "" }}><a href="{{ route('tag.create') }}"><i class="fa fa-circle-o"></i> Thêm tag</a></li>          
-        </ul>
-      </li>     
-      <li {{ in_array(\Request::route()->getName(), ['newsletter.edit', 'newsletter.index']) ? "class=active" : "" }}>
-        <a href="{{ route('newsletter.index') }}">
-          <i class="fa fa-pencil-square-o"></i> 
-          <span>Newsletter</span>         
-        </a>       
-      </li>
+      
       <li {{ in_array(\Request::route()->getName(), ['contact.edit', 'contact.index']) ? "class=active" : "" }}>
         <a href="{{ route('contact.index') }}">
           <i class="fa fa-pencil-square-o"></i> 
           <span>Liên hệ</span>          
         </a>       
       </li>     
-    
+    <li {{ in_array(\Request::route()->getName(), ['banner.edit', 'banner.index', 'banner.create']) ? "class=active" : "" }}>
+        <a href="{{ route( 'banner.index', [ 'object_id' => 1, 'object_type' => 3 ]) }}">
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Banner</span>          
+        </a>       
+      </li> 
       <li class="treeview {{ in_array(\Request::route()->getName(), ['banner.index', 'banner.create', 'banner.edit', 'settings.index', 'info-seo.index', 'color.index', 'banner.list']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa  fa-gears"></i>
@@ -115,16 +97,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin shop.com</a></li>
-          <li {{ \Request::route()->getName() == "color.index" ? "class=active" : "" }}><a href="{{ route('color.index') }}"><i class="fa fa-circle-o"></i> Color</a></li>
-          <li {{ \Request::route()->getName() == "footer.index" ? "class=active" : "" }}><a href="{{ route('footer.index') }}"><i class="fa fa-circle-o"></i> Footer</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['banner.index', 'banner.create', 'banner.edit', 'banner.list']) ? 'class=active' : '' }}>
-            <a href="{{ route('banner.list') }}"><i class="fa fa-circle-o"></i> Banner</a>
-          </li>
-          <!--<li>
-            <a href="{{ route('banner.index', ['object_type' => 4 , 'object_id'=> 1 ] ) }}"><i class="fa fa-circle-o"></i> Đối tác</a>
-          </li>-->
-          <li {{ \Request::route()->getName() == "info-seo.index" ? "class=active" : "" }}><a href="{{ route('info-seo.index') }}"><i class="fa fa-circle-o"></i> Cài đặt SEO</a></li>   
+          <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin CTY</a></li>
         </ul>
       </li>
       <!--<li class="header">LABELS</li>

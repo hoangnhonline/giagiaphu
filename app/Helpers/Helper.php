@@ -72,6 +72,19 @@ class Helper
         }
         return $arr = ['date_from' => date('Y-m-d', $from_date), 'date_to' => date('Y-m-d', $to_date)];
     }
+     public static function view($object_id, $object_type, $day = 'all'){
+        $rs = CounterValues::where(['object_id' => $object_id, 'object_type' => $object_type])->first();
+        if($rs){
+            if($day == 'all'){
+                return $rs->all_value;
+            }else{
+                return $rs->day_value;
+                
+            }
+        }else{
+            return 0;
+        }
+    }
     public static function getName( $id, $table){
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $rs = DB::table($table)->where('id', $id)->first();
@@ -123,7 +136,7 @@ class Helper
         $tmp = CounterValues::find(1);
         return $arr = ['day' => $tmp->day_value, 'all' => $tmp->all_value];
     }
-    public static function counter(){
+    public static function counter( $object_id, $object_type){
         // ip-protection in seconds
         $counter_expire = 600;
 
@@ -131,8 +144,8 @@ class Helper
         $counter_ignore_agents = array('bot', 'bot1', 'bot3');
 
         // ignore ip list
-        $counter_ignore_ips = array('127.0.0.2', '127.0.0.3');
-
+        //$counter_ignore_ips = array('127.0.0.2', '127.0.0.3');
+        $counter_ignore_ips = [];
         // get basic information
         $counter_agent = $_SERVER['HTTP_USER_AGENT'];
         $counter_ip = $_SERVER['REMOTE_ADDR']; 
@@ -140,33 +153,26 @@ class Helper
 
         $ignore = false; 
            
-        // get counter information        
-        $rs1 = CounterValues::first();
-      //  var_dump($rs1);die;
-       // $res = mysql_query($sql);
+        // get counter information   
+        $rs1 = CounterValues::where(['object_id' => $object_id, 'object_type' => $object_type])->first();   
 
         // fill when empty
         if (!$rs1)
         {   
 
-            $tmpArr = [                
+            $tmpArr = [
+                'object_id' => $object_id,
+                'object_type' => $object_type,
                 'day_id' => date("z"),
                 'day_value' => 1,
                 'all_value' => 1
             ];
           CounterValues::create($tmpArr);
-          $rs1 = CounterValues::first();
+          $rs1 = CounterValues::where(['object_id' => $object_id, 'object_type' => $object_type])->first();
           
           $ignore = true;
         }   
-        //var_dump($rs1);die;
-        /*
-        $row = mysql_fetch_assoc($res);
-
-        $day_id = $row['day_id'];
-        $day_value = $row['day_value'];   
-        $all_value = $row['all_value'];   
-        */
+        
         $day_id = $rs1->day_id;
         $day_value = $rs1->day_value;
         $all_value = $rs1->all_value;
@@ -196,24 +202,24 @@ class Helper
         if ($ignore == false)
         {           
             $time = time();
-            CounterIps::where(['ip' => $counter_ip])->whereRaw("$time-visit >= $counter_expire")->delete();
+            CounterIps::where(['object_id' =>$object_id, 'object_type' => $object_type, 'ip' => $counter_ip])->whereRaw("$time-visit >= $counter_expire")->delete();
         }
  
         // check for entry
         if ($ignore == false)
         {
-            $rs2 = CounterIps::where(['ip' => $counter_ip])->get();
+            $rs2 = CounterIps::where(['ip' => $counter_ip, 'object_id' => $object_id, 'object_type' => $object_type])->get();
           
           if ( $rs2->count() > 0)
           {
-            $modelCouterIps = CounterIps::where('ip', $counter_ip);
+            $modelCouterIps = CounterIps::where('ip', $counter_ip)->where(['object_id' => $object_id, 'object_type' => $object_type]);
             $modelCouterIps->update(['visit' => time()]);   
             $ignore = true;          
           }
           else
           {
              // insert ip
-             CounterIps::create(['ip' => $counter_ip, 'visit' => time()]);
+             CounterIps::create(['ip' => $counter_ip, 'visit' => time(), 'object_id' => $object_id, 'object_type' => $object_type]);
           }       
         }
         // add counter
@@ -232,7 +238,7 @@ class Helper
           // all
           $all_value++; 
 
-        $modelCouterValues = CounterValues::first();
+        $modelCouterValues = CounterValues::where(['object_id' => $object_id, 'object_type' => $object_type]);
         $modelCouterValues->update([
                 'day_id' => $day_id,
                 'day_value' => $day_value,

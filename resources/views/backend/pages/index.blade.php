@@ -33,7 +33,7 @@
             <tr>
               <th style="width: 1%">#</th>              
               <th>Tên</th>
-              <th>URL </th>              
+                           
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -47,34 +47,18 @@
                     <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}">{{ $item->title_vi }}</a>                                 
                     <p>{{ $item->description_vi }}</p>
                   </td>   
-                  <td style="font-size: 17px">
-                    <p><img src="{{ URL::asset('public/assets/images/vn.png') }}" alt="Tiếng Việt" width="14" height="11" /> {{ route('home') }}/{{ $item->slug_vi }}.html</p>
-                    <p><img src="{{ URL::asset('public/assets/images/flag-england.jpg') }}" alt="English"  />  {{ route('home') }}/{{ $item->slug_en }}.html</p>
-                  </td>
+                 
                   
                   <td style="white-space:nowrap; text-align:right">               
                     <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>
-                    <a onclick="return callDelete('{{ $item->title_vi }}','{{ route( 'pages.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
+                    <!-- <a onclick="return callDelete('{{ $item->title_vi }}','{{ route( 'pages.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a> -->
                   </td>
                 </tr> 
               @endforeach
-              <tr>         
-                  <td><span class="order">{{ $i+1 }}</span></td>         
-                  <td>                  
-                    <a>Liên hệ</a>
-                  </td>   
-                  <td style="font-size: 17px">
-                    <p><img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt" width="14" height="11" /> {{ route('home') }}/lien-he.html</p>
-                    <p><img src="{{ URL::asset('assets/images/flag-england.jpg') }}" alt="English"  />  {{ route('home') }}/contact.html</p>
-                  </td>
-                  
-                  <td style="white-space:nowrap; text-align:right">               
-                    
-                  </td>
-                </tr> 
+              
             @else
             <tr>
-              <td colspan="9">Không có dữ liệu.</td>
+              <td colspan="3">Không có dữ liệu.</td>
             </tr>
             @endif
 

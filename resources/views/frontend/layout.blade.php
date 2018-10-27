@@ -11,13 +11,13 @@
     <meta name="description" content="@yield('site_description')"/>      
     <link rel="canonical" href="http://giagiaphu.com.vn" />
     <meta name='revisit-after' content='1 days' />    
-    <link rel="icon" href="{{ URL::asset('public/assets/favicon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ URL::asset('public/assets/favicon.ico') }}" type="image/x-icon" />
     <meta property="og:type" content="website">
     <meta property="og:title" content="Gia Gia Phú">
     <meta property="og:image" content="http:assets/logo.png">
     <meta property="og:image:secure_url" content="">
     <meta property="og:description" content="">
-    <meta property="og:url" content="http://giagiaphu.com,vn">
+    <meta property="og:url" content="http://giagiaphu.com.vn">
     <meta property="og:site_name" content="Gia Gia Phú">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.1.1/dist/css/ionicons.min.css">
@@ -148,11 +148,18 @@
                             <div class="footer-widget">
                                 <h3><span>Thông tin liên hệ</span></h3>
                                 <ul class="list-menu ul-footer-contact">
-
-                                    <li><span>Địa chỉ:</span> 22 đường số 8 Cư xá Bình Thới, P8, Quận 11,<br>TP Hồ Chí Minh</li>
-                                    <li><span>Điện thoại:</span> <a class="a-phone" href="tel:02839626288">028 39 62 62 88 - 028 39 62 62 99</a></li>
-                                    <li><span>Email:</span> <a href="mailto:anhthu@giagiaphu.com.vn">anhthu@giagiaphu.com.vn </a></li>
-                                    <li><span>Website:</span> <a href="http://giagiaphu.com.vn">https://giagiaphu.com.vn</a></li>
+                                    @if($lang == 'vi')
+                                      <li><span><i class="fa fa-map-marker" aria-hidden="true"></i></span> 22 đường số 8 Cư xá Bình Thới, P8, Q11, HCM</li>
+                                      @elseif($lang == 'en')
+                                      <li><i class="fa fa-map-marker" aria-hidden="true"></i> 22 No.8 Str., Bình Thới Resident, Ward 8, Dist 11, Ho Chi Minh ity</li>
+                                      @else
+                                      <li><i class="fa fa-map-marker" aria-hidden="true"></i> 第11郡.第8坊.平泰住宅区.8号街.22号门牌.胡志明市</li>
+                                      @endif
+                                    <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> <a class="a-phone" href="tel:02839626288">028 39 62 62 88 - 028 39 62 62 99</a></li>
+									<li style="font-weight:bold"><span>Hotline </span><a href="tel:0829102288" style="color:#ca0808"> &nbsp;082 910 22 88</a></li>
+									<li><span><i class="fa fa-fax" aria-hidden="true"></i></span> 028 38 545 595</li>
+                                    <li><span><i class="fa fa-envelope" aria-hidden="true"></i></span> <a href="mailto:anhthu@giagiaphu.com.vn">anhthu@giagiaphu.com.vn </a></li>
+                                    <li><span><i class="fa fa-internet-explorer" aria-hidden="true"></i></span> <a href="http://giagiaphu.com.vn">https://giagiaphu.com.vn</a></li>
 
                                 </ul>
                             </div>
@@ -178,7 +185,7 @@
                                 <h3><span>{!! $textArr['ho-tro-dat-hang']->$text_key !!}</span></h3>
                                 <ul class="list-menu">
                                     <li>
-                                       <p>028 39 62 62 98</p>                                       
+                                       <p>028 39 62 62 88</p>                                       
                                     </li>
                                     <li>
                                        <p>028 39 62 62 99</p>                                       
@@ -192,12 +199,16 @@
                                 <ul class="list-menu footer-has-border online">
 
                                     <li>
-                                       <p>Ms Anh Thư - 0935.174.238</p>                                       
+                                       <p>Ms Anh Thư - 0935 174 238</p>                                       
                                     </li>
                                     <li>
-                                       <p>Mr Tường - 0932.662.633</p>                                       
+                                       <p>Mr Tường - 0932 662 633</p>                                       
                                     </li>
 
+                                </ul>
+                                <ul class="counter">
+                                    <li><span>Truy cập hôm nay:</span> {{ number_format(Helper::view(1, 3, 1)) }}</li>
+                                    <li><span>Tổng lượt truy cập:</span> {{ number_format(Helper::view(1, 3)) }}</li>
                                 </ul>
                             </div>
                         </div>

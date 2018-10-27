@@ -15,7 +15,7 @@ use App\Models\Customer;
 use App\Models\Newsletter;
 use App\Models\Settings;
 use App\Models\Album;
-use App\Models\Video;
+use App\Models\Banner;
 
 use App\Models\CustomerNotification;
 use Helper, File, Session, Auth, Hash, App;
@@ -35,7 +35,7 @@ class HomeController extends Controller
     }    
     public function index(Request $request)
     {            
-           
+        Helper::counter(1, 3);   
         $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
         $lang = in_array($lang,['vi', 'en', 'cn']) ? $lang : 'vi';
         $productArr = [];        
@@ -52,7 +52,12 @@ class HomeController extends Controller
         $name_key = "name_".$lang;
         $title_key = "title_".$lang;
         $content_key = "content_".$lang;
-        $productList = Product::where('is_hot', 1)->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();         
+        $productList = Product::where('is_hot', 1)->where('status', 1)->orderBy('id', 'desc')->limit(6)->get();   
+        $bannerList = Banner::where('object_type', 3)->get();
+        $bannerArr = [];
+        foreach($bannerList as $banner){
+            $bannerArr[$banner->object_id][] = $banner;
+        }        
         return view('frontend.home.index', compact( 'socialImage', 'seo', 'articlesList', 
                 'text_key',
                 'slug_key',
@@ -60,7 +65,8 @@ class HomeController extends Controller
                 'title_key',
                 'content_key',
                 'lang', 
-                'productList'));
+                'productList',
+                'bannerArr'));
     }
 
     
@@ -101,7 +107,7 @@ class HomeController extends Controller
         return view('frontend.index.ajax-tab', compact('arr'));
     }
     public function contact(Request $request){        
-
+        Helper::counter(1, 3);
         $seo['title'] = 'Liên hệ';
         $seo['description'] = 'Liên hệ';
         $seo['keywords'] = 'Liên hệ';
@@ -124,6 +130,7 @@ class HomeController extends Controller
 
     public function newsList(Request $request)
     {
+        Helper::counter(1, 3);
         $slug = $request->slug;
         $cateArr = $cateActiveArr = $moviesActiveArr = [];
        
@@ -143,6 +150,7 @@ class HomeController extends Controller
 
      public function newsDetail(Request $request)
     {     
+        Helper::counter(1, 3);
         $id = $request->id;
 
         $detail = Articles::where( 'id', $id )

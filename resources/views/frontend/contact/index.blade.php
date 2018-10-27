@@ -25,7 +25,7 @@
         <h1 class="title-head">Thông tin liên hệ</h1>
         <!-- End .widget-title -->
         @if($lang == 'vi')
-        <h4>CÔNG TY TNHH TM KT GIA GIA PHÚ</h4>
+        <h4 style="color:#0184E9">CÔNG TY TNHH TM KT GIA GIA PHÚ</h4>
         @elseif($lang == 'en')
         <h4>Gia Gia Phu Engineering Trading Company Limited</h4>
         @else
@@ -33,14 +33,17 @@
         @endif
         <ul class="widget-menu contact-info-page">
           @if($lang == 'vi')
-          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 22 đường số 8 Cư xá Bình Thới, Phường 8 Quận 11, Tp Hồ Chí Minh</li>
+          <li><i class="fa fa-map-marker" aria-hidden="true"></i> 22 đường số 8 Cư xá Bình Thới, P8, Q11, HCM</li>
           @elseif($lang == 'en')
           <li><i class="fa fa-map-marker" aria-hidden="true"></i> 22 No.8 Str., Bình Thới Resident, Ward 8, Dist 11, Ho Chi Minh ity</li>
           @else
           <li><i class="fa fa-map-marker" aria-hidden="true"></i> 第11郡.第8坊.平泰住宅区.8号街.22号门牌.胡志明市</li>
           @endif
+		  
           <li><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:02839626288">028 39 62 62 88 - 028 39 62 62 99</a></li>
+          <li><i class="fa fa-fax" aria-hidden="true"></i> 028 38 545 595</li>  
           <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:anhthu@giagiaphu.com.vn">anhthu@giagiaphu.com.vn</a></li>
+		  <li style="font-weight:bold">Hotline: <a href="tel:0829102288" style="color:#ca0808">082 910 22 88</a></li>
           
         </ul>
         <!-- End .widget-menu -->
@@ -52,35 +55,46 @@
     <div class="col-md-8">
       <div class="page-login">
         <div id="login">
-          <h3 class="title-head">Gửi thông tin</h3>         
-          <form accept-charset="UTF-8" action="/contact" id="contact" method="post" class="has-validation-callback">
-<input name="FormType" type="hidden" value="contact">
-<input name="utf8" type="hidden" value="true">
+          <h3 class="title-head">Gửi thông tin</h3>   
+          @if(Session::has('message'))
+                
+                <p class="alert alert-info" >{{ Session::get('message') }}</p>
+                
+                @endif
+                @if (count($errors) > 0)                        
+                  <div class="alert alert-danger ">
+                    <ul>                           
+                        <li>Vui lòng nhập đầy đủ thông tin.</li>                            
+                    </ul>
+                  </div>                        
+                @endif        
+          <form class="block-form" action="{{ route('send-contact') }}" method="POST">
+                {{ csrf_field() }}
           
           <div class="form-signup clearfix">
             <div class="row">
               <div class="col-sm-6 col-xs-12">
                 <fieldset class="form-group">
                   <label>Họ tên<span class="required">*</span></label>
-                  <input type="text" name="contact[name]" id="name" class="form-control  form-control-lg" data-validation-error-msg="Không được để trống" data-validation="required" required="">
+                  <input type="text" name="fullname" id="fullname" class="form-control  form-control-lg" >
                 </fieldset>
               </div>
               <div class="col-sm-6 col-xs-12">
                 <fieldset class="form-group">
                   <label>Email<span class="required">*</span></label>
-                  <input type="email" name="contact[email]" data-validation="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation-error-msg="Email sai định dạng" id="email" class="form-control form-control-lg" required="">
+                  <input type="email" name="email"  id="email" class="form-control form-control-lg">
                 </fieldset>
               </div>
               <div class="col-sm-12 col-xs-12">
                 <fieldset class="form-group">
                   <label>Điện thoại<span class="required">*</span></label>
-                  <input type="tel" name="contact[phone]" data-validation="tel" data-validation-error-msg="Không được để trống" id="tel" class="number-sidebar form-control form-control-lg" required="">
+                  <input type="tel" name="phone" id="phone" class="number-sidebar form-control form-control-lg" >
                 </fieldset>
               </div>
               <div class="col-sm-12 col-xs-12">
                 <fieldset class="form-group">
                   <label>Nội dung<span class="required">*</span></label>
-                  <textarea name="contact[body]" id="comment" class="form-control form-control-lg" rows="5" data-validation-error-msg="Không được để trống" data-validation="required" required=""></textarea>
+                  <textarea name="content" id="content" class="form-control form-control-lg" rows="5" ></textarea>
                 </fieldset>
                 <div class="pull-xs-left" style="margin-top:20px;">
                   <button type="submit" class="btn btn-blues btn-style btn-style-active">Gửi tin nhắn</button>

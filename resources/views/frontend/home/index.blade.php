@@ -1,38 +1,29 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
+@if(isset($bannerArr[1]))
  <section class="awe-section-1">
     <div class="home-slider owl-carousel not-dqowl">
-
+       
+         <?php $i = 0; ?>
+        @foreach($bannerArr[1] as $banner)
+        <?php $i++; ?>
         <div class="item">
-            <a href="#" class="clearfix">
-                <img src="{{ URL::asset('public/assets/Banner-02.jpg') }}" alt="Gia Gia Phú" class="img-responsive center-block" />
+            @if($banner->ads_url !='')
+        <a href="{{ $banner->ads_url }}" title="banner slide {{ $i }}">
+        @endif
+                <img src="{{ Helper::showImage($banner->image_url) }}" alt="banner slide {{ $i }}" class="img-responsive center-block" />
+            @if($banner->ads_url !='')
             </a>
+            @endif
         </div>
-
-        <div class="item">
-            <a href="#" class="clearfix">
-                <img src="{{ URL::asset('public/assets/Banner-01.jpg') }}" alt="Gia Gia Phú" class="img-responsive center-block" />
-            </a>
-        </div>
-        <div class="item">
-            <a href="#" class="clearfix">
-                <img src="{{ URL::asset('public/assets/banner03.jpg') }}" alt="Gia Gia Phú" class="img-responsive center-block" />
-            </a>
-        </div>
-        <div class="item">
-            <a href="#" class="clearfix">
-                <img src="{{ URL::asset('public/assets/yl9.jpg') }}" alt="Gia Gia Phú" class="img-responsive center-block" />
-            </a>
-        </div>
-        <div class="item">
-            <a href="#" class="clearfix">
-                <img src="{{ URL::asset('public/assets/Banner-03.jpg') }}" alt="Gia Gia Phú" class="img-responsive center-block" />
-            </a>
-        </div>  
+        @endforeach
     </div>
     <!-- /.products -->
 </section>
+
+@endif
+
 
 <section class="awe-section-2">
     <div class="section_about">

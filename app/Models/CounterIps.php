@@ -23,5 +23,5 @@ class CounterIps extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['ip', 'visit'];
+    protected $fillable = ['ip', 'visit', 'object_id', 'object_type'];
 }

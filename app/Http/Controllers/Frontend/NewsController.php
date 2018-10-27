@@ -29,7 +29,7 @@ class NewsController extends Controller
         return view('frontend.home.ajax-slider');
     }
     public function index(Request $request){
-  
+    Helper::counter(1, 3);
         $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');   
         $lang_id = $lang == 'vi' ? ($lang == 'en' ? 2 : 1) : 3; 
         $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->paginate(24);
@@ -51,7 +51,7 @@ class NewsController extends Controller
     }
     public function detail(Request $request)
     {             
-       
+       Helper::counter(1, 3);
         $lang = $request->lang ? $request->lang : (Session::get('locale') ? Session::get('locale') : 'vi');
         $id = $request->id;
         $detail = Articles::find($id);

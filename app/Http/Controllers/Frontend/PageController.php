@@ -17,7 +17,7 @@ class PageController extends Controller
 {
     public function index(Request $request)
     {
-
+      Helper::counter(1, 3);
        $lang = $request->lang ? $request->lang : 'vi';
        $text_key = "text_".$lang;
         $slug_key = "slug_".$lang;

@@ -38,6 +38,7 @@ class DetailController extends Controller
     */
     public function index(Request $request)
     {   
+        Helper::counter(1, 3);
         $lang = $request->lang ? $request->lang : 'vi';
         $productArr = [];
         $id = $request->id;

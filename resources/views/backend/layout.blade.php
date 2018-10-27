@@ -36,10 +36,9 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-  @include('backend.partials.header')
-  @if(Auth::user()->email != "huongll@LAHAVA" && \Request::route()->getName() != "compare.index" )
+ 
     @include('backend.partials.sidebar')
-  @endif
+ 
 
   <!-- Content Wrapper. Contains page content -->
   @yield('content')

@@ -26,7 +26,7 @@
         </div>
         <div class="panel-body">
           <form class="form-inline" role="form" method="GET" action="{{ route('contact.index') }}" id="frmContact">  
-            <div class="form-group">
+            <!-- <div class="form-group">
               <select class="form-control input-sm" id="type" name="type">                                
                   <option value="0" {{ $type == 0 ? "selected" : "" }}>Tất cả</option>
                   <option value="1" {{ $type == 1 ? "selected" : "" }}>Tư vấn mua hàng</option>
@@ -34,7 +34,7 @@
                   <option value="3" {{ $type == 3 ? "selected" : "" }}>Hợp tác</option>
                   <option value="4" {{ $type == 4 ? "selected" : "" }}>Góp ý</option>
               </select> 
-            </div>                                           
+            </div>   -->                                         
             <div class="form-group">
               <label for="name">Email :</label>
               <input type="text" class="form-control" name="email" value="{{ $email }}">
@@ -86,15 +86,7 @@
                   @endif
                 </td>
                 <td>
-                  <strong>[@if($item->type == 1)
-                    Tư vấn mua hàng
-                  @elseif($item->type == 2)
-                    Phản ánh dịch vụ
-                  @elseif($item->type == 3)
-                    Hợp tác
-                  @else
-                    Góp ý
-                  @endif]-{{ $item->title }}</strong></br>
+                  
                   {{ $item->content }}
 
                 </td>
